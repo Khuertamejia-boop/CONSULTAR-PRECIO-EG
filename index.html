@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultor de Garantía Extendida</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f5f7;
+      color: #1a1a2e;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    header {
+      background: #0a2d6e;
+      border-radius: 12px;
+      padding: 1.25rem 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+
+    header .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    header .logo span { color: #f5a623; }
+
+    header .subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 2px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e2e5ec;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .field-cat { flex: 2; min-width: 200px; }
+    .field-price { flex: 1; min-width: 150px; }
+
+    select, input[type="number"] {
+      height: 42px;
+      padding: 0 12px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #1a1a2e;
+      background: #fff;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    select:focus, input[type="number"]:focus { border-color: #0a2d6e; }
+
+    button {
+      height: 42px;
+      padding: 0 1.5rem;
+      background: #0a2d6e;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    button:hover { background: #0d3a8a; }
+    button:active { transform: scale(0.98); }
+
+    .results-header {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 1rem;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .results-header strong { color: #1a1a2e; font-weight: 600; }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 12px;
+    }
+
+    .plan-card {
+      background: #fff;
+      border: 1.5px solid #e2e5ec;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .plan-card:hover {
+      border-color: #0a2d6e;
+      box-shadow: 0 2px 12px rgba(10,45,110,0.08);
+    }
+
+    .plan-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .plan-name { font-size: 14px; font-weight: 600; color: #1a1a2e; }
+
+    .tasa-badge {
+      font-size: 11px;
+      color: #6b7280;
+      background: #f3f4f6;
+      border-radius: 6px;
+      padding: 2px 7px;
+    }
+
+    .eg-label {
+      font-size: 11px;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 3px;
+    }
+
+    .eg-price { font-size: 22px; font-weight: 700; color: #0a2d6e; }
+
+    .cap-note { font-size: 10px; color: #9ca3af; margin-left: 4px; font-weight: 400; }
+
+    .bottom-section {
+      border-top: 1px solid #f0f1f3;
+      margin-top: 12px;
+      padding-top: 10px;
+    }
+
+    .disc-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 5px;
+      color: #6b7280;
+    }
+
+    .disc-val { color: #16a34a; font-weight: 600; }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      border-top: 1px dashed #e5e7eb;
+      margin-top: 8px;
+      padding-top: 8px;
+      color: #1a1a2e;
+    }
+
+    .tipo-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .error-msg { font-size: 13px; color: #dc2626; padding: 10px 0; }
+
+    @media (max-width: 500px) {
+      body { padding: 1rem 0.75rem; }
+      header { padding: 1rem 1.25rem; }
+      header .logo { font-size: 18px; }
+      .plans-grid { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 10px; }
+      button { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="logo">RIPLEY <span>·</span> Garantía Extendida</div>
+      <div class="subtitle">Consultor interno de precios — Tienda Atocongo</div>
+    </header>
+
+    <div class="card">
+      <div class="form-row">
+        <div class="field field-cat">
+          <label for="cat">Categoría</label>
+          <select id="cat">
+            <option value="">— Seleccionar categoría —</option>
+            <option value="tv">TV Video</option>
+            <option value="audio">Audio</option>
+            <option value="computo">Cómputo</option>
+            <option value="consolas">Videojuegos / Consolas</option>
+            <option value="lineablanca">Línea Blanca</option>
+            <option value="electro">Electrodomésticos</option>
+            <option value="cuidado">Cuidado Personal</option>
+            <option value="telefonia">Telefonía Móvil</option>
+          </select>
+        </div>
+        <div class="field field-price">
+          <label for="precio">Precio del producto (S/)</label>
+          <input type="number" id="precio" placeholder="Ej: 1999" min="1" step="0.01" />
+        </div>
+        <button onclick="calcular()">&#x1F50D; Calcular</button>
+      </div>
+    </div>
+
+    <div id="resultados"></div>
+
+  </div>
+
+  <script>
+    const cats = {
+      tv: { n:"TV Video", p:[
+        {l:"1 año", t:0.17,d:0},{l:"2 años",t:0.21,d:0.05},
+        {l:"3 años",t:0.27,d:0.05},{l:"4 años",t:0.33,d:0.10},{l:"5 años",t:0.34,d:0.10}
+      ]},
+      audio: { n:"Audio", p:[
+        {l:"1 año",t:0.12,d:0},{l:"2 años",t:0.13,d:0.05},
+        {l:"3 años",t:0.16,d:0.05},{l:"4 años",t:0.19,d:0.05}
+      ]},
+      computo: { n:"Cómputo", p:[
+        {l:"1 año",t:0.17,d:0},{l:"2 años",t:0.25,d:0.05},
+        {l:"3 años",t:0.28,d:0.05},{l:"4 años",t:0.33,d:0.10},{l:"5 años",t:0.34,d:0.10}
+      ]},
+      consolas: { n:"Videojuegos / Consolas", p:[
+        {l:"1 año",t:0.11,d:0},{l:"2 años",t:0.12,d:0},
+        {l:"3 años",t:0.14,d:0},{l:"4 años",t:0.17,d:0}
+      ]},
+      lineablanca: { n:"Línea Blanca", p:[
+        {l:"1 año",t:0.10,d:0},{l:"2 años",t:0.13,d:0.05},
+        {l:"3 años",t:0.19,d:0.05},{l:"4 años",t:0.24,d:0.10},{l:"5 años",t:0.25,d:0.10}
+      ]},
+      electro: { n:"Electrodomésticos", p:[
+        {l:"2 años",t:0.14,d:0},{l:"3 años",t:0.16,d:0.05},
+        {l:"4 años",t:0.20,d:0.05},{l:"5 años",t:0.21,d:0.07}
+      ]},
+      cuidado: { n:"Cuidado Personal", p:[
+        {l:"2 años",t:0.13,d:0},{l:"3 años",t:0.14,d:0},
+        {l:"4 años",t:0.15,d:0.05},{l:"5 años",t:0.16,d:0.07}
+      ]},
+      telefonia: { n:"Telefonía Móvil", especial:true, p:[
+        {l:"Daño Acc. 1 año", tipo:"Daño",      t:0.19,d:0,maxEG:1615},
+        {l:"Daño Acc. 2 años",tipo:"Daño",      t:0.25,d:0,maxEG:2125},
+        {l:"Reemplazo 1 año", tipo:"Reemplazo", t:0.15,d:0,maxEG:1275},
+        {l:"Reemplazo 2 años",tipo:"Reemplazo", t:0.17,d:0,maxEG:1445},
+        {l:"Robo 1 año",      tipo:"Robo",      t:0.23,d:0,maxEG:1955}
+      ]}
+    };
+
+    const s = v => 'S/ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const p = v => (v*100 % 1 === 0 ? (v*100).toFixed(0) : (v*100).toFixed(1)) + '%';
+
+    function calcular() {
+      const key = document.getElementById('cat').value;
+      const precio = parseFloat(document.getElementById('precio').value);
+      const res = document.getElementById('resultados');
+
+      if (!key) { res.innerHTML = '<p class="error-msg">⚠️ Selecciona una categoría.</p>'; return; }
+      if (isNaN(precio) || precio <= 0) { res.innerHTML = '<p class="error-msg">⚠️ Ingresa un precio válido.</p>'; return; }
+
+      const cat = cats[key];
+      let html = `<div class="card">
+        <div class="results-header">
+          Producto: <strong>${s(precio)}</strong> &nbsp;·&nbsp; Categoría: <strong>${cat.n}</strong>
+        </div>
+        <div class="plans-grid">`;
+
+      for (const plan of cat.p) {
+        let eg = precio * plan.t;
+        const capped = plan.maxEG && eg > plan.maxEG;
+        if (capped) eg = plan.maxEG;
+
+        const descMonto = plan.d > 0 ? precio * plan.d : 0;
+        const precioDesc = precio - descMonto;
+        const total = precioDesc + eg;
+        const hasDisc = plan.d > 0;
+
+        html += `<div class="plan-card">
+          <div class="plan-header">
+            <span class="plan-name">${plan.l}</span>
+            <span class="tasa-badge">${p(plan.t)}</span>
+          </div>
+          ${plan.tipo ? `<span class="tipo-badge">${plan.tipo}</span>` : ''}
+          <div class="eg-label">Precio garantía</div>
+          <div class="eg-price">${s(eg)}${capped ? '<span class="cap-note">(máx)</span>' : ''}</div>
+          <div class="bottom-section">`;
+
+        if (hasDisc) {
+          html += `<div class="disc-row"><span>Desc. producto (${p(plan.d)})</span><span class="disc-val">− ${s(descMonto)}</span></div>
+            <div class="disc-row"><span>Producto c/ descuento</span><span>${s(precioDesc)}</span></div>`;
+        }
+
+        html += `<div class="total-row"><span>Total cliente</span><span>${s(total)}</span></div>
+          </div>
+        </div>`;
+      }
+
+      html += '</div></div>';
+      res.innerHTML = html;
+    }
+
+    document.getElementById('precio').addEventListener('keydown', e => {
+      if (e.key === 'Enter') calcular();
+    });
+  </script>
+</body>
+</html>
