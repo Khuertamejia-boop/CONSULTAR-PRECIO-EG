@@ -41,28 +41,51 @@
 
     .plans-grid { display: flex; flex-direction: column; gap: 8px; }
 
-    /* Horizontal card */
-    .plan-card { background: #fff; border-radius: 10px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 10px; transition: box-shadow 0.15s; min-height: 68px; }
-    .plan-card.border-reparacion { border: 2px solid #93c5fd; }
-    .plan-card.border-reemplazo  { border: 2px solid #86efac; }
-    .plan-card.border-dano       { border: 2px solid #fcd34d; }
-    .plan-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    /* Accordion card wrapper */
+    .plan-wrap { border-radius: 10px; overflow: hidden; cursor: pointer; }
+    .plan-wrap.border-reparacion { border: 2px solid #93c5fd; }
+    .plan-wrap.border-reemplazo  { border: 2px solid #86efac; }
+    .plan-wrap.border-dano       { border: 2px solid #fcd34d; }
 
-    /* Left info — 60% */
-    .plan-info { flex: 0 0 60%; min-width: 0; }
-    .plan-title { font-size: 13px; font-weight: 700; color: #0a2d6e; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 5px; }
-    .plan-prices { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+    /* Horizontal card row */
+    .plan-card { background: #fff; padding: 0.65rem 1rem; display: flex; align-items: center; gap: 10px; min-height: 62px; user-select: none; }
+    .plan-card:hover { background: #fafafa; }
+
+    /* Chevron indicator */
+    .plan-chevron { font-size: 11px; color: #9ca3af; transition: transform 0.2s; flex-shrink: 0; }
+    .plan-wrap.open .plan-chevron { transform: rotate(180deg); }
+
+    /* Info */
+    .plan-info { flex: 1; min-width: 0; }
+    .plan-title { font-size: 12px; font-weight: 700; color: #0a2d6e; text-transform: uppercase; letter-spacing: 0.3px; flex: 1; }
+    .plan-prices { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px; }
     .eg-price-h { font-size: 11px; font-weight: 700; color: #0a2d6e; white-space: nowrap; }
-    .total-h { font-size: 13px; font-weight: 700; color: #7c3aed; white-space: nowrap; }
+    .total-h { font-size: 13px; font-weight: 700; color: #7c3aed; white-space: nowrap; flex-shrink: 0; }
     .tasa-badge { font-size: 10px; font-weight: 700; background: #fde68a; color: #1a1a2e; border-radius: 6px; padding: 2px 6px; margin-left: 4px; }
-    .disc-inline { font-size: 8px; color: #16a34a; font-weight: 600; white-space: nowrap; }
+    .disc-inline { font-size: 8px; color: #16a34a; font-weight: 600; white-space: nowrap; margin-left: auto; }
 
-    /* Right actions — 40% */
-    .plan-actions { flex: 0 0 40%; display: flex; gap: 4px; justify-content: flex-end; align-items: center; }
-    .btn-vender  { background: transparent; color: #7c3aed; border: 1.5px solid #7c3aed; border-radius: 4px; font-size: 6px; font-weight: 700; width: 44px; height: 44px; cursor: pointer; line-height: 1.2; text-align: center; padding: 0; }
-    .btn-vender:hover  { background: rgba(124,58,237,0.08); }
-    .btn-detalle { background: transparent; color: #0a2d6e; border: 1.5px solid #0a2d6e; border-radius: 4px; font-size: 6px; font-weight: 700; width: 44px; height: 44px; cursor: pointer; line-height: 1.2; text-align: center; padding: 0; }
-    .btn-detalle:hover { background: rgba(10,45,110,0.08); }
+    .plan-expand { background: #f8f9ff; max-height: 0; overflow: hidden; transition: max-height 0.22s ease, padding 0.22s ease; display: flex; gap: 4px; padding: 0 1rem; align-items: center; justify-content: flex-end; }
+    .plan-wrap.open .plan-expand { max-height: 24px; padding: 4px 1rem; }
+
+    /* Subtle rectangular buttons */
+    .btn-vender, .btn-detalle, .btn-vmas { font-size: 6.5px; font-weight: 700; padding: 0; cursor: pointer; white-space: nowrap; line-height: 1; width: 48px; height: 16px; border-radius: 3px; background: transparent; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-vender  { color: #7c3aed; border: 1px solid #7c3aed; }
+    .btn-vender:hover  { background: rgba(124,58,237,0.06); }
+    .btn-detalle { color: #0a2d6e; border: 1px solid #0a2d6e; }
+    .btn-detalle:hover { background: rgba(10,45,110,0.05); }
+    .btn-vmas    { color: #6b7280; border: 1px solid #6b7280; }
+    .btn-vmas:hover { background: rgba(0,0,0,0.03); }
+
+    /* Ver más modal */
+    .vmas-modal { background: #fff; border-radius: 16px; padding: 1.4rem; width: 90%; max-width: 300px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+    .vmas-title { font-size: 13px; font-weight: 700; color: #0a2d6e; text-transform: uppercase; margin-bottom: 1rem; }
+    .vmas-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #f0f1f3; font-size: 13px; }
+    .vmas-row:last-of-type { border-bottom: none; }
+    .vmas-lbl { color: #6b7280; }
+    .vmas-val { font-weight: 600; color: #1a1a2e; }
+    .vmas-total .vmas-lbl { color: #7c3aed; font-weight: 700; }
+    .vmas-total .vmas-val { color: #7c3aed; font-weight: 800; font-size: 15px; }
+    .vmas-btn { margin-top: 1rem; width: 100%; height: 40px; background: #0a2d6e; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
 
     /* Detalle modal */
     .detalle-modal { background: #fff; border-radius: 16px; padding: 1.5rem; width: 90%; max-width: 300px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
@@ -136,6 +159,19 @@
   </div>
 
   <div id="resultados"></div>
+</div>
+
+<!-- VER MÁS MODAL -->
+<div class="modal-backdrop" id="vmasBackdrop" onclick="closeVmasModal(event)">
+  <div class="vmas-modal" onclick="event.stopPropagation()">
+    <div class="vmas-title" id="vmasTitle"></div>
+    <div class="vmas-row"><span class="vmas-lbl">Precio producto</span><span class="vmas-val" id="vmasPrecio"></span></div>
+    <div class="vmas-row"><span class="vmas-lbl">Precio EG</span><span class="vmas-val" id="vmasEg"></span></div>
+    <div class="vmas-row"><span class="vmas-lbl">Porcentaje plan</span><span class="vmas-val" id="vmasTasa"></span></div>
+    <div class="vmas-row" id="vmasDescRow"><span class="vmas-lbl">Cupón descuento</span><span class="vmas-val" id="vmasDesc"></span></div>
+    <div class="vmas-row vmas-total"><span class="vmas-lbl">Total</span><span class="vmas-val" id="vmasTotal"></span></div>
+    <button class="vmas-btn" onclick="closeVmasModal()">Cerrar</button>
+  </div>
 </div>
 
 <!-- DETALLE MODAL -->
@@ -297,17 +333,20 @@ function calcular() {
       const planTitle = `EG ${cat.n} ${plan.l}`.toUpperCase();
       const bcData = plan.bc ? JSON.stringify(plan.bc).replace(/"/g,'&quot;') : '';
       const detalleData = `openDetalleModal('${planTitle}',${total},${cuota3},${cuota6},${cuota10},${cuota12},${cuota18})`;
+      const vmasData = `openVmasModal('${planTitle}',${precio},${eg},${plan.t},${descMonto},${total})`;
 
-      html += `<div class="plan-card ${borderCls}">
-        <div class="plan-info">
-          <div class="plan-title">${planTitle} <span class="tasa-badge">${p(plan.t)}</span></div>
-          <div class="plan-prices">
-            <span class="eg-price-h">EG: ${s(eg)}${capped?'<span style="font-size:9px;color:#9ca3af;margin-left:2px">(máx)</span>':''}</span>
-            <span class="total-h">Total: ${s(total)}</span>
-            ${hasDisc ? `<span class="disc-inline">Dscto cupón ${s(descMonto)}</span>` : ''}
+      html += `<div class="plan-wrap ${borderCls}" onclick="toggleCard(this)">
+        <div class="plan-card">
+          <div class="plan-info">
+            <div class="plan-prices">
+              <span class="plan-title">${planTitle}</span>
+              <span class="total-h">Total: ${s(total)}</span>
+            </div>
           </div>
+          <span class="plan-chevron">▼</span>
         </div>
-        <div class="plan-actions">
+        <div class="plan-expand" onclick="event.stopPropagation()">
+          <button class="btn-vmas"    onclick="${vmasData}">Ver más</button>
           <button class="btn-detalle" onclick="${detalleData}">Ver cuotas</button>
           ${plan.bc ? `<button class="btn-vender" onclick="openBcModal('${bcData}')">Vender</button>` : ''}
         </div>
@@ -320,6 +359,31 @@ function calcular() {
   html += '</div>';
   res.innerHTML = html;
 }
+
+function openVmasModal(nombre, precio, eg, tasa, desc, total) {
+  const fmt = v => 'S/ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  const pct = v => (v*100 % 1 === 0 ? (v*100).toFixed(0) : (v*100).toFixed(1)) + '%';
+  document.getElementById('vmasTitle').textContent   = nombre;
+  document.getElementById('vmasPrecio').textContent  = fmt(precio);
+  document.getElementById('vmasEg').textContent      = fmt(eg);
+  document.getElementById('vmasTasa').textContent    = pct(tasa);
+  document.getElementById('vmasTotal').textContent   = fmt(total);
+  const descRow = document.getElementById('vmasDescRow');
+  if (desc > 0) {
+    document.getElementById('vmasDesc').textContent = '− ' + fmt(desc);
+    descRow.style.display = 'flex';
+  } else {
+    descRow.style.display = 'none';
+  }
+  document.getElementById('vmasBackdrop').classList.add('open');
+}
+
+function closeVmasModal(e) {
+  if (!e || e.target === document.getElementById('vmasBackdrop'))
+    document.getElementById('vmasBackdrop').classList.remove('open');
+}
+
+function toggleCard(el) { el.classList.toggle('open'); }
 
 function autoCalc() {
   const key = document.getElementById('cat').value;
@@ -374,6 +438,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeBcModal({target: document.getElementById('bcBackdrop')});
     closeDetalleModal({target: document.getElementById('detalleBackdrop')});
+    closeVmasModal({target: document.getElementById('vmasBackdrop')});
   }
 });
 </script>
