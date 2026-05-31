@@ -95,7 +95,6 @@
     .tasa-badge { font-size: 10px; font-weight: 700; background: #fde68a; color: #1a1a2e; border-radius: 6px; padding: 2px 6px; margin-left: 4px; }
     .disc-inline { font-size: 8px; color: #16a34a; font-weight: 600; white-space: nowrap; margin-left: auto; }
     .plan-cupon { font-size: 9px; color: #a78bfa; font-weight: 600; margin-top: 3px; }
-    .plan-sug { font-size: 10px; font-weight: 700; color: #92400e; background: #fef3c7; border: 1px solid #fcd34d; border-radius: 10px; padding: 1px 6px; display: inline-block; margin-bottom: 3px; }
 
     .version-footer { text-align: center; padding: 1.5rem 0 1rem; font-size: 11px; color: #d1d5db; }
 
@@ -369,7 +368,7 @@ function calcular() {
       html += `<div class="plan-wrap ${borderCls}" onclick="toggleCard(this)">
         <div class="plan-card">
           <div class="plan-info">
-            ${plan.sug ? `<div class="plan-sug">⭐ Recomendado</div>` : ''}
+            
             <div class="plan-prices">
               <span class="plan-title">${widgetLabel}</span>
               <span class="total-h">Total: ${s(total)}</span>
