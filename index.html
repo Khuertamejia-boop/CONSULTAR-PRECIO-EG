@@ -96,7 +96,7 @@
     .disc-inline { font-size: 8px; color: #16a34a; font-weight: 600; white-space: nowrap; margin-left: auto; }
     .plan-cupon { font-size: 9px; color: #a78bfa; font-weight: 600; margin-top: 3px; }
 
-    .version-footer { text-align: center; padding: 1.5rem 0 1rem; font-size: 11px; color: #d1d5db; }
+    .version-footer { text-align: center; padding: 1.5rem 0 2rem; font-size: 11px; color: #d1d5db; }
 
     .plan-expand { background: #f8f9ff; max-height: 0; overflow: hidden; transition: max-height 0.22s ease, padding 0.22s ease; display: flex; gap: 4px; padding: 0 1rem; align-items: center; justify-content: flex-end; }
     .plan-wrap.open .plan-expand { max-height: 32px; padding: 5px 1rem; }
@@ -187,6 +187,8 @@
   <div class="version-footer">Versión 3.5.9</div>
 </div>
 
+
+
 <div class="dismiss-bar" id="dismissBar">
   <button class="dismiss-btn" onclick="dismissKeyboard()">Listo ✓</button>
 </div>
@@ -264,10 +266,16 @@ const cats = {
   ]},
   consolas: { n:"Videojuegos / Consolas", grupos:[
     { tipo:"Reparación", planes:[
-      {l:"1 año",t:0.11,d:0},{l:"2 años",t:0.12,d:0,sug:true},{l:"3 años",t:0.14,d:0},{l:"4 años",t:0.17,d:0}
+      {l:"1 año",t:0.11,d:0,bc:[{titulo:"EG Reparación 1 año",cod:"2031225080025"}]},
+      {l:"2 años",t:0.12,d:0,sug:true,bc:[{titulo:"EG Reparación 2 años",cod:"2031225080032"}]},
+      {l:"3 años",t:0.14,d:0,bc:[{titulo:"EG Reparación 3 años",cod:"2031225080049"}]},
+      {l:"4 años",t:0.17,d:0,bc:[{titulo:"EG Reparación 4 años",cod:"2031225080056"}]}
     ]},
     { tipo:"Reemplazo", planes:[
-      {l:"1 año",t:0.21,d:0},{l:"2 años",t:0.23,d:0,sug:true},{l:"3 años",t:0.31,d:0},{l:"4 años",t:0.34,d:0}
+      {l:"1 año",t:0.21,d:0,bc:[{titulo:"EG Reemplazo 1 año",cod:"2031225079975"}]},
+      {l:"2 años",t:0.23,d:0,sug:true,bc:[{titulo:"EG Reemplazo 2 años",cod:"2031225079982"}]},
+      {l:"3 años",t:0.31,d:0,bc:[{titulo:"EG Reemplazo 3 años",cod:"2031225079999"}]},
+      {l:"4 años",t:0.34,d:0,bc:[{titulo:"EG Reemplazo 4 años",cod:"2031225080018"}]}
     ]},
   ]},
   lineablanca: { n:"Línea Blanca", grupos:[
@@ -301,7 +309,10 @@ const cats = {
   ]},
   electronicamenor: { n:"Electrónica Menor", grupos:[
     { tipo:"Reemplazo", planes:[
-      {l:"1 año",t:0.13,d:0},{l:"2 años",t:0.14,d:0,sug:true},{l:"3 años",t:0.16,d:0},{l:"4 años",t:0.18,d:0}
+      {l:"1 año",t:0.13,d:0,bc:[{titulo:"EG Reemplazo 1 año",cod:"2065224972548"}]},
+      {l:"2 años",t:0.14,d:0,sug:true,bc:[{titulo:"EG Reemplazo 2 años",cod:"2065224972562"}]},
+      {l:"3 años",t:0.16,d:0,bc:[{titulo:"EG Reemplazo 3 años",cod:"2065224972586"}]},
+      {l:"4 años",t:0.18,d:0,bc:[{titulo:"EG Reemplazo 4 años",cod:"2065225080310"}]}
     ]},
   ]},
   telefonia: { n:"Telefonía Móvil", grupos:[
@@ -427,15 +438,15 @@ const FAV_KEY  = 'eg_fav_cat';
 const LAST_KEY = 'eg_last_cat';
 
 const CAT_OPTIONS = [
-  { value:'tv',            label:'TV Video' },
-  { value:'audio',         label:'Audio' },
-  { value:'computo',       label:'Cómputo' },
-  { value:'consolas',      label:'Videojuegos / Consolas' },
-  { value:'lineablanca',   label:'Línea Blanca' },
-  { value:'electro',       label:'Electrodomésticos' },
-  { value:'cuidado',       label:'Cuidado Personal' },
+  { value:'telefonia',        label:'Telefonía Móvil' },
+  { value:'audio',            label:'Audio' },
+  { value:'tv',               label:'TV Video' },
+  { value:'computo',          label:'Cómputo' },
+  { value:'lineablanca',      label:'Línea Blanca' },
+  { value:'electro',          label:'Electrodomésticos' },
+  { value:'cuidado',          label:'Cuidado Personal' },
   { value:'electronicamenor', label:'Electrónica Menor' },
-  { value:'telefonia',     label:'Telefonía Móvil' },
+  { value:'consolas',         label:'Videojuegos / Consolas' },
 ];
 
 function buildDropdown() {
