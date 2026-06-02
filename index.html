@@ -246,9 +246,9 @@ const cats = {
   audio: { n:"Audio", grupos:[
     { tipo:"Reemplazo", planes:[
       {l:"1 año",t:0.12,d:0,bc:[{titulo:"EG Reemplazo 1 año",cod:"2018225079136"}]},
-      {l:"2 años",t:0.13,d:0.05,sug:true,bc:[{titulo:"EG Reemplazo 2 años",cod:"2018225079143"},{titulo:"Cupón 5% Audio",cod:"2025010387413"}]},
-      {l:"3 años",t:0.16,d:0.05,bc:[{titulo:"EG Reemplazo 3 años",cod:"2018225079150"},{titulo:"Cupón 5% Audio",cod:"2025010387413"}]},
-      {l:"4 años",t:0.19,d:0.05,bc:[{titulo:"EG Reemplazo 4 años",cod:"2018225079167"},{titulo:"Cupón 5% Audio",cod:"2025010387413"}]}
+      {l:"2 años",t:0.13,d:0.05,sug:true,minCupon:999,bc:[{titulo:"EG Reemplazo 2 años",cod:"2018225079143"},{titulo:"Cupón 5% Audio",cod:"2025010387413"}]},
+      {l:"3 años",t:0.16,d:0.05,minCupon:999,bc:[{titulo:"EG Reemplazo 3 años",cod:"2018225079150"},{titulo:"Cupón 5% Audio",cod:"2025010387413"}]},
+      {l:"4 años",t:0.19,d:0.05,minCupon:999,bc:[{titulo:"EG Reemplazo 4 años",cod:"2018225079167"},{titulo:"Cupón 5% Audio",cod:"2025010387413"}]}
     ]},
   ]},
   computo: { n:"Cómputo", grupos:[
@@ -294,17 +294,17 @@ const cats = {
   electro: { n:"Electrodomésticos", grupos:[
     { tipo:"Reemplazo", planes:[
       {l:"1 año",t:0.14,d:0,bc:[{titulo:"EG Reemplazo 1 año",cod:"2019225079331"}]},
-      {l:"2 años",t:0.16,d:0.05,bc:[{titulo:"EG Reemplazo 2 años",cod:"2019225079348"},{titulo:"Cupón 5% Electro",cod:"7530355317094"}]},
-      {l:"3 años",t:0.20,d:0.07,bc:[{titulo:"EG Reemplazo 3 años",cod:"2019225079355"},{titulo:"Cupón 7% Electro",cod:"9511208813046"}]},
-      {l:"4 años",t:0.21,d:0.07,sug:true,bc:[{titulo:"EG Reemplazo 4 años",cod:"2019225079362"},{titulo:"Cupón 7% Electro",cod:"9511208813046"}]}
+      {l:"2 años",t:0.16,d:0.05,minCupon:200,bc:[{titulo:"EG Reemplazo 2 años",cod:"2019225079348"},{titulo:"Cupón 5% Electro",cod:"7530355317094"}]},
+      {l:"3 años",t:0.20,d:0.07,minCupon:200,bc:[{titulo:"EG Reemplazo 3 años",cod:"2019225079355"},{titulo:"Cupón 7% Electro",cod:"9511208813046"}]},
+      {l:"4 años",t:0.21,d:0.07,sug:true,minCupon:200,bc:[{titulo:"EG Reemplazo 4 años",cod:"2019225079362"},{titulo:"Cupón 7% Electro",cod:"9511208813046"}]}
     ]},
   ]},
   cuidado: { n:"Cuidado Personal", grupos:[
     { tipo:"Reemplazo", planes:[
       {l:"1 año",t:0.13,d:0,bc:[{titulo:"EG Reemplazo 1 año",cod:"2019225079218"}]},
       {l:"2 años",t:0.14,d:0,sug:true,bc:[{titulo:"EG Reemplazo 2 años",cod:"2019225079225"}]},
-      {l:"3 años",t:0.15,d:0.05,bc:[{titulo:"EG Reemplazo 3 años",cod:"2019225079232"},{titulo:"Cupón 5% Cuidado Personal",cod:"3575621292655"}]},
-      {l:"4 años",t:0.16,d:0.07,bc:[{titulo:"EG Reemplazo 4 años",cod:"2019225079249"},{titulo:"Cupón 7% Cuidado Personal",cod:"8421473450215"}]}
+      {l:"3 años",t:0.15,d:0.05,minCupon:200,bc:[{titulo:"EG Reemplazo 3 años",cod:"2019225079232"},{titulo:"Cupón 5% Cuidado Personal",cod:"3575621292655"}]},
+      {l:"4 años",t:0.16,d:0.07,minCupon:200,bc:[{titulo:"EG Reemplazo 4 años",cod:"2019225079249"},{titulo:"Cupón 7% Cuidado Personal",cod:"8421473450215"}]}
     ]},
   ]},
   electronicamenor: { n:"Electrónica Menor", grupos:[
@@ -362,14 +362,15 @@ function calcular() {
       let eg = precio * plan.t;
       const capped = plan.maxEG && eg > plan.maxEG;
       if (capped) eg = plan.maxEG;
-      const descMonto = plan.d > 0 ? precio * plan.d : 0;
+      const cuponAplica = plan.d > 0 && (!plan.minCupon || precio > plan.minCupon);
+      const descMonto = cuponAplica ? precio * plan.d : 0;
       const total = (precio - descMonto) + eg;
       const cuota3  = total * 0.3699;
       const cuota6  = total * 0.1995;
       const cuota10 = total * 0.1320;
       const cuota12 = total * 0.1000;
       const cuota18 = total * 0.0882;
-      const hasDisc = plan.d > 0;
+      const hasDisc = cuponAplica;
 
       const planTitle = `EG ${cat.n} ${plan.l}`.toUpperCase();
       const widgetLabel = plan.l.toUpperCase();
