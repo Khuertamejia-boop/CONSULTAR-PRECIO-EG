@@ -85,44 +85,52 @@
     .plan-wrap.border-dano::before       { background: #f59e0b; }
 
     /* Horizontal card row */
-    .plan-card { background: #fff; padding: 0.6rem 1rem 0.6rem 1.2rem; display: flex; align-items: center; gap: 10px; min-height: 54px; user-select: none; transition: opacity 0.1s, transform 0.1s; }
-    .plan-card:active { opacity: 0.75; transform: scale(0.99); }
+    .plan-card { background: #fff; padding: 0.7rem 0.9rem 0.7rem 1.2rem; display: flex; align-items: stretch; gap: 10px; user-select: none; transition: opacity 0.1s, transform 0.1s; }
+    .plan-card:active { opacity: 0.85; }
 
     /* Chevron indicator */
     .plan-chevron { font-size: 11px; color: #9ca3af; transition: transform 0.2s; flex-shrink: 0; }
     .plan-wrap.open .plan-chevron { transform: rotate(180deg); }
 
-    /* Info */
+    /* Info — new layout */
     .plan-info { flex: 1; min-width: 0; }
-    .plan-title { font-size: 12px; font-weight: 700; color: #0a2d6e; text-transform: uppercase; letter-spacing: 0.3px; flex: 1; }
-    .plan-prices { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px; }
-    .eg-price-h { font-size: 11px; font-weight: 700; color: #0a2d6e; white-space: nowrap; }
-    /* Total highlighted */
-    .total-h { font-size: 14px; font-weight: 800; color: #7c3aed; white-space: nowrap; flex-shrink: 0; background: #f5f3ff; padding: 2px 8px; border-radius: 6px; }
-    .tasa-badge { font-size: 10px; font-weight: 700; background: #fde68a; color: #1a1a2e; border-radius: 6px; padding: 2px 6px; margin-left: 4px; }
-    .disc-inline { font-size: 8px; color: #16a34a; font-weight: 600; white-space: nowrap; margin-left: auto; }
-    .plan-cupon { font-size: 9px; color: #a78bfa; font-weight: 600; margin-top: 3px; }
+
+    /* Row 1: year·% left, FINAL+price right */
+    .plan-row1 { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+    .plan-year-pct { font-size: 13px; font-weight: 800; color: #0a2d6e; text-transform: uppercase; letter-spacing: 0.3px; }
+    .plan-final-block { text-align: right; flex-shrink: 0; }
+    .plan-final-lbl { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+    .plan-final-price { font-size: 15px; font-weight: 800; color: #7c3aed; background: #f5f3ff; padding: 1px 7px; border-radius: 6px; display: inline-block; margin-top: 1px; }
+
+    /* Row 2: EG price left, cupon right */
+    .plan-row2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .plan-eg { font-size: 10px; font-weight: 600; color: #6b7280; white-space: nowrap; }
+    .plan-eg span { color: #0a2d6e; font-weight: 700; }
+    .plan-cupon { font-size: 10px; color: #a78bfa; font-weight: 700; white-space: nowrap; }
+
+    /* Row 3: always-visible buttons */
+    .plan-btns { display: flex; gap: 5px; margin-top: 7px; }
+    .btn-vender, .btn-detalle { font-size: 9px; font-weight: 700; cursor: pointer; white-space: nowrap; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; padding: 3px 10px; height: 20px; box-sizing: border-box; }
+    .btn-detalle { color: #94a3b8; border: 1.5px solid #cbd5e1; background: transparent; }
+    .btn-detalle:hover { background: rgba(148,163,184,0.08); }
+    .btn-vender  { color: #fff; border: none; background: #4a6fa5; }
+    .btn-vender:hover  { background: #3d5c8a; }
+
+    /* Remove expand row — no longer needed */
+    .plan-expand { display: none; }
+    .plan-chevron { display: none; }
+
+    .chips-row { display: flex; gap: 5px; margin-top: 10px; flex-wrap: nowrap; justify-content: center; width: 100%; }
+    .chip { background: #f1f5f9; color: #0a2d6e; border: 1.5px solid #cbd5e1; border-radius: 20px; font-size: 10px; font-weight: 700; padding: 3px 0; cursor: pointer; transition: background 0.15s, border-color 0.15s; white-space: nowrap; height: auto; flex: 1; text-align: center; }
+    .chip:hover { background: #e2e8f0; border-color: #94a3b8; }
+    .chip.active { background: #0a2d6e; color: #fff; border-color: #0a2d6e; }
 
     .version-footer { text-align: center; padding: 1.5rem 0 2rem; font-size: 11px; color: #d1d5db; }
-
-    .plan-expand { background: #f8f9ff; max-height: 0; overflow: hidden; transition: max-height 0.22s ease, padding 0.22s ease; display: flex; gap: 4px; padding: 0 1rem; align-items: center; justify-content: flex-end; }
-    .plan-wrap.open .plan-expand { max-height: 32px; padding: 5px 1rem; }
-
-    /* Two buttons in expand row */
-    .btn-vender, .btn-detalle { font-size: 9px; font-weight: 700; cursor: pointer; white-space: nowrap; border-radius: 4px; background: transparent; display: inline-flex; align-items: center; justify-content: center; padding: 3px 10px; height: 22px; box-sizing: border-box; }
-    .btn-vender  { color: #7c3aed; border: 1.5px solid #7c3aed; }
-    .btn-vender:hover  { background: rgba(124,58,237,0.06); }
-    .btn-detalle { color: #0a2d6e; border: 1.5px solid #0a2d6e; }
-    .btn-detalle:hover { background: rgba(10,45,110,0.05); }
 
     /* Unified modal */
     .detalle-modal { background: #fff; border-radius: 16px; padding: 1.4rem; width: 90%; max-width: 320px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
     .detalle-title { font-size: 13px; font-weight: 700; color: #0a2d6e; text-align: center; text-transform: uppercase; margin-bottom: 0.9rem; }
-    .detalle-resumen { background: #f8f9ff; border-radius: 8px; padding: 0.6rem 0.8rem; margin-bottom: 0.8rem; }
-    .detalle-resumen-row { display: flex; justify-content: space-between; font-size: 11px; padding: 3px 0; }
-    .detalle-resumen-lbl { color: #6b7280; }
-    .detalle-resumen-val { font-weight: 600; color: #1a1a2e; }
-    .detalle-total { font-size: 18px; font-weight: 800; color: #7c3aed; text-align: center; margin-bottom: 0.9rem; }
+    .detalle-total { font-size: 16px; font-weight: 800; color: #7c3aed; text-align: center; margin-bottom: 0.9rem; }
     .detalle-cuotas-title { font-size: 10px; font-weight: 700; color: #0a2d6e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; text-align: center; }
     .detalle-cuota-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f1f3; }
     .detalle-cuota-row:last-of-type { border-bottom: none; }
@@ -188,6 +196,13 @@
       </div>
       <button onclick="calcular()" style="display:none">Calcular</button>
     </div>
+    <div class="chips-row">
+      <button class="chip" onclick="selectChip('telefonia','Telefonía Móvil')">Telefonía</button>
+      <button class="chip" onclick="selectChip('tv','TV Video')">TV</button>
+      <button class="chip" onclick="selectChip('computo','Cómputo')">Cómputo</button>
+      <button class="chip" onclick="selectChip('lineablanca','Línea Blanca')">LB</button>
+      <button class="chip" onclick="selectChip('electro','Electrodomésticos')">Peds</button>
+    </div>
   </div>
 
   <div id="resultados"></div>
@@ -200,22 +215,11 @@
   <button class="dismiss-btn" onclick="dismissKeyboard()">Listo ✓</button>
 </div>
 
-<!-- VER CUOTAS MODAL (fusionado con Ver más) -->
+<!-- VER CUOTAS MODAL -->
 <div class="modal-backdrop" id="detalleBackdrop" onclick="closeDetalleModal(event)">
   <div class="detalle-modal" onclick="event.stopPropagation()">
     <div class="detalle-title" id="detallePlanName"></div>
-
-    <!-- Resumen del plan -->
-    <div class="detalle-resumen">
-      <div class="detalle-resumen-row"><span class="detalle-resumen-lbl">Precio producto</span><span class="detalle-resumen-val" id="detPrecio"></span></div>
-      <div class="detalle-resumen-row"><span class="detalle-resumen-lbl">Precio EG</span><span class="detalle-resumen-val" id="detEg"></span></div>
-      <div class="detalle-resumen-row"><span class="detalle-resumen-lbl">Porcentaje plan</span><span class="detalle-resumen-val" id="detTasa"></span></div>
-      <div class="detalle-resumen-row" id="detDescRow"><span class="detalle-resumen-lbl">Cupón descuento</span><span class="detalle-resumen-val" id="detDesc"></span></div>
-    </div>
-
     <div class="detalle-total" id="detallePlanTotal"></div>
-
-    <!-- Cuotas -->
     <div class="detalle-cuotas-title">Cuotas con Tarjeta Ripley</div>
     <div class="detalle-cuota-row"><span class="detalle-cuota-lbl">3 cuotas</span><span class="detalle-cuota-val" id="det3"></span></div>
     <div class="detalle-cuota-row"><span class="detalle-cuota-lbl">6 cuotas</span><span class="detalle-cuota-val" id="det6"></span></div>
@@ -384,21 +388,25 @@ function calcular() {
       const bcData = plan.bc ? JSON.stringify(plan.bc).replace(/"/g,'&quot;') : '';
       const detalleData = `openDetalleModal('${planTitle}',${precio},${eg},${plan.t},${descMonto},${total},${cuota3},${cuota6},${cuota10},${cuota12},${cuota18})`;
 
-      html += `<div class="plan-wrap ${borderCls}" onclick="toggleCard(this)">
+      html += `<div class="plan-wrap ${borderCls}">
         <div class="plan-card">
           <div class="plan-info">
-            
-            <div class="plan-prices">
-              <span class="plan-title">${widgetLabel}</span>
-              <span class="total-h">Total: ${s(total)}</span>
+            <div class="plan-row1">
+              <span class="plan-year-pct">${widgetLabel} · ${p(plan.t)}</span>
+              <div class="plan-final-block">
+                <div class="plan-final-lbl">FINAL</div>
+                <div class="plan-final-price">${s(total)}</div>
+              </div>
             </div>
-            ${hasDisc ? `<div class="plan-cupon">Incluye cupón ${p(plan.d)} dcto · ${s(descMonto)}</div>` : ''}
+            <div class="plan-row2">
+              <span class="plan-eg">EG: <span>${s(eg)}${capped ? ' <small style="color:#9ca3af">(máx)</small>' : ''}</span></span>
+              ${hasDisc ? `<span class="plan-cupon">Cupón −${s(descMonto)}</span>` : ''}
+            </div>
+            <div class="plan-btns">
+              <button class="btn-detalle" onclick="${detalleData}">Ver cuotas</button>
+              ${plan.bc ? `<button class="btn-vender" onclick="openBcModal('${bcData}')">Seleccionar</button>` : ''}
+            </div>
           </div>
-          <span class="plan-chevron">▼</span>
-        </div>
-        <div class="plan-expand" onclick="event.stopPropagation()">
-          <button class="btn-detalle" onclick="${detalleData}">Ver detalle</button>
-          ${plan.bc ? `<button class="btn-vender" onclick="openBcModal('${bcData}')">Seleccionar</button>` : ''}
         </div>
       </div>`;
     }
@@ -502,6 +510,10 @@ function selectCat(value, label) {
   display.textContent = label;
   display.className = 'cs-val';
   localStorage.setItem(LAST_KEY, value);
+  // Sync chip active state
+  document.querySelectorAll('.chip').forEach(c => {
+    c.classList.toggle('active', c.getAttribute('onclick').includes(`'${value}'`));
+  });
   closeDropdown();
   autoCalc();
 }
@@ -524,6 +536,9 @@ function loadCatPreference() {
       const display = document.getElementById('csDisplay');
       display.textContent = opt.label;
       display.className = 'cs-val';
+      document.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c.getAttribute('onclick').includes(`'${load}'`));
+      });
       autoCalc();
     }
   }
@@ -533,6 +548,19 @@ function loadCatPreference() {
 document.addEventListener('click', e => {
   if (!document.getElementById('customSelect').contains(e.target)) closeDropdown();
 });
+
+function selectChip(value, label) {
+  // Update custom dropdown display
+  document.getElementById('customSelect').dataset.value = value;
+  const display = document.getElementById('csDisplay');
+  display.textContent = label;
+  display.className = 'cs-val';
+  localStorage.setItem(LAST_KEY, value);
+  // Update chip active state
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  autoCalc();
+}
 
 function dismissKeyboard() {
   document.getElementById('precio').blur();
@@ -583,15 +611,8 @@ function closeBcModal(e) {
 
 function openDetalleModal(nombre, precio, eg, tasa, desc, total, c3, c6, c10, c12, c18) {
   const fmt = v => 'S/ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-  const pct = v => (v*100 % 1 === 0 ? (v*100).toFixed(0) : (v*100).toFixed(1)) + '%';
   document.getElementById('detallePlanName').textContent  = nombre;
-  document.getElementById('detPrecio').textContent = fmt(precio);
-  document.getElementById('detEg').textContent     = fmt(eg);
-  document.getElementById('detTasa').textContent   = pct(tasa);
-  document.getElementById('detallePlanTotal').textContent = 'Total: ' + fmt(total);
-  const descRow = document.getElementById('detDescRow');
-  if (desc > 0) { document.getElementById('detDesc').textContent = '− ' + fmt(desc); descRow.style.display = 'flex'; }
-  else { descRow.style.display = 'none'; }
+  document.getElementById('detallePlanTotal').textContent = fmt(total);
   document.getElementById('det3').textContent  = fmt(c3);
   document.getElementById('det6').textContent  = fmt(c6);
   document.getElementById('det10').textContent = fmt(c10);
