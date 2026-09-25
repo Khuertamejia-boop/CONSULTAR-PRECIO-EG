@@ -106,7 +106,7 @@
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()">&#128241; Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.8.9</div>
+  <div style="margin-top:10px">Versión 3.8.10</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -296,7 +296,7 @@ function calcular() {
       html += '<div class="pc ' + (tipoPcClass[grupo.tipo] || 'pc-rep') + '" role="button" onclick="openDetalleModal(' + detalleArgs + ')" style="animation-delay:' + (idx<7?idx*35:0) + 'ms">' +
         '<div class="pc-r1">' +
           '<div class="pc-lft"><div class="pc-head"><b>' + widgetLabel + '</b><span class="pc-bar"></span>' + p(plan.t) + '</div>' +
-          (hasDisc ? '<div class="pc-cupon">Cupón &minus;' + s(descMonto) + '</div>' : '') + '</div>' +
+          (hasDisc ? '<div class="pc-cupon">Cupón &minus;' + p(plan.d) + ' dscto</div>' : '') + '</div>' +
           '<div class="pc-tot"><div class="pc-price" style="font-size:' + fs + 'px">' + precioTxt + '</div>' +
           '<svg class="pc-chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></div>' +
         '</div>' +
