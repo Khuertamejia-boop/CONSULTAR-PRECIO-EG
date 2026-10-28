@@ -96,7 +96,20 @@
 @media(max-width:360px){.pk-save{font-size:12px;padding:7px 8px}.pk-tag{font-size:9.5px;padding:4px 7px}.pk-tab{font-size:12.5px}}
 @media(prefers-color-scheme:dark){
 body{background:#07070c}
-header,.card{background:#13131d;border-color:#2a2c42}
+header,.card,.share-btn{background:#13131d;border-color:#2a2c42}
+.mode-tabs{background:#13131d;border-color:#2a2c42}
+.mode-tab{color:#9da1bb}
+header .subtitle,.cat-label,.field label,.det-lbl,.det-cuotas-title,.bc-subtitle,.install-link-lbl,.share-btn{color:#9da1bb}
+.chip-hint{color:#7d81a0}
+.chip{background:#1c1c2a;color:#d0d3e6;border-color:#2a2c42}
+.chip.pressing{background:#262638}
+.chip.active{border-color:#7c3aed}
+.chip.fav{border-color:#f0a830}
+input[type="number"],#precio,#eanInput{background:#0b0b12;border-color:#2c2e45}
+#precio::placeholder{color:#6a6e88}
+.vc-row,.vc-grid .vc-group{background:#13131d;border-color:#2f3148}
+.detalle-modal,.bc-modal,.install-modal{background:#13131d}
+.det-block,.det-cuotas-block,.install-link-box,.install-tab{background:#1c1c2a}
 .pk-wrap .results-header{color:#9da1bb}
 .pk-wrap .results-header strong{color:#f2f3f8}
 .pk-tabs{background:#13131d;box-shadow:inset 0 0 0 1px #2c2e45}
@@ -188,7 +201,7 @@ header,.card{background:#13131d;border-color:#2a2c42}
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()">&#128241; Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.9.3</div>
+  <div style="margin-top:10px">Versión 3.9.4</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
