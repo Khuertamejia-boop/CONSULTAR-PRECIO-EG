@@ -65,13 +65,13 @@
 .chip[data-cat="lineablanca"]{--cc:#d9702e}
 .chip[data-cat="computo"]{--cc:#2f9a44}
 /* Ajustes visuales v3.10 */
-header{display:flex;align-items:center;gap:12px;text-align:left;padding:10px 14px}
+header{display:flex;align-items:center;justify-content:center;gap:12px;text-align:left;padding:6px 0;background:transparent;border:0}
 header .logo-img{height:44px;margin:0;border-radius:6px;flex-shrink:0}
 .hdr-txt{min-width:0}
 .hdr-t{font-size:15px;font-weight:800;color:#16162c;letter-spacing:.1px}
 header .subtitle{margin-top:2px;white-space:nowrap}
 .cat-label,.field label{text-transform:none;letter-spacing:0;font-size:13px;font-weight:700;color:#4b4f6b}
-.field-price label{letter-spacing:0}
+.field-price label{letter-spacing:0;left:auto;transform:none;text-align:center}
 .has-fav .chip-hint{display:none}
 .price-box{position:relative;width:100%}
 .price-pre{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:16px;font-weight:700;color:#8b8fa8;pointer-events:none}
@@ -192,6 +192,7 @@ input[type="number"],#precio,#eanInput{background:transparent;border-color:#2f31
 .pk-save-no{background:#14141f;color:#b4b8cf;box-shadow:inset 0 0 0 1px #26283d}
 .pk-cod{background:#2563eb;color:#fff}
 .pk-cod:active{background:#1d4fc4}
+header{background:transparent;border:0}
 .hdr-t{color:#f2f3f8}
 .cat-label,.field label{color:#b4b8cf}
 .price-pre{color:#9da1bb}
@@ -267,7 +268,7 @@ input[type="number"],#precio,#eanInput{background:transparent;border-color:#2f31
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.10.0</div>
+  <div style="margin-top:10px">Versión 3.10.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
