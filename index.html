@@ -200,15 +200,15 @@ header .subtitle{margin-top:2px;white-space:nowrap;font-size:14.4px}
 .cli-inc li svg{flex-shrink:0;color:#1a8455;margin-top:1px}
 .cli-ben li svg{color:#c98a0c}
 .cli-tl-big{font-size:22px;font-weight:800;margin:-4px 0 12px}
-.cli-tl-bar{display:flex;gap:3px;height:12px}
-.cli-tl-bar span{border-radius:99px}
-.cli-tl-bar .f{background:#b9c3d9}
-.cli-tl-bar .e{background:#2563eb}
-.cli-tl-ben{margin-top:5px;height:5px;border-radius:99px;background:#e0a02c}
-.cli-tl-lbl{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:#6e7189}
-.cli-tl-leg{display:flex;flex-direction:column;gap:6px;margin-top:12px;font-size:13.5px;color:#4b4f6b}
-.cli-tl-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:-1px}
-.cli-tl-leg .lf{background:#b9c3d9}.cli-tl-leg .le{background:#2563eb}.cli-tl-leg .lb{background:#e0a02c}
+.cli-yrs{display:grid;gap:5px}
+.cli-yr{height:74px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700;white-space:nowrap}
+.cli-yr.f{background:#e3e6ee;color:#4b4f6b}
+.cli-yr.e{background:linear-gradient(180deg,#3b82f6,#1d4fc4);color:#fff}
+.cli-volt{margin-top:5px;min-height:36px;padding:7px 8px;border-radius:10px;background:#f5b83d;color:#3a2600;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.2px;font-weight:800;letter-spacing:-.1px;line-height:1.25;text-align:center;text-wrap:balance}
+.cli-volt svg{flex-shrink:0}
+.cli-yr-leg{display:flex;justify-content:space-between;margin-top:10px;font-size:12.5px;color:#4b4f6b}
+.cli-yr-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.cli-yr-leg .lf{background:#c9cfdc}.cli-yr-leg .le{background:#2563eb}
 .cli-steps{counter-reset:s;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .cli-steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;font-size:14.5px;line-height:1.4;color:#4b4f6b}
 .cli-steps li::before{counter-increment:s;content:counter(s);width:28px;height:28px;border-radius:50%;background:#e6efff;color:#1d4fc4;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
@@ -316,10 +316,9 @@ header{background:transparent;border:0}
 .cli-bar.on{color:#fff}.cli-bar.on i u{background:#3b82f6}.cli-bar.on em{color:#a9c8ff}
 .cli-inc li{color:#b4b8cf}.cli-inc li svg{color:#6fe0a8}
 .cli-ben li svg{color:#ffc56b}
-.cli-tl-bar .f,.cli-tl-leg .lf{background:#3a3d57}
-.cli-tl-bar .e,.cli-tl-leg .le{background:#3b82f6}
-.cli-tl-ben,.cli-tl-leg .lb{background:#f0b860}
-.cli-tl-lbl{color:#9da1bb}.cli-tl-leg{color:#b4b8cf}
+.cli-yr.f{background:#262638;color:#d0d3e6}
+.cli-volt{background:#f0b44a;color:#2e1f00}
+.cli-yr-leg{color:#b4b8cf}.cli-yr-leg .lf{background:#3a3d57}.cli-yr-leg .le{background:#3b82f6}
 .cli-steps li{color:#b4b8cf}.cli-steps b{color:#f2f3f8}
 .cli-steps li::before{background:#1f3357;color:#a9c8ff}
 .cli-foot{background:#07070c;border-color:#22243a}
@@ -386,7 +385,7 @@ header{background:transparent;border:0}
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.12.1</div>
+  <div style="margin-top:10px">Versión 3.12.2</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -654,6 +653,7 @@ const CLI_ICO = {
   shield: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>',
   check: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>',
   star: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z"/></svg>',
+  box: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>',
   eye: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>'
 };
 function cliMoney(v) { return v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
@@ -755,16 +755,16 @@ function renderCliente() {
     CLI_BENEF.forEach(function (t) { h += '<li>' + CLI_ICO.star + '<span>' + t + '</span></li>'; });
     h += '</ul></section>';
 
+    var yrs = '';
+    for (var y = 1; y <= totalAnios; y++) {
+      var fab = y <= GAR_FABRICA_ANIOS;
+      yrs += '<div class="cli-yr ' + (fab ? 'f' : 'e') + '">' + (fab ? CLI_ICO.box : CLI_ICO.shield.replace(/width="16" height="16"/, 'width="18" height="18"')) + 'Año ' + y + '</div>';
+    }
     h += '<section class="cli-sec"><h3>Cómo te protege</h3>' +
-         '<div class="cli-tl-big">' + totalAnios + ' años de protección</div>' +
-         '<div class="cli-tl-bar"><span class="f" style="flex:' + GAR_FABRICA_ANIOS + '"></span><span class="e" style="flex:' + anios + '"></span></div>' +
-         '<div class="cli-tl-ben"></div>' +
-         '<div class="cli-tl-lbl"><span>Hoy</span><span>Año ' + totalAnios + '</span></div>' +
-         '<div class="cli-tl-leg">' +
-           '<span><i class="lf"></i>Garantía de fábrica · ' + GAR_FABRICA_ANIOS + ' año</span>' +
-           '<span><i class="le"></i>Extra Garantía · ' + plan.l + '</span>' +
-           '<span><i class="lb"></i>Beneficios adicionales · desde hoy</span>' +
-         '</div></section>';
+         '<div class="cli-tl-big">' + totalAnios + ' años protegido</div>' +
+         '<div class="cli-yrs" style="grid-template-columns:repeat(' + totalAnios + ',minmax(0,1fr))">' + yrs + '</div>' +
+         '<div class="cli-volt">' + CLI_ICO.star.replace(/width="18" height="18"/, 'width="16" height="16"') + '<span>Cobertura por variación de voltaje desde hoy y más</span></div>' +
+         '<div class="cli-yr-leg"><span><i class="lf"></i>Garantía de fábrica</span><span><i class="le"></i>Extra Garantía</span></div></section>';
 
     h += '<section class="cli-sec"><h3>Si algo falla</h3><ol class="cli-steps">' +
          '<li><span>Llama a la central Extra Garantía, las 24 horas: <b>01 630-8190</b> (Lima) o <b>0800-00-390</b> (provincias).</span></li>' +
