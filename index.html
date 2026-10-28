@@ -95,32 +95,37 @@
 .pk-cod:active{transform:scale(.96);background:#e0d5f8}
 @media(max-width:360px){.pk-save{font-size:12px;padding:7px 8px}.pk-tag{font-size:9.5px;padding:4px 7px}.pk-tab{font-size:12.5px}}
 @media(prefers-color-scheme:dark){
-.pk-tabs{background:#1a1a26}
-.pk-tab{color:#a3a7c2}
-.pk-tab.on{background:#2e2e44;color:#fff;box-shadow:none}
-.pk{background:#1a1a26;border-color:#35374f}
-.pk.pk-best,.pk.pk-open{border-color:#8b5cf6}
-.pk-head{background:#2f4fa8}
-.pk-ree .pk-head{background:#177a4e}
-.pk-dan .pk-head{background:#8f5d0a}
-.pk-tag-best{background:rgba(240,168,48,.16);color:#f0b860}
-.pk-tag-save{background:rgba(90,209,151,.14);color:#5ad197}
-.pk-chev{color:#6a6e88}
-.pk-tot-lbl{color:#797e9b}
-.pk-price{color:#b794f6}
-.pk-eg{color:#a3a7c2}
-.pk-eg b{color:#eceef6}
-.pk-det{background:#22222f}
-.pk-row span{color:#a3a7c2}
-.pk-row b{color:#eceef6}
-.pk-row-cup span,.pk-row-cup b{color:#5ad197}
-.pk-sep{background:#2e2e44}
-.pk-row-tot span{color:#eceef6}
-.pk-row-tot b{color:#c9b0f9}
-.pk-cuotas{color:#b794f6}
-.pk-save{background:rgba(90,209,151,.14);color:#5ad197}
-.pk-save-no{background:#22222f;color:#a3a7c2}
-.pk-cod{background:rgba(124,58,237,.22);color:#c9b0f9}
+body{background:#07070c}
+header,.card{background:#1e1e2d;border-color:#2f3148}
+.pk-wrap .results-header{color:#9da1bb}
+.pk-wrap .results-header strong{color:#f2f3f8}
+.pk-tabs{background:#1e1e2d;box-shadow:inset 0 0 0 1px #2f3148}
+.pk-tab{color:#b4b8cf}
+.pk-tab.on{background:#3d3d5c;color:#fff;box-shadow:none}
+.pk{background:#1e1e2d;border-color:#3a3d57}
+.pk.pk-best,.pk.pk-open{border-color:#9d7bff}
+.pk-head{background:#3d63e0}
+.pk-ree .pk-head{background:#1a8455}
+.pk-dan .pk-head{background:#9a630c}
+.pk-tag-best{background:#3d2a0c;color:#ffc56b}
+.pk-tag-save{background:#123826;color:#6fe0a8}
+.pk-chev{color:#9195b0}
+.pk-tot-lbl{color:#9da1bb}
+.pk-price{color:#c9b0ff}
+.pk-eg{color:#b4b8cf}
+.pk-eg b{color:#f2f3f8}
+.pk-det{background:#2b2b3f;box-shadow:inset 0 0 0 1px #383a54}
+.pk-row span{color:#b4b8cf}
+.pk-row b{color:#f2f3f8}
+.pk-row-cup span,.pk-row-cup b{color:#6fe0a8}
+.pk-sep{background:#3a3d57}
+.pk-row-tot span{color:#f2f3f8}
+.pk-row-tot b{color:#d4c0ff}
+.pk-cuotas{color:#c9b0ff}
+.pk-save{background:#123826;color:#6fe0a8;box-shadow:inset 0 0 0 1px #1f5a3c}
+.pk-save-no{background:#2b2b3f;color:#b4b8cf;box-shadow:inset 0 0 0 1px #383a54}
+.pk-cod{background:#6d3fe0;color:#fff}
+.pk-cod:active{background:#5a2fc4}
 }
   </style>
 </head>
@@ -183,7 +188,7 @@
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()">&#128241; Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.9.1</div>
+  <div style="margin-top:10px">Versión 3.9.2</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
