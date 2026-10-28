@@ -183,7 +183,7 @@
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()">&#128241; Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.9.0</div>
+  <div style="margin-top:10px">Versión 3.9.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -195,19 +195,6 @@
 
     <div class="cli-badge">
       <span id="cliDuracion"></span> &middot; <span id="cliTipo"></span>
-    </div>
-
-    <div class="det-block">
-      <div class="det-row"><span class="det-lbl">Precio producto</span><span class="det-val" id="detPrecio"></span></div>
-      <div class="det-row"><span class="det-lbl">Tasa del plan</span><span class="det-val" id="detTasa"></span></div>
-      <div class="det-row"><span class="det-lbl">Precio garantía (EG)</span><span class="det-val det-eg" id="detEg"></span></div>
-      <div class="det-row det-row-sep"><span class="det-lbl">Total sin cupón</span><span class="det-val" id="detSinCupon"></span></div>
-      <div class="det-row" id="detCuponRow"><span class="det-lbl">Cupón dscto <span id="detCuponPct"></span></span><span class="det-val det-desc" id="detCuponVal"></span></div>
-    </div>
-
-    <div class="det-final-box">
-      <div class="det-final-lbl" id="detFinalLbl">Total final con cupón</div>
-      <div class="det-final-val" id="detallePlanTotal"></div>
     </div>
 
     <div class="det-cuotas-block">
@@ -393,7 +380,7 @@ function calcular() {
       let bcIdx = -1;
       if (plan.bc) { bcIdx = _bcRegistry.length; _bcRegistry.push(plan.bc); }
       const t = r.total;
-      const detalleArgs = "'" + widgetLabel + "','" + grupo.tipo + "'," + precio + "," + plan.t + "," + r.eg + "," + r.descMonto + "," + (plan.d||0) + "," + t + "," + (t*0.3699) + "," + (t*0.1995) + "," + (t*0.1320) + "," + (t*0.1000) + "," + (t*0.0882);
+      const detalleArgs = "'" + widgetLabel + "','" + grupo.tipo + "'," + (t*0.3699) + "," + (t*0.1995) + "," + (t*0.1320) + "," + (t*0.1000) + "," + (t*0.0882);
       const totalTxt = s(t);
       const fs = totalTxt.length <= 11 ? 23 : (totalTxt.length <= 12 ? 21 : 18);
       let save;
@@ -452,27 +439,11 @@ function togglePk(btn) {
 }
 
 // Detalle modal
-function openDetalleModal(duracion, tipo, precio, tasa, eg, desc, pct, total, c3, c6, c10, c12, c18) {
+function openDetalleModal(duracion, tipo, c3, c6, c10, c12, c18) {
   var fmt = function(v){ return 'S/ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
-  var pctFmt = p;
 
   document.getElementById('cliDuracion').textContent = duracion;
   document.getElementById('cliTipo').textContent = 'Plan ' + tipo;
-
-  document.getElementById('detPrecio').textContent = fmt(precio);
-  document.getElementById('detTasa').textContent = pctFmt(tasa);
-  document.getElementById('detEg').textContent = fmt(eg);
-  document.getElementById('detSinCupon').textContent = fmt(precio + eg);
-  var cuponRow = document.getElementById('detCuponRow');
-  if (desc > 0) {
-    document.getElementById('detCuponPct').textContent = '(' + pctFmt(pct) + ')';
-    document.getElementById('detCuponVal').textContent = '\u2212 ' + fmt(desc);
-    cuponRow.style.display = 'flex';
-  } else {
-    cuponRow.style.display = 'none';
-  }
-  document.getElementById('detallePlanTotal').textContent = fmt(total);
-  document.getElementById('detFinalLbl').textContent = desc > 0 ? 'Total final con cupón' : 'Total final';
   document.getElementById('det3').textContent = fmt(c3);
   document.getElementById('det6').textContent = fmt(c6);
   document.getElementById('det10').textContent = fmt(c10);
