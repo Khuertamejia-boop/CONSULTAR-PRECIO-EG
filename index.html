@@ -137,6 +137,15 @@ header .subtitle{margin-top:2px;white-space:nowrap}
 .pk-cod{margin-left:auto;height:44px;display:inline-flex;align-items:center;gap:7px;border:0;border-radius:10px;background:#2563eb;color:#fff;font:inherit;font-size:13px;font-weight:700;padding:0 13px;white-space:nowrap;cursor:pointer}
 .pk-cod:active{transform:scale(.96);background:#1d4fc4}
 @media(max-width:360px){.pk-save{font-size:12px;padding:7px 8px}.pk-tag{font-size:9.5px;padding:4px 7px}.pk-tab{font-size:12.5px}}
+/* v3.11: menos tarjetas */
+.mode-tabs{border:0;padding:4px;border-radius:14px;background:#ecebf3}
+#viewFisica>.card:first-child,#buscaCard,#cuponesCard{background:transparent;border:0;box-shadow:none;padding:6px 2px 4px}
+.pk-grid{gap:0}
+.pk{background:transparent;border:0;border-radius:0;border-bottom:1px solid #e2e3ec}
+.pk.pk-best,.pk.pk-open{border-color:#e2e3ec}
+.pk-tog{padding:14px 2px 0}
+.pk-r3{padding:8px 2px 14px}
+.pk-det{margin:10px 0 0}
 @media(prefers-color-scheme:dark){
 body{background:#07070c}
 header,.share-btn{background:#0b0b12;border-color:#26283d}
@@ -205,6 +214,11 @@ header{background:transparent;border:0}
 .vc-grid .vc-tv{--cc:#8fbaff}
 .vc-grid .vc-cp{--cc:#5cbd6a}
 .vc-grid .vc-pd{--cc:#e0c52c}
+.mode-tabs{background:#14141f;border:0;box-shadow:none}
+#viewFisica>.card:first-child,#buscaCard,#cuponesCard{background:transparent;border:0}
+.pk-tabs{background:#14141f;box-shadow:none}
+.pk{background:transparent;border-color:#22243a}
+.pk.pk-best,.pk.pk-open{border-color:#22243a}
 }
   </style>
 </head>
@@ -268,7 +282,7 @@ header{background:transparent;border:0}
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.10.1</div>
+  <div style="margin-top:10px">Versión 3.11.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
