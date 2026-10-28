@@ -57,15 +57,15 @@
 .pk-sec .tipo-sep{margin-bottom:11px}
 .pk-grid{display:flex;flex-direction:column;gap:10px}
 .pk{background:#fff;border:1.5px solid #e2e3ec;border-radius:16px;overflow:hidden;animation:rowIn .16s ease-out both;transition:border-color .15s}
-.pk.pk-best,.pk.pk-open{border-color:#6c2bd9}
+.pk.pk-open{border-color:#3b82f6}
 .pk-tog{display:flex;flex-direction:column;gap:8px;width:100%;border:0;background:none;padding:12px 12px 0;text-align:left;font:inherit;color:inherit;cursor:pointer}
 .pk-tog:active{opacity:.7}
 .pk-r1,.pk-r2{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
 .pk-r2{align-items:baseline;flex-wrap:wrap;row-gap:4px}
 .pk-r1r{display:inline-flex;align-items:center;gap:6px;min-width:0}
-.pk-head{flex-shrink:0;background:#3559c7;color:#fff;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:800;letter-spacing:.4px;white-space:nowrap}
-.pk-ree .pk-head{background:#1b8a58}
-.pk-dan .pk-head{background:#a86d0c}
+.pk-head{flex-shrink:0;background:#e6efff;color:#1d4fc4;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:800;letter-spacing:.4px;white-space:nowrap}
+.pk-ree .pk-head{background:#e1f5ef;color:#12715a}
+.pk-dan .pk-head{background:#fdf1dc;color:#8a5a08}
 .pk-tag{font-size:10.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:5px 9px;border-radius:999px;white-space:nowrap}
 .pk-tag-best{background:#fff1df;color:#9a4a06}
 .pk-tag-save{background:#e5f6ec;color:#1a6b44}
@@ -73,7 +73,7 @@
 .pk-open .pk-chev{transform:rotate(180deg)}
 .pk-tot{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
 .pk-tot-lbl{font-size:12px;font-weight:600;color:#6e7189}
-.pk-price{font-weight:800;color:#5b2bb5;letter-spacing:-.4px;line-height:1.1;font-variant-numeric:tabular-nums}
+.pk-price{font-weight:800;color:#16162c;letter-spacing:-.4px;line-height:1.1;font-variant-numeric:tabular-nums}
 .pk-eg{margin-left:auto;font-size:13px;color:#5d6178;white-space:nowrap}
 .pk-eg b{color:#16162c;font-weight:700;font-variant-numeric:tabular-nums}
 .pk-eg small{font-size:10px;color:#8b8fa8}
@@ -86,17 +86,18 @@
 .pk-row-cup span,.pk-row-cup b{color:#1a6b44;font-weight:700}
 .pk-sep{height:1px;background:#e4e5ef}
 .pk-row-tot span{color:#16162c;font-weight:700}
-.pk-row-tot b{font-size:17px;font-weight:800;color:#5b2bb5}
-.pk-cuotas{align-self:flex-start;min-height:36px;border:0;background:none;padding:2px 0 0;color:#6c2bd9;font:inherit;font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.pk-row-tot b{font-size:17px;font-weight:800;color:#16162c}
+.pk-cuotas{align-self:flex-start;min-height:36px;border:0;background:none;padding:2px 0 0;color:#1d4fc4;font:inherit;font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .pk-r3{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 12px 12px}
 .pk-save{background:#e5f6ec;color:#1a6b44;font-size:13px;font-weight:700;padding:7px 10px;border-radius:10px;white-space:nowrap}
 .pk-save-no{background:#f2f2f7;color:#5d6178}
-.pk-cod{margin-left:auto;height:44px;display:inline-flex;align-items:center;gap:7px;border:0;border-radius:10px;background:#ece5fb;color:#5b2bb5;font:inherit;font-size:13px;font-weight:700;padding:0 13px;white-space:nowrap;cursor:pointer}
-.pk-cod:active{transform:scale(.96);background:#e0d5f8}
+.pk-cod{margin-left:auto;height:44px;display:inline-flex;align-items:center;gap:7px;border:0;border-radius:10px;background:#2563eb;color:#fff;font:inherit;font-size:13px;font-weight:700;padding:0 13px;white-space:nowrap;cursor:pointer}
+.pk-cod:active{transform:scale(.96);background:#1d4fc4}
 @media(max-width:360px){.pk-save{font-size:12px;padding:7px 8px}.pk-tag{font-size:9.5px;padding:4px 7px}.pk-tab{font-size:12.5px}}
 @media(prefers-color-scheme:dark){
 body{background:#07070c}
-header,.card,.share-btn{background:#13131d;border-color:#2a2c42}
+header,.share-btn{background:#13131d;border-color:#2a2c42}
+.card{background:#0b0b12;border-color:#26283d}
 .mode-tabs{background:#13131d;border-color:#2a2c42}
 .mode-tab{color:#9da1bb}
 header .subtitle,.cat-label,.field label,.det-lbl,.det-cuotas-title,.bc-subtitle,.install-link-lbl,.share-btn{color:#9da1bb}
@@ -105,7 +106,7 @@ header .subtitle,.cat-label,.field label,.det-lbl,.det-cuotas-title,.bc-subtitle
 .chip.pressing{background:#262638}
 .chip.active{border-color:#7c3aed}
 .chip.fav{border-color:#f0a830}
-input[type="number"],#precio,#eanInput{background:#0b0b12;border-color:#2c2e45}
+input[type="number"],#precio,#eanInput{background:#13131d;border-color:#2c2e45}
 #precio::placeholder{color:#6a6e88}
 .vc-row,.vc-grid .vc-group{background:#13131d;border-color:#2f3148}
 .detalle-modal,.bc-modal,.install-modal{background:#13131d}
@@ -114,17 +115,17 @@ input[type="number"],#precio,#eanInput{background:#0b0b12;border-color:#2c2e45}
 .pk-wrap .results-header strong{color:#f2f3f8}
 .pk-tabs{background:#13131d;box-shadow:inset 0 0 0 1px #2c2e45}
 .pk-tab{color:#b4b8cf}
-.pk-tab.on{background:#2e2e48;color:#fff;box-shadow:none}
+.pk-tab.on{background:#1f3357;color:#fff;box-shadow:none}
 .pk{background:#13131d;border-color:#2f3148}
-.pk.pk-best,.pk.pk-open{border-color:#9d7bff}
-.pk-head{background:#3d63e0}
-.pk-ree .pk-head{background:#1a8455}
-.pk-dan .pk-head{background:#9a630c}
+.pk.pk-open{border-color:#4a7fd6}
+.pk-head{background:rgba(110,168,255,.16);color:#a9c8ff}
+.pk-ree .pk-head{background:rgba(94,208,180,.16);color:#86e3cc}
+.pk-dan .pk-head{background:rgba(240,168,48,.16);color:#ffc56b}
 .pk-tag-best{background:#3d2a0c;color:#ffc56b}
 .pk-tag-save{background:#123826;color:#6fe0a8}
 .pk-chev{color:#9195b0}
 .pk-tot-lbl{color:#9da1bb}
-.pk-price{color:#c9b0ff}
+.pk-price{color:#f2f3f8}
 .pk-eg{color:#b4b8cf}
 .pk-eg b{color:#f2f3f8}
 .pk-det{background:#1c1c2a;box-shadow:inset 0 0 0 1px #2c2e45}
@@ -133,12 +134,12 @@ input[type="number"],#precio,#eanInput{background:#0b0b12;border-color:#2c2e45}
 .pk-row-cup span,.pk-row-cup b{color:#6fe0a8}
 .pk-sep{background:#3a3d57}
 .pk-row-tot span{color:#f2f3f8}
-.pk-row-tot b{color:#d4c0ff}
-.pk-cuotas{color:#c9b0ff}
+.pk-row-tot b{color:#f2f3f8}
+.pk-cuotas{color:#8fbaff}
 .pk-save{background:#123826;color:#6fe0a8;box-shadow:inset 0 0 0 1px #1f5a3c}
 .pk-save-no{background:#1c1c2a;color:#b4b8cf;box-shadow:inset 0 0 0 1px #2c2e45}
-.pk-cod{background:#6d3fe0;color:#fff}
-.pk-cod:active{background:#5a2fc4}
+.pk-cod{background:#2563eb;color:#fff}
+.pk-cod:active{background:#1d4fc4}
 }
   </style>
 </head>
@@ -201,7 +202,7 @@ input[type="number"],#precio,#eanInput{background:#0b0b12;border-color:#2c2e45}
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()">&#128241; Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.9.4</div>
+  <div style="margin-top:10px">Versión 3.9.5</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
