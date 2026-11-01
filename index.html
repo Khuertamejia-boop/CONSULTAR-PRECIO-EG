@@ -334,8 +334,8 @@ header{background:transparent;border:0}
 .mc-search{position:relative;margin-top:14px}
 .mc-search[hidden]{display:none}
 .mc-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8b8fa8;pointer-events:none}
-#mcSearch,#mcPickQ{width:100%;height:46px;box-sizing:border-box;padding:0 14px 0 42px;border:1.5px solid #e4e5ef;border-radius:14px;background:#fff;font:inherit;font-size:16px;color:#16162c;outline:none}
-#mcSearch:focus,#mcPickQ:focus{border-color:#2563eb}
+#mcSearch,#mcPickQ,#pfBuscar{width:100%;height:46px;box-sizing:border-box;padding:0 14px 0 42px;border:1.5px solid #e4e5ef;border-radius:14px;background:#fff;font:inherit;font-size:16px;color:#16162c;outline:none}
+#mcSearch:focus,#mcPickQ:focus,#pfBuscar:focus{border-color:#2563eb}
 #mcList{margin-top:16px}
 .mc-grp+.mc-grp{margin-top:18px}
 .mc-grp-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:13px;font-weight:800;color:#4b4f6b}
@@ -409,7 +409,7 @@ header{background:transparent;border:0}
 #mcImpDep[hidden]{display:none}
 @media(prefers-color-scheme:dark){
 .mc-sub,.mc-help{color:#b4b8cf}.mc-help b{color:#f2f3f8}
-#mcSearch,#mcPickQ,.mc-in{background:transparent;border-color:#2f3148;color:#f2f3f8}
+#mcSearch,#mcPickQ,#pfBuscar,.mc-in{background:transparent;border-color:#2f3148;color:#f2f3f8}
 .mc-grp-h{color:#b4b8cf}.mc-grp-h small{color:#7d81a0}
 .mc-rows,.mc-row{border-color:#22243a}
 .mc-tx small,.mc-tx code{color:#9da1bb}
@@ -485,6 +485,15 @@ header{background:transparent;border:0}
 .mc-ln-h{display:flex;align-items:baseline;gap:8px;margin:0 0 4px;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#1d4fc4}
 .mc-ln-h small{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:0;color:#8b8fa8}
 .mc-grp-cat{margin-bottom:10px}
+.mc-sw{position:relative;overflow:hidden;border-bottom:1px solid #e2e3ec}
+.mc-sw .mc-row{position:relative;z-index:1;border-bottom:0;background:#f6f6fa;transition:transform .22s ease}
+.mc-sw-del{position:absolute;top:0;right:0;bottom:0;width:92px;border:0;background:#d23b5a;color:#fff;font:inherit;font-size:13px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.pf-brands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px;max-height:316px;overflow:auto;-webkit-overflow-scrolling:touch;padding:2px}
+.pf-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:86px;padding:10px 6px;border-radius:14px;border:1.5px solid #e2e3ec;background:#fff;font:inherit;color:inherit;text-align:center;cursor:pointer}
+.pf-brand .mono{min-width:36px;height:36px;padding:0 6px;box-sizing:border-box;border-radius:10px;background:#16162c;color:#fff;font-size:14px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;justify-content:center}
+.pf-brand b{font-size:12.5px;line-height:1.2;font-weight:700;word-break:break-word}
+.pf-brand.on{border-color:#2563eb;background:#eef4ff}
+.pf-brand.on .mono{background:#2563eb}
 .mc-view .vg-sell{width:100%;height:54px;margin-top:22px;border:0;border-radius:16px;background:#2563eb;color:#fff;font:inherit;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
 .mc-view .vg-sell:active{background:#1d4fc4}
 /* Venta */
@@ -565,6 +574,12 @@ header{background:transparent;border:0}
 .mc-mono{background:#f2f3f8;color:#07070c}
 .mc-bs{color:#9da1bb}
 .mc-ln-h{color:#8fbaff}.mc-ln-h small{color:#7d81a0}
+.mc-sw{border-color:#22243a}
+.mc-sw .mc-row{background:#07070c}
+.pf-brand{background:#0b0b12;border-color:#2a2c42}
+.pf-brand .mono{background:#f2f3f8;color:#07070c}
+.pf-brand.on{border-color:#3b82f6;background:#0f1a33}
+.pf-brand.on .mono{background:#3b82f6;color:#fff}
 .vg-steps{color:#7d81a0}.vg-steps .on{color:#f2f3f8}
 .vg-steps i{background:#14141f;color:#9da1bb}.vg-steps .on i{background:#2563eb;color:#fff}
 .vg-steps .ok i{background:#123826;color:#6fe0a8}
@@ -667,7 +682,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.16.1</div>
+  <div style="margin-top:10px">Versión 3.17.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -1458,8 +1473,11 @@ function mcGroupsHtml(list, fn, first) {
   if (first && groups[first]) keys = [first].concat(keys.filter(function (k) { return k !== first; }));
   var multi = keys.length > 1, h = '';
   var row = function (it) {
-    return '<button type="button" class="mc-row" onclick="' + fn + '(\'' + it.id + '\')"><span class="mc-tx"><b>' + mcEsc(it.desc || 'Sin descripción') + '</b>' +
-      (it.note ? '<small>' + mcEsc(it.note) + '</small>' : '') + '<code>' + it.code + '</code></span>' + (fn === 'mcOpenView' ? MC_SVG.bc : MC_SVG.add) + '</button>';
+    var inner = '<span class="mc-tx"><b>' + mcEsc(it.desc || 'Sin descripción') + '</b>' +
+      (it.note ? '<small>' + mcEsc(it.note) + '</small>' : '') + '<code>' + it.code + '</code></span>' + (fn === 'mcOpenView' ? MC_SVG.bc : MC_SVG.add);
+    if (fn !== 'mcOpenView') return '<button type="button" class="mc-row" onclick="' + fn + '(\'' + it.id + '\')">' + inner + '</button>';
+    return '<div class="mc-sw"><button type="button" class="mc-sw-del" tabindex="-1" onclick="mcSwDel(\'' + it.id + '\')">' + MC_SVG.trash + 'Eliminar</button>' +
+      '<button type="button" class="mc-row" onclick="mcRowTap(this, \'' + it.id + '\')">' + inner + '</button></div>';
   };
   var bySize = function (a, b) { return (mcSize(a.desc) || 999) - (mcSize(b.desc) || 999) || (a.desc || '').localeCompare(b.desc || '', 'es', { sensitivity: 'base', numeric: true }); };
   keys.forEach(function (k) {
@@ -1477,6 +1495,55 @@ function mcGroupsHtml(list, fn, first) {
   });
   return h;
 }
+
+// ── Deslizar una fila a la izquierda muestra "Eliminar" ──
+var MC_SW = 92;
+function mcSwSet(r, open) {
+  if (open) mcSwCloseAll(r);
+  r.classList.toggle('sw-open', open);
+  r.style.transform = open ? 'translateX(-' + MC_SW + 'px)' : '';
+}
+function mcSwCloseAll(except) {
+  var os = document.querySelectorAll('#mcList .mc-row.sw-open'), n = 0;
+  for (var i = 0; i < os.length; i++) if (os[i] !== except) { mcSwSet(os[i], false); n++; }
+  return n > 0;
+}
+function mcRowTap(el, id) {
+  if (el._swiped) return;
+  if (el.classList.contains('sw-open')) { mcSwSet(el, false); return; }
+  if (mcSwCloseAll()) return;
+  mcOpenView(id);
+}
+function mcSwDel(id) {
+  var it = mcLoad().filter(function (x) { return x.id === id; })[0];
+  mcSave(mcLoad().filter(function (x) { return x.id !== id; }));
+  mcRender(); mcToast(it && it.desc ? '“' + it.desc + '” eliminado' : 'Código eliminado');
+}
+(function () {
+  var st = null;
+  document.addEventListener('touchstart', function (e) {
+    var r = e.target.closest && e.target.closest('#mcList .mc-row');
+    if (!r) { if (!(e.target.closest && e.target.closest('.mc-sw-del'))) mcSwCloseAll(); st = null; return; }
+    st = { r: r, x: e.touches[0].clientX, y: e.touches[0].clientY, dx: 0, open: r.classList.contains('sw-open'), dir: null };
+  }, { passive: true });
+  document.addEventListener('touchmove', function (e) {
+    if (!st) return;
+    var dx = e.touches[0].clientX - st.x, dy = e.touches[0].clientY - st.y;
+    if (!st.dir) { if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return; st.dir = Math.abs(dx) > Math.abs(dy) ? 'h' : 'v'; if (st.dir === 'h') st.r.style.transition = 'none'; }
+    if (st.dir !== 'h') return;
+    st.dx = dx;
+    st.r.style.transform = 'translateX(' + Math.min(0, Math.max(-MC_SW - 30, (st.open ? -MC_SW : 0) + dx)) + 'px)';
+  }, { passive: true });
+  document.addEventListener('touchend', function () {
+    if (!st) return;
+    var r = st.r; r.style.transition = '';
+    if (st.dir === 'h') {
+      mcSwSet(r, (st.open ? -MC_SW : 0) + st.dx < -MC_SW / 2);
+      r._swiped = true; setTimeout(function () { r._swiped = false; }, 400);
+    }
+    st = null;
+  });
+})();
 
 // ── Agregar producto a la ventana de Códigos ──
 function mcPickOpen() {
@@ -1794,7 +1861,21 @@ var GRUPOS = [
   { id: 'menor', n: 'Electrónica Menor', cats: ['electronicamenor'] },
   { id: 'cuidado', n: 'Cuidado Personal', cats: ['cuidado'] }
 ];
-var MARCAS = ['Samsung', 'LG', 'Sony', 'JBL', 'HP', 'Lenovo', 'Asus', 'Apple', 'Xiaomi', 'Motorola', 'Honor', 'Mabe', 'Bosch', 'Electrolux', 'Indurama', 'Oster', 'Philips', 'Remington', 'PlayStation', 'Xbox', 'Nintendo', 'Epson', 'Canon'];
+// Marcas de promotores con su área sugerida (el promotor puede ajustarla)
+var MARCAS = [
+  { n: 'Sony', g: ['audiotv'] }, { n: 'JBL', g: ['audiotv', 'menor'] },
+  { n: 'Samsung TV', g: ['audiotv'] }, { n: 'Samsung Telefonía', g: ['telefonia'] }, { n: 'Samsung Línea Blanca', g: ['lb'] },
+  { n: 'LG TV', g: ['audiotv'] }, { n: 'LG Audio', g: ['audiotv'] }, { n: 'LG Línea Blanca', g: ['lb'] },
+  { n: 'TCL', g: ['audiotv'] }, { n: 'Hisense', g: ['audiotv'] }, { n: 'Hyundai', g: ['audiotv'] }, { n: 'Sharp', g: ['audiotv'] },
+  { n: 'HP', g: ['computo'] }, { n: 'Acer', g: ['computo'] }, { n: 'Asus', g: ['computo'] }, { n: 'Lenovo', g: ['computo'] },
+  { n: 'Apple', g: ['telefonia', 'computo'] }, { n: 'Oppo', g: ['telefonia'] }, { n: 'Honor', g: ['telefonia'] }, { n: 'Xiaomi', g: ['telefonia'] },
+  { n: 'Motorola', g: ['telefonia'] }, { n: 'Infinix', g: ['telefonia'] }, { n: 'Nothing', g: ['telefonia'] },
+  { n: 'Gama', g: ['cuidado'] }, { n: 'BaByliss', g: ['cuidado'] }, { n: 'Philips', g: ['cuidado'] },
+  { n: 'Siegen', g: ['lb'] }, { n: 'Thomas', g: ['lb'] }, { n: 'Imaco', g: ['lb'] }, { n: 'Oster', g: ['lb'] }, { n: 'Ninja', g: ['lb'] }, { n: 'Taurus', g: ['lb'] },
+  { n: 'Electrolux', g: ['lb'] }, { n: 'Mabe', g: ['lb'] }, { n: 'Sole', g: ['lb'] }, { n: 'Indurama', g: ['lb'] }
+];
+function marcaMono(n) { var b = String(n || '').trim().split(/\s+/)[0] || '?'; return b.length <= 3 ? b.toUpperCase() : b.charAt(0).toUpperCase(); }
+function pfNorm(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
 var _pf = null;
 function perfil() {
   try {
@@ -1849,9 +1930,9 @@ function abrirPerfil(editar) {
     '<h1>¿Cómo usarás la app?</h1><p class="pf-sub">Lo eliges una vez en este celular.</p>' +
     '<div class="pf-opts">' + opt('vendedor', PF_SVG.team, 'Soy vendedor', 'Veo todos los departamentos') + opt('promotor', PF_SVG.badge, 'Soy promotor', 'Trabajo con una marca') + '</div>' +
     '<div id="pfPro" hidden>' +
-      '<h2><label for="pfMarca">¿Qué marca representas?</label></h2>' +
-      '<input id="pfMarca" class="mc-in pf-marca" list="pfMarcas" maxlength="30" autocomplete="off" placeholder="Ej: Samsung" oninput="pfUpd()"><datalist id="pfMarcas">' +
-      MARCAS.map(function (m) { return '<option value="' + m + '">'; }).join('') + '</datalist>' +
+      '<h2><label for="pfBuscar">¿Qué marca representas?</label></h2>' +
+      '<div class="mc-search">' + MC_SVG.search + '<input id="pfBuscar" type="search" maxlength="30" autocomplete="off" placeholder="Buscar marca" oninput="pfMarcasRender()"></div>' +
+      '<div class="pf-brands" id="pfBrands"></div>' +
       '<h2 class="pf-h2">¿Qué áreas atiendes? <small>Puedes elegir varias</small></h2><div class="pf-deps">' +
       GRUPOS.map(function (gr) {
         return '<button type="button" class="pf-dep" data-g="' + gr.id + '" aria-pressed="false" onclick="pfGrupo(\'' + gr.id + '\')"><span class="ck">' + PF_SVG.check + '</span><span class="icons">' + gr.cats.map(function (c) { return '<span class="chip" data-cat="' + c + '">' + mcIcon(c) + '</span>'; }).join('') + '</span><b>' + gr.n + '</b></button>';
@@ -1859,16 +1940,36 @@ function abrirPerfil(editar) {
     '</div>' +
     '<button type="button" class="pf-btn" id="pfOk" onclick="guardarPerfil()" disabled>Continuar</button>' +
     '<div class="pf-note">Puedes cambiarlo cuando quieras desde el pie de la página.</div>';
-  document.getElementById('pfMarca').value = _pf.marca;
   ov.hidden = false;
+  pfMarcasRender();
   document.documentElement.classList.add('cli-lock');
   pfUpd();
 }
 function pfRol(r) { _pf.rol = r; pfUpd(); }
 function pfGrupo(g) { var i = _pf.grupos.indexOf(g); if (i >= 0) _pf.grupos.splice(i, 1); else _pf.grupos.push(g); pfUpd(); }
+function pfMarcasRender() {
+  var box = document.getElementById('pfBrands'); if (!box) return;
+  var q = document.getElementById('pfBuscar').value.trim(), nq = pfNorm(q);
+  var list = MARCAS.filter(function (m) { return !nq || pfNorm(m.n).indexOf(nq) >= 0; });
+  var tile = function (n, label) {
+    var on = pfNorm(n) === pfNorm(_pf.marca);
+    return '<button type="button" class="pf-brand' + (on ? ' on' : '') + '" onclick="pfMarca(' + mcEsc(JSON.stringify(n)) + ')"><span class="mono">' + mcEsc(marcaMono(n)) + '</span><b>' + mcEsc(label || n) + '</b></button>';
+  };
+  var h = list.map(function (m) { return tile(m.n); }).join('');
+  var exacta = MARCAS.some(function (m) { return pfNorm(m.n) === nq; });
+  if (q && !exacta) h += tile(q.replace(/\s+/g, ' '), 'Usar «' + q + '»');
+  // una marca propia ya elegida se muestra primero
+  if (_pf.marca && !MARCAS.some(function (m) { return pfNorm(m.n) === pfNorm(_pf.marca); }) && pfNorm(_pf.marca) !== nq) h = tile(_pf.marca) + h;
+  box.innerHTML = h || '<div class="mc-none">Sin resultados</div>';
+}
+function pfMarca(n) {
+  _pf.marca = n;
+  var m = MARCAS.filter(function (x) { return x.n === n; })[0];
+  if (m) _pf.grupos = m.g.slice();
+  pfMarcasRender(); pfUpd();
+}
 function pfUpd() {
   var ov = document.getElementById('pfView'); if (!ov) return;
-  _pf.marca = document.getElementById('pfMarca').value.trim();
   var os = ov.querySelectorAll('.pf-opt');
   for (var i = 0; i < os.length; i++) os[i].classList.toggle('on', os[i].getAttribute('data-rol') === _pf.rol);
   var ds = ov.querySelectorAll('.pf-dep');
@@ -1891,7 +1992,7 @@ function mcHeadRender() {
   var h = document.getElementById('mcHead'); if (!h) return;
   var p = perfil();
   if (p && p.rol === 'promotor') {
-    h.innerHTML = '<div class="mc-brand"><span class="mc-mono">' + mcEsc(p.marca.charAt(0).toUpperCase()) + '</span><div class="mc-bn">' + mcEsc(p.marca) + '</div>' +
+    h.innerHTML = '<div class="mc-brand"><span class="mc-mono">' + mcEsc(marcaMono(p.marca)) + '</span><div class="mc-bn">' + mcEsc(p.marca) + '</div>' +
       '<div class="mc-bs">Mis códigos · ' + mcEsc(grupoDe(p).n) + '</div></div>';
   } else {
     h.innerHTML = '<div class="cat-label">Mis códigos</div><p class="mc-sub">Guarda tus modelos y muestra su código de barras en caja con un toque.</p>';
