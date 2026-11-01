@@ -460,7 +460,12 @@ header{background:transparent;border:0}
 .pf h2{margin:22px 0 10px;font-size:16px;font-weight:800}
 .pf-marca{font-weight:700}
 .pf-deps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.pf-dep{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:12px;border-radius:14px;border:1.5px solid #e2e3ec;background:#fff;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.pf-h2{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.pf-h2 small{font-size:12.5px;font-weight:600;color:#6e7189}
+.pf-dep .ck{position:absolute;top:10px;right:10px;width:22px;height:22px;box-sizing:border-box;border-radius:7px;border:2px solid #c9cfdc;display:flex;align-items:center;justify-content:center;color:#fff}
+.pf-dep .ck svg{opacity:0}
+.pf-dep.on .ck{border-color:#2563eb;background:#2563eb}.pf-dep.on .ck svg{opacity:1}
+.pf-dep{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:12px;border-radius:14px;border:1.5px solid #e2e3ec;background:#fff;font:inherit;color:inherit;text-align:left;cursor:pointer}
 .pf-dep .icons{display:flex;gap:6px}
 .pf-dep .icons .chip{all:unset;display:inline-flex}
 .pf-dep .chip-ico{width:20px;height:20px}
@@ -554,6 +559,9 @@ header{background:transparent;border:0}
 .pf-opt.on,.pf-dep.on{border-color:#3b82f6;background:#0f1a33}
 .pf-opt.on .rd{border-color:#3b82f6;background:#3b82f6}
 .pf-note{color:#7d81a0}
+.pf-h2 small{color:#9da1bb}
+.pf-dep .ck{border-color:#3a3d57}
+.pf-dep.on .ck{border-color:#3b82f6;background:#3b82f6}
 .mc-mono{background:#f2f3f8;color:#07070c}
 .mc-bs{color:#9da1bb}
 .mc-ln-h{color:#8fbaff}.mc-ln-h small{color:#7d81a0}
@@ -659,7 +667,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.16.0</div>
+  <div style="margin-top:10px">Versión 3.16.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -1796,7 +1804,19 @@ function perfil() {
   } catch (e) {}
   return null;
 }
-function grupoDe(p) { return GRUPOS.filter(function (g) { return g.id === (p && p.grupo); })[0]; }
+// Áreas del promotor (puede elegir varias, en el orden en que las marcó)
+function gruposIds(p) {
+  if (!p) return [];
+  var ids = Array.isArray(p.grupos) ? p.grupos : (p.grupo ? [p.grupo] : []);
+  return ids.filter(function (id, i) { return ids.indexOf(id) === i && GRUPOS.some(function (g) { return g.id === id; }); });
+}
+function grupoDe(p) {
+  var gs = gruposIds(p).map(function (id) { return GRUPOS.filter(function (g) { return g.id === id; })[0]; });
+  if (!gs.length) return null;
+  var cats = [];
+  gs.forEach(function (g) { g.cats.forEach(function (c) { if (cats.indexOf(c) < 0) cats.push(c); }); });
+  return { cats: cats, n: gs.map(function (g) { return g.n; }).join(' · ') };
+}
 function esPromotor() { var p = perfil(); return !!(p && p.rol === 'promotor'); }
 function aplicarPerfil() {
   var p = perfil(), pro = !!(p && p.rol === 'promotor'), g = pro ? grupoDe(p) : null;
@@ -1817,7 +1837,7 @@ function aplicarPerfil() {
 }
 function abrirPerfil(editar) {
   var p = perfil() || {};
-  _pf = { rol: p.rol || '', marca: p.marca || '', grupo: p.grupo || '' };
+  _pf = { rol: p.rol || '', marca: p.marca || '', grupos: gruposIds(p) };
   var logo = document.querySelector('header .logo-img');
   var ov = document.getElementById('pfView');
   if (!ov) { ov = document.createElement('div'); ov.id = 'pfView'; ov.className = 'pf'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); document.body.appendChild(ov); }
@@ -1832,9 +1852,9 @@ function abrirPerfil(editar) {
       '<h2><label for="pfMarca">¿Qué marca representas?</label></h2>' +
       '<input id="pfMarca" class="mc-in pf-marca" list="pfMarcas" maxlength="30" autocomplete="off" placeholder="Ej: Samsung" oninput="pfUpd()"><datalist id="pfMarcas">' +
       MARCAS.map(function (m) { return '<option value="' + m + '">'; }).join('') + '</datalist>' +
-      '<h2>¿Qué área atiendes?</h2><div class="pf-deps">' +
+      '<h2 class="pf-h2">¿Qué áreas atiendes? <small>Puedes elegir varias</small></h2><div class="pf-deps">' +
       GRUPOS.map(function (gr) {
-        return '<button type="button" class="pf-dep" data-g="' + gr.id + '" onclick="pfGrupo(\'' + gr.id + '\')"><span class="icons">' + gr.cats.map(function (c) { return '<span class="chip" data-cat="' + c + '">' + mcIcon(c) + '</span>'; }).join('') + '</span><b>' + gr.n + '</b></button>';
+        return '<button type="button" class="pf-dep" data-g="' + gr.id + '" aria-pressed="false" onclick="pfGrupo(\'' + gr.id + '\')"><span class="ck">' + PF_SVG.check + '</span><span class="icons">' + gr.cats.map(function (c) { return '<span class="chip" data-cat="' + c + '">' + mcIcon(c) + '</span>'; }).join('') + '</span><b>' + gr.n + '</b></button>';
       }).join('') + '</div>' +
     '</div>' +
     '<button type="button" class="pf-btn" id="pfOk" onclick="guardarPerfil()" disabled>Continuar</button>' +
@@ -1845,19 +1865,19 @@ function abrirPerfil(editar) {
   pfUpd();
 }
 function pfRol(r) { _pf.rol = r; pfUpd(); }
-function pfGrupo(g) { _pf.grupo = g; pfUpd(); }
+function pfGrupo(g) { var i = _pf.grupos.indexOf(g); if (i >= 0) _pf.grupos.splice(i, 1); else _pf.grupos.push(g); pfUpd(); }
 function pfUpd() {
   var ov = document.getElementById('pfView'); if (!ov) return;
   _pf.marca = document.getElementById('pfMarca').value.trim();
   var os = ov.querySelectorAll('.pf-opt');
   for (var i = 0; i < os.length; i++) os[i].classList.toggle('on', os[i].getAttribute('data-rol') === _pf.rol);
   var ds = ov.querySelectorAll('.pf-dep');
-  for (var j = 0; j < ds.length; j++) ds[j].classList.toggle('on', ds[j].getAttribute('data-g') === _pf.grupo);
+  for (var j = 0; j < ds.length; j++) { var on = _pf.grupos.indexOf(ds[j].getAttribute('data-g')) >= 0; ds[j].classList.toggle('on', on); ds[j].setAttribute('aria-pressed', on ? 'true' : 'false'); }
   document.getElementById('pfPro').hidden = _pf.rol !== 'promotor';
-  document.getElementById('pfOk').disabled = !(_pf.rol === 'vendedor' || (_pf.rol === 'promotor' && _pf.marca && _pf.grupo));
+  document.getElementById('pfOk').disabled = !(_pf.rol === 'vendedor' || (_pf.rol === 'promotor' && _pf.marca && _pf.grupos.length));
 }
 function guardarPerfil() {
-  var p = _pf.rol === 'vendedor' ? { rol: 'vendedor' } : { rol: 'promotor', marca: _pf.marca.replace(/\s+/g, ' '), grupo: _pf.grupo };
+  var p = _pf.rol === 'vendedor' ? { rol: 'vendedor' } : { rol: 'promotor', marca: _pf.marca.replace(/\s+/g, ' '), grupos: _pf.grupos.slice() };
   safeSet(PERFIL_KEY, JSON.stringify(p));
   cerrarPerfil();
   aplicarPerfil();
