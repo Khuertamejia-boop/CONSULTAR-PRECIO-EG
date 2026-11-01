@@ -730,6 +730,44 @@ header{background:transparent;border:0}
 @media(prefers-color-scheme:dark){
 #bcContent .bc-section,#bcContent .bc-section+.bc-section{border-color:transparent}
 }
+/* v3.24 · Perfil compacto */
+.pf{padding-bottom:0}
+.pf>*{flex-shrink:0}
+.pf h1{margin:18px 0 4px;font-size:23px}
+.pf-sub{margin-bottom:14px;font-size:14px}
+.pf-opts{gap:8px}
+.pf-opt{gap:12px;padding:11px 14px;border-radius:14px}
+.pf-opt .ic{width:40px;height:40px;border-radius:11px}
+.pf-opt .ic svg{width:21px;height:21px}
+.pf-opt b{font-size:16px}
+.pf-opt small{font-size:13px}
+.pf h2{margin:18px 0 8px;font-size:15.5px}
+#pfBuscarBox{margin-top:0}
+.pf-brands{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px;max-height:212px}
+.pf-brands[hidden],.pf-sel[hidden]{display:none}
+.pf-brand{flex-direction:row;justify-content:flex-start;gap:9px;min-height:46px;padding:6px 10px 6px 7px;border-radius:12px;text-align:left}
+.pf-brand .mono{min-width:30px;height:30px;padding:0 5px;border-radius:8px;font-size:12px;flex:none}
+.pf-brand b{flex:1;min-width:0;font-size:13px}
+.pf-brand .ok,.pf-sel .ok{flex:none;width:20px;height:20px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center}
+.pf-brand .ok svg,.pf-sel .ok svg{width:12px;height:12px}
+.pf-sel{display:flex;align-items:center;gap:10px;padding:8px 8px 8px 9px;border-radius:14px;border:1.5px solid #2563eb;background:#eef4ff}
+.pf-sel .mono{min-width:34px;height:34px;padding:0 6px;box-sizing:border-box;border-radius:9px;background:#2563eb;color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.pf-sel b{flex:1;min-width:0;font-size:15.5px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pf-cambiar{flex:none;height:34px;padding:0 12px;border:0;border-radius:10px;background:transparent;color:#1d4fc4;font:inherit;font-size:13.5px;font-weight:800;cursor:pointer}
+.pf-deps{display:flex;flex-wrap:wrap;gap:8px}
+.pf-dep{flex-direction:row;align-items:center;gap:7px;min-height:38px;padding:0 13px 0 9px;border-radius:999px}
+.pf-dep .ck{position:static;width:20px;height:20px;border-radius:50%;flex:none}
+.pf-dep b{font-size:13.5px;line-height:1.2;white-space:nowrap}
+.pf-foot{position:sticky;bottom:0;margin:auto -20px 0;padding:12px 20px calc(env(safe-area-inset-bottom) + 12px);background:#f6f6fa;box-shadow:0 -10px 14px -6px rgba(246,246,250,.95)}
+.pf-foot .pf-btn{margin-top:0}
+.pf-foot .pf-note{margin-top:8px}
+#pfPro{padding-bottom:6px}
+@media(prefers-color-scheme:dark){
+.pf-sel{border-color:#3b82f6;background:#0f1a33}
+.pf-sel .mono{background:#3b82f6}
+.pf-cambiar{color:#8fbaff}
+.pf-foot{background:#07070c;box-shadow:0 -10px 14px -6px rgba(7,7,12,.95)}
+}
   </style>
 </head>
 <body>
@@ -804,7 +842,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.23.0</div>
+  <div style="margin-top:10px">Versión 3.24.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -2058,7 +2096,7 @@ function aplicarPerfil() {
 }
 function abrirPerfil(editar) {
   var p = perfil() || {};
-  _pf = { rol: p.rol || '', marca: p.marca || '', grupos: gruposIds(p) };
+  _pf = { rol: p.rol || '', marca: p.marca || '', grupos: gruposIds(p), abierta: false };
   var logo = document.querySelector('header .logo-img');
   var ov = document.getElementById('pfView');
   if (!ov) { ov = document.createElement('div'); ov.id = 'pfView'; ov.className = 'pf'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); document.body.appendChild(ov); }
@@ -2071,21 +2109,23 @@ function abrirPerfil(editar) {
     '<div class="pf-opts">' + opt('vendedor', PF_SVG.team, 'Asesor', 'Veo todos los departamentos') + opt('promotor', PF_SVG.badge, 'Promotor', 'Trabajo con una marca') + '</div>' +
     '<div id="pfPro" hidden>' +
       '<h2><label for="pfBuscar">¿Qué marca representas?</label></h2>' +
-      '<div class="mc-search">' + MC_SVG.search + '<input id="pfBuscar" type="search" maxlength="30" autocomplete="off" placeholder="Buscar marca" oninput="pfMarcasRender()"></div>' +
+      '<div class="pf-sel" id="pfSel" hidden></div>' +
+      '<div class="mc-search" id="pfBuscarBox">' + MC_SVG.search + '<input id="pfBuscar" type="search" maxlength="30" autocomplete="off" placeholder="Buscar marca" oninput="pfMarcasRender()"></div>' +
       '<div class="pf-brands" id="pfBrands"></div>' +
       '<h2 class="pf-h2">¿Qué áreas atiendes? <small>Puedes elegir varias</small></h2><div class="pf-deps">' +
       GRUPOS.map(function (gr) {
-        return '<button type="button" class="pf-dep" data-g="' + gr.id + '" aria-pressed="false" onclick="pfGrupo(\'' + gr.id + '\')"><span class="ck">' + PF_SVG.check + '</span><span class="icons">' + gr.cats.map(function (c) { return '<span class="chip" data-cat="' + c + '">' + mcIcon(c) + '</span>'; }).join('') + '</span><b>' + gr.n + '</b></button>';
+        return '<button type="button" class="pf-dep" data-g="' + gr.id + '" aria-pressed="false" onclick="pfGrupo(\'' + gr.id + '\')"><span class="ck">' + PF_SVG.check + '</span><b>' + gr.n + '</b></button>';
       }).join('') + '</div>' +
     '</div>' +
-    '<button type="button" class="pf-btn" id="pfOk" onclick="guardarPerfil()" disabled>Continuar</button>' +
-    '<div class="pf-note">Puedes cambiarlo cuando quieras desde el pie de la página.</div>';
+    '<div class="pf-foot"><button type="button" class="pf-btn" id="pfOk" onclick="guardarPerfil()" disabled>Continuar</button>' +
+    '<div class="pf-note">Puedes cambiarlo cuando quieras desde el pie de la página.</div></div>';
   ov.hidden = false;
   pfMarcasRender();
   document.documentElement.classList.add('cli-lock');
   pfUpd();
 }
 function pfRol(r) { _pf.rol = r; pfUpd(); }
+function pfMarcaAbrir() { _pf.abierta = true; pfMarcasRender(); pfUpd(); }
 function pfGrupo(g) { var i = _pf.grupos.indexOf(g); if (i >= 0) _pf.grupos.splice(i, 1); else _pf.grupos.push(g); pfUpd(); }
 function pfMarcasRender() {
   var box = document.getElementById('pfBrands'); if (!box) return;
@@ -2093,7 +2133,7 @@ function pfMarcasRender() {
   var list = MARCAS.filter(function (m) { return !nq || pfNorm(m.n).indexOf(nq) >= 0; });
   var tile = function (n, label) {
     var on = pfNorm(n) === pfNorm(_pf.marca);
-    return '<button type="button" class="pf-brand' + (on ? ' on' : '') + '" onclick="pfMarca(' + mcEsc(JSON.stringify(n)) + ')"><span class="mono">' + mcEsc(marcaMono(n)) + '</span><b>' + mcEsc(label || n) + '</b></button>';
+    return '<button type="button" class="pf-brand' + (on ? ' on' : '') + '" onclick="pfMarca(' + mcEsc(JSON.stringify(n)) + ')"><span class="mono">' + mcEsc(marcaMono(n)) + '</span><b>' + mcEsc(label || n) + '</b>' + (on ? '<span class="ok">' + PF_SVG.check + '</span>' : '') + '</button>';
   };
   var h = list.map(function (m) { return tile(m.n); }).join('');
   var exacta = MARCAS.some(function (m) { return pfNorm(m.n) === nq; });
@@ -2103,7 +2143,8 @@ function pfMarcasRender() {
   box.innerHTML = h || '<div class="mc-none">Sin resultados</div>';
 }
 function pfMarca(n) {
-  _pf.marca = n;
+  _pf.marca = n; _pf.abierta = false;
+  var bq = document.getElementById('pfBuscar'); if (bq) { bq.value = ''; bq.blur(); }
   var m = MARCAS.filter(function (x) { return x.n === n; })[0];
   if (m) _pf.grupos = m.g.slice();
   pfMarcasRender(); pfUpd();
@@ -2115,6 +2156,11 @@ function pfUpd() {
   var ds = ov.querySelectorAll('.pf-dep');
   for (var j = 0; j < ds.length; j++) { var on = _pf.grupos.indexOf(ds[j].getAttribute('data-g')) >= 0; ds[j].classList.toggle('on', on); ds[j].setAttribute('aria-pressed', on ? 'true' : 'false'); }
   document.getElementById('pfPro').hidden = _pf.rol !== 'promotor';
+  // Con una marca elegida la lista se pliega a una sola fila
+  var abierta = !_pf.marca || _pf.abierta, sel = document.getElementById('pfSel');
+  sel.hidden = abierta; document.getElementById('pfBuscarBox').hidden = !abierta; document.getElementById('pfBrands').hidden = !abierta;
+  if (!abierta) sel.innerHTML = '<span class="mono">' + mcEsc(marcaMono(_pf.marca)) + '</span><b>' + mcEsc(_pf.marca) + '</b><span class="ok">' + PF_SVG.check + '</span>' +
+    '<button type="button" class="pf-cambiar" onclick="pfMarcaAbrir()">Cambiar</button>';
   document.getElementById('pfOk').disabled = !(_pf.rol === 'vendedor' || (_pf.rol === 'promotor' && _pf.marca && _pf.grupos.length));
 }
 function guardarPerfil() {
