@@ -714,6 +714,22 @@ header{background:transparent;border:0}
 .ref-note{margin:16px auto 0;max-width:330px;text-align:center;font-size:11.5px;line-height:1.45;color:#8b8fa8}
 .pr-foot+.ref-note{margin-top:4px}
 @media(prefers-color-scheme:dark){.ref-note{color:#7d81a0}}
+/* v3.23 · Ventana de Códigos compacta: título y Cerrar siempre visibles */
+#bcBackdrop .bc-modal{display:flex;flex-direction:column;overflow:hidden;max-height:88dvh;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+#bcBackdrop .bc-modal-title{flex:none;padding-bottom:12px;margin-bottom:12px}
+#bcContent{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#bcBackdrop .bc-modal-btn{flex:none;margin-top:12px}
+#bcContent .bc-section{border:1px solid #ecedf4}
+#bcContent .bc-section+.bc-section{margin-top:12px;padding-top:14px;border-top:1px solid #ecedf4;border-radius:14px}
+#bcContent .bc-subtitle{margin-bottom:10px}
+#bcContent .bc-copy{margin-top:8px}
+.bc-adds{display:flex;gap:8px;margin-top:12px}
+.bc-adds .bc-addbtn{flex:1;min-width:0;max-width:none;height:44px;border-radius:12px;font-size:14px;gap:6px;white-space:nowrap}
+.bc-adds .bc-addbtn svg{width:17px;height:17px;flex:none}
+#bcContent .ref-note{margin-top:12px}
+@media(prefers-color-scheme:dark){
+#bcContent .bc-section,#bcContent .bc-section+.bc-section{border-color:transparent}
+}
   </style>
 </head>
 <body>
@@ -788,7 +804,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.22.0</div>
+  <div style="margin-top:10px">Versión 3.23.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -1265,9 +1281,9 @@ function openBcModal(idx, keepScroll) {
   if (_bcProd) {
     out += '<div class="bc-section bc-prod"><div class="bc-subtitle">Producto</div><div class="bc-pdesc">' + mcEsc(_bcProd.desc || 'Sin descripción') + '</div>' +
       buildBarcode(_bcProd.code) + bcCopyBtn(_bcProd.code) + '<div class="bc-pacts"><button type="button" onclick="mcPickOpen()">Cambiar</button><button type="button" onclick="bcProdClear()">Quitar</button></div></div>';
-  } else {
-    out += '<div class="bc-section bc-add"><button type="button" class="bc-addbtn" onclick="mcPickOpen()">' + MC_SVG.plus + 'Agregar producto</button><div class="bc-addhint">Desde tu lista de Mis códigos</div></div>';
   }
+  var adds = [];
+  if (!_bcProd) adds.push('<button type="button" class="bc-addbtn" onclick="mcPickOpen()">' + MC_SVG.plus + 'Producto</button>');
   var prs = promosVigentes(catActual, _bcAnios[idx] || 1);
   if (_bcPromo && prs.indexOf(_bcPromo) < 0) _bcPromo = null;
   if (_bcPromo) {
@@ -1276,12 +1292,14 @@ function openBcModal(idx, keepScroll) {
       '<div class="bc-pprice">+ S/ ' + cliMoney(_bcPromo.precio) + (_bcPromo.antes ? '<s>S/ ' + cliMoney(_bcPromo.antes) + '</s>' : '') + '</div>' +
       buildBarcode(pc) + bcCopyBtn(pc) + '<div class="bc-pacts"><button type="button" onclick="promoOpen(' + idx + ')">Cambiar</button><button type="button" onclick="bcPromoClear()">Quitar</button></div></div>';
   } else if (prs.length) {
-    out += '<div class="bc-section bc-add"><button type="button" class="bc-addbtn bc-addpr" onclick="promoOpen(' + idx + ')">' + PR_GIFT + 'Agregar promoción</button><div class="bc-addhint">' + prs.length + (prs.length === 1 ? ' promoción' : ' promociones') + ' con esta garantía</div></div>';
+    adds.push('<button type="button" class="bc-addbtn bc-addpr" onclick="promoOpen(' + idx + ')">' + PR_GIFT + 'Promoción · ' + prs.length + '</button>');
   }
-  var box = document.getElementById('bcContent'), modal = box.closest('.bc-modal'), st = modal ? modal.scrollTop : 0;
+  // Botones pequeños para agregar, en una sola fila
+  if (adds.length) out += '<div class="bc-adds">' + adds.join('') + '</div>';
+  var box = document.getElementById('bcContent');
   box.innerHTML = out + REF_NOTE;
   document.getElementById('bcBackdrop').classList.add('open');
-  if (modal) modal.scrollTop = keepScroll ? modal.scrollHeight : 0;
+  box.scrollTop = keepScroll ? box.scrollHeight : 0;
 }
 function closeBcModal(e) {
   if (!e || e.target === document.getElementById('bcBackdrop'))
