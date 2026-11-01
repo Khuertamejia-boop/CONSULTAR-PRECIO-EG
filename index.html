@@ -662,6 +662,19 @@ header{background:transparent;border:0}
 .mc-act-del{color:#ff9aad}.mc-act-del .ic{background:#2a1219;color:#ff7a93}
 .mc-act-del.arm .ic{background:#d23b5a;color:#fff}
 }
+/* v3.19 · Copiar código */
+.bc-copy{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;margin-top:10px;padding:0 14px;border:1.5px solid #dcdde8;border-radius:999px;background:#fff;color:#1d4fc4;font:inherit;font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .15s,border-color .15s}
+.bc-copy:active{background:#f0f4ff}
+.bc-copy .i2{display:none}
+.bc-copy.ok{border-color:#9fd8b8;color:#1a7a4d}
+.bc-copy.ok .i1{display:none}.bc-copy.ok .i2{display:inline}
+.bc-copy.sm{flex:none;margin:0 0 0 auto;height:30px;padding:0 10px;font-size:12.5px;gap:5px}
+.vg-code .h>span:nth-child(2){min-width:0}
+.mc-vbc .bc-copy{margin-top:8px}
+@media(prefers-color-scheme:dark){
+.vg-code .bc-copy.sm{background:transparent;border-color:#2f3148;color:#8fbaff}
+.vg-code .bc-copy.sm.ok{border-color:#1f5a3c;color:#5fd39a}
+}
   </style>
 </head>
 <body>
@@ -736,7 +749,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.18.2</div>
+  <div style="margin-top:10px">Versión 3.19.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -1206,11 +1219,11 @@ function openBcModal(idx, keepScroll) {
   _bcIdxOpen = idx;
   var out = '';
   for (var i=0;i<parsed.length;i++) {
-    out += '<div class="bc-section"><div class="bc-subtitle">' + parsed[i].titulo + '</div>' + buildBarcode(parsed[i].cod) + '</div>';
+    out += '<div class="bc-section"><div class="bc-subtitle">' + parsed[i].titulo + '</div>' + buildBarcode(parsed[i].cod) + bcCopyBtn(parsed[i].cod) + '</div>';
   }
   if (_bcProd) {
     out += '<div class="bc-section bc-prod"><div class="bc-subtitle">Producto</div><div class="bc-pdesc">' + mcEsc(_bcProd.desc || 'Sin descripción') + '</div>' +
-      buildBarcode(_bcProd.code) + '<div class="bc-pacts"><button type="button" onclick="mcPickOpen()">Cambiar</button><button type="button" onclick="bcProdClear()">Quitar</button></div></div>';
+      buildBarcode(_bcProd.code) + bcCopyBtn(_bcProd.code) + '<div class="bc-pacts"><button type="button" onclick="mcPickOpen()">Cambiar</button><button type="button" onclick="bcProdClear()">Quitar</button></div></div>';
   } else {
     out += '<div class="bc-section bc-add"><button type="button" class="bc-addbtn" onclick="mcPickOpen()">' + MC_SVG.plus + 'Agregar producto</button><div class="bc-addhint">Desde tu lista de Mis códigos</div></div>';
   }
@@ -1666,7 +1679,7 @@ function mcOpenView(id) {
   var h = mcTop('Código de barras') + '<div class="cli-body mc-view">' +
     (it.cat ? '<span class="mc-cat chip" data-cat="' + it.cat + '">' + mcIcon(it.cat) + mcEsc(mcCatName(it.cat)) + ' · ' + mcEsc(mcLinea(it)) + '</span>' : '') +
     '<h2 class="mc-vdesc">' + mcEsc(it.desc || 'Sin descripción') + '</h2>' + (it.note ? '<p class="mc-vnote">' + mcEsc(it.note) + '</p>' : '') +
-    '<div class="mc-vbc">' + buildBarcode(it.code) + '</div>' +
+    '<div class="mc-vbc">' + buildBarcode(it.code) + bcCopyBtn(it.code) + '</div>' +
     '<div class="mc-vsku">SKU <b>' + it.code.slice(4, 12) + '</b> · Depto. <b>' + it.code.slice(0, 4) + '</b></div>' +
     '<div class="mc-acts">' +
     '<button type="button" class="mc-act" onclick="mcOpenForm(\'' + it.id + '\')"><span class="ic">' + MC_SVG.edit + '</span>Editar</button>' +
@@ -2274,7 +2287,7 @@ function vgCodesRender() {
     (eg ? '<div class="vg-cuota"><span>12 cuotas Tarjeta Ripley</span><b>S/ ' + cliMoney(total * CUOTA_VG) + '</b></div>' : '') + '</div><div class="vg-codes">';
   vgCodes().forEach(function (c, i) {
     var d = !!_vg.done[i];
-    h += '<button type="button" class="vg-code' + (d ? ' done' : '') + '" onclick="vgDone(' + i + ')"><span class="h"><span class="n">' + (d ? PF_SVG.check : i + 1) + '</span><span><b>' + mcEsc(c.t) + '</b><small>' + mcEsc(c.d) + '</small></span></span>' +
+    h += '<button type="button" class="vg-code' + (d ? ' done' : '') + '" onclick="vgDone(' + i + ')"><span class="h"><span class="n">' + (d ? PF_SVG.check : i + 1) + '</span><span><b>' + mcEsc(c.t) + '</b><small>' + mcEsc(c.d) + '</small></span>' + bcCopyBtn(c.code, true) + '</span>' +
       '<span class="bcw">' + buildBarcode(c.code) + '</span></button>';
   });
   h += '</div><div class="vg-hint">Toca cada código después de escanearlo para marcarlo.</div></div>' +
@@ -2450,6 +2463,31 @@ document.getElementById('precio').addEventListener('input', function(){
 window.addEventListener('load', loadCatPreference);
 window.addEventListener('load', function () { aplicarPerfil(); if (!perfil()) abrirPerfil(false); });
 
+// ── Copiar los 13 dígitos de cualquier código de barras ──
+var BC_COPY_ICO = '<svg class="i1" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2.2"/><path d="M15.5 8.5V6.2A2.2 2.2 0 0 0 13.3 4H6.2A2.2 2.2 0 0 0 4 6.2v7.1a2.2 2.2 0 0 0 2.2 2.2h2.3"/></svg><svg class="i2" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function bcCopyBtn(code, corto) {
+  var t = corto ? 'Copiar' : 'Copiar código';
+  if (corto) return '<span class="bc-copy sm" role="button" tabindex="0" aria-label="Copiar ' + code + '" onclick="bcCopy(event, \'' + code + '\', this)">' + BC_COPY_ICO + '<span data-l="' + t + '">' + t + '</span></span>';
+  return '<button type="button" class="bc-copy" aria-label="Copiar ' + code + '" onclick="bcCopy(event, \'' + code + '\', this)">' + BC_COPY_ICO + '<span data-l="' + t + '">' + t + '</span></button>';
+}
+function bcCopy(e, code, el) {
+  if (e) { e.stopPropagation(); e.preventDefault(); }
+  function ok() {
+    mcToast(code + ' copiado');
+    if (!el) return;
+    var lb = el.querySelector('span[data-l]');
+    el.classList.add('ok'); if (lb) lb.textContent = 'Copiado';
+    clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove('ok'); if (lb) lb.textContent = lb.getAttribute('data-l'); }, 1600);
+  }
+  function viejo() {
+    var ta = document.createElement('textarea'), r = false;
+    ta.value = code; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, 99);
+    try { r = document.execCommand('copy'); } catch (x) {}
+    ta.remove(); if (r) ok(); else mcToast(code);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(ok, viejo); else viejo();
+}
 function buildBarcode(code) {
   var L=['0001101','0011001','0010011','0111101','0100011','0110001','0101111','0111011','0110111','0001011'],
       G=['0100111','0110011','0011011','0100001','0011101','0111001','0000101','0010001','0001001','0010111'],
