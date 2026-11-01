@@ -710,6 +710,10 @@ header{background:transparent;border:0}
 .pr-pr s{color:#7d81a0}
 .pr-img,.vg-primg{border-color:#1d1f2e}
 }
+/* v3.22 · Nota de precios referenciales */
+.ref-note{margin:16px auto 0;max-width:330px;text-align:center;font-size:11.5px;line-height:1.45;color:#8b8fa8}
+.pr-foot+.ref-note{margin-top:4px}
+@media(prefers-color-scheme:dark){.ref-note{color:#7d81a0}}
   </style>
 </head>
 <body>
@@ -784,7 +788,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.21.0</div>
+  <div style="margin-top:10px">Versión 3.22.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -922,6 +926,7 @@ document.getElementById('vigenciaTasas').textContent = VIGENCIA_TASAS;
 var catActual = '';
 var _elPrecio, _elRes;
 var _bcRegistry = [];
+var REF_NOTE = '<p class="ref-note">Precios y promociones referenciales. Consulta el monto final en caja.</p>';
 var _pkTab = { cat: '', i: 0 };
 const PK_CHEV = '<svg class="pk-chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 const PK_BC_ICO = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="3" y="4" width="2" height="16" rx=".4"/><rect x="7" y="4" width="1" height="16" rx=".4"/><rect x="10" y="4" width="2.4" height="16" rx=".4"/><rect x="14.4" y="4" width="1" height="16" rx=".4"/><rect x="17" y="4" width="1.4" height="16" rx=".4"/><rect x="20" y="4" width="1.6" height="16" rx=".4"/></svg>';
@@ -1017,7 +1022,7 @@ function calcular() {
     });
     html += '</div></div>';
   });
-  html += '</div>';
+  html += '</div>' + REF_NOTE;
   res.innerHTML = html;
   updMini();
 }
@@ -1274,7 +1279,7 @@ function openBcModal(idx, keepScroll) {
     out += '<div class="bc-section bc-add"><button type="button" class="bc-addbtn bc-addpr" onclick="promoOpen(' + idx + ')">' + PR_GIFT + 'Agregar promoción</button><div class="bc-addhint">' + prs.length + (prs.length === 1 ? ' promoción' : ' promociones') + ' con esta garantía</div></div>';
   }
   var box = document.getElementById('bcContent'), modal = box.closest('.bc-modal'), st = modal ? modal.scrollTop : 0;
-  box.innerHTML = out;
+  box.innerHTML = out + REF_NOTE;
   document.getElementById('bcBackdrop').classList.add('open');
   if (modal) modal.scrollTop = keepScroll ? modal.scrollHeight : 0;
 }
@@ -2227,7 +2232,7 @@ function promoOpen(idx) {
   var fin = ps.map(function (x) { return x.hasta || ''; }).sort()[0];
   var h = mcTop('Promociones') + '<div class="cli-body mc-form"><p class="pr-sub">Con esta Extra Garantía en ' + mcEsc(mcCatName(catActual)) + '. Toca una para agregarla a los códigos (no son acumulables).</p><div class="pr-list">';
   ps.forEach(function (x, i) { h += promoCard(x, _bcPromo === x, 'promoSel(' + idx + ',' + i + ')', catActual); });
-  h += '</div>' + (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + '</div>';
+  h += '</div>' + (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + REF_NOTE + '</div>';
   mcSheet(h);
 }
 function promoSel(idx, i) {
@@ -2353,7 +2358,7 @@ function vgPlansRender() {
   });
   var none = _vg.sel === 'none';
   h += '<button type="button" class="vg-pr vg-none' + (none ? ' on' : '') + '" onclick="vgPick(-1)"><span class="vg-rd">' + (none ? PF_SVG.check : '') + '</span><span class="pv2-nm">Sin Extra Garantía</span></button></div>';
-  box.innerHTML = h;
+  box.innerHTML = h + REF_NOTE;
   btn.disabled = !_vg.sel;
   btn.textContent = !_vg.sel ? 'Elige un plan' : none ? 'Continuar sin Extra Garantía' : 'Continuar · ' + _vg.sel.pl.l + ' · S/ ' + cliMoney(_vg.sel.total);
 }
@@ -2399,7 +2404,7 @@ function vgCodesRender() {
     h += '<button type="button" class="vg-code' + (d ? ' done' : '') + '" onclick="vgDone(' + i + ')"><span class="h"><span class="n">' + (d ? PF_SVG.check : i + 1) + '</span><span><b>' + mcEsc(c.t) + '</b><small>' + mcEsc(c.d) + '</small></span>' + bcCopyBtn(c.code, true) + '</span>' +
       '<span class="bcw">' + buildBarcode(c.code) + '</span></button>';
   });
-  h += '</div><div class="vg-hint">Toca cada código después de escanearlo para marcarlo.</div></div>' +
+  h += '</div><div class="vg-hint">Toca cada código después de escanearlo para marcarlo.</div>' + REF_NOTE + '</div>' +
     '<div class="cli-foot"><button type="button" class="mc-b1 mc-wide" onclick="vgFin()">' + VG_SVG.done + 'Nueva venta</button></div>';
   var old = document.querySelector('#mcSheet .cli-body'), st = old && _vg.keep ? old.scrollTop : 0;
   mcSheet(h);
