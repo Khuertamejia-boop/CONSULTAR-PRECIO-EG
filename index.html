@@ -736,7 +736,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.18.0</div>
+  <div style="margin-top:10px">Versión 3.18.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -1971,7 +1971,7 @@ function aplicarPerfil() {
   row.style.gridTemplateColumns = pro ? 'repeat(' + Math.min(vis, 3) + ',minmax(0,1fr))' : '';
   if (g && g.cats.indexOf(catActual) < 0 && first) applyCat(first.getAttribute('data-cat'), first.getAttribute('data-lbl'), first);
   var mf = document.getElementById('modoFoot');
-  if (mf) mf.innerHTML = (pro ? 'Modo promotor · ' + mcEsc(p.marca) + ' · ' + mcEsc(g.n) : 'Modo vendedor') + ' · <button type="button" onclick="abrirPerfil(true)">Cambiar</button>';
+  if (mf) mf.innerHTML = (pro ? 'Modo promotor · ' + mcEsc(p.marca) + ' · ' + mcEsc(g.n) : 'Modo asesor') + ' · <button type="button" onclick="abrirPerfil(true)">Cambiar</button>';
   mcHeadRender();
 }
 function abrirPerfil(editar) {
@@ -1986,7 +1986,7 @@ function abrirPerfil(editar) {
   ov.innerHTML = (editar ? '<button type="button" class="pf-x cli-x" aria-label="Cerrar" onclick="cerrarPerfil()">' + CLI_ICO.x + '</button>' : '') +
     '<div class="pf-hdr">' + (logo ? '<img src="' + logo.src + '" alt="Ripley">' : '') + '<div><b>Extra Garantía</b><span>Uso interno · Atocongo</span></div></div>' +
     '<h1>¿Cómo usarás la app?</h1><p class="pf-sub">Lo eliges una vez en este celular.</p>' +
-    '<div class="pf-opts">' + opt('vendedor', PF_SVG.team, 'Soy vendedor', 'Veo todos los departamentos') + opt('promotor', PF_SVG.badge, 'Soy promotor', 'Trabajo con una marca') + '</div>' +
+    '<div class="pf-opts">' + opt('vendedor', PF_SVG.team, 'Asesor', 'Veo todos los departamentos') + opt('promotor', PF_SVG.badge, 'Promotor', 'Trabajo con una marca') + '</div>' +
     '<div id="pfPro" hidden>' +
       '<h2><label for="pfBuscar">¿Qué marca representas?</label></h2>' +
       '<div class="mc-search">' + MC_SVG.search + '<input id="pfBuscar" type="search" maxlength="30" autocomplete="off" placeholder="Buscar marca" oninput="pfMarcasRender()"></div>' +
