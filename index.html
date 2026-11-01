@@ -675,6 +675,38 @@ header{background:transparent;border:0}
 .vg-code .bc-copy.sm{background:transparent;border-color:#2f3148;color:#8fbaff}
 .vg-code .bc-copy.sm.ok{border-color:#1f5a3c;color:#5fd39a}
 }
+/* v3.20 · Promociones */
+.pk-prm{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:10px;border:1.5px solid #1a8455;background:transparent;color:#1a7a4d;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.pk-prm:active{transform:scale(.97)}
+.bc-addpr{border-color:#8fd3ae;background:#effaf4;color:#1a7a4d}
+.bc-pprice{margin:-6px 0 12px;font-size:14px;font-weight:800;color:#1a7a4d}
+.bc-pprice s{margin-left:7px;font-weight:600;color:#8b8fa8}
+.pr-sub{margin:2px 0 14px;text-align:center;font-size:13px;line-height:1.4;color:#6e7189}
+.pr-list{display:flex;flex-direction:column;gap:10px}
+.pr-card{display:flex;flex-direction:column;align-items:stretch;gap:5px;width:100%;padding:14px 16px;border:1.5px solid #e2e3ec;border-radius:16px;background:#fff;font:inherit;color:#16162c;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pr-card:active{transform:scale(.99)}
+.pr-card.on{border-color:#2563eb;background:#f2f6fe}
+.pr-top{display:flex;align-items:flex-start;gap:10px}
+.pr-nm{flex:1;min-width:0;font-size:15px;font-weight:800;line-height:1.3}
+.pr-pr{flex:none;display:flex;flex-direction:column;align-items:flex-end;line-height:1.2}
+.pr-pr b{font-size:16px;font-weight:800;color:#1a7a4d;white-space:nowrap}
+.pr-pr s{font-size:12px;color:#8b8fa8;white-space:nowrap}
+.pr-hl{font-size:12.5px;line-height:1.4;color:#4b4f6b}
+.pr-ci{margin-top:3px;padding-left:9px;border-left:3px solid #cfe0ff;font-size:12.5px;line-height:1.4;font-style:italic;color:#6e7189}
+.pr-foot{margin-top:14px;text-align:center;font-size:12px;color:#8b8fa8}
+.pv2-hl{display:block;margin-top:2px;font-size:12px;line-height:1.35;color:#6e7189}
+@media(prefers-color-scheme:dark){
+.pk-prm{border-color:#2f7d57;color:#7fe0ad}
+.bc-addpr{border-color:rgba(95,211,154,.45);background:rgba(26,132,85,.14);color:#7fe0ad}
+.pr-sub,.pr-foot{color:#9da1bb}
+.pr-card{background:#11121b;border-color:#1d1f2e;color:#f2f3f8}
+.pr-card.on{border-color:#3b82f6;background:#0f1a33}
+.pr-pr b{color:#5fd39a}
+.pr-pr s{color:#7d81a0}
+.pr-hl{color:#b4b8cf}
+.pr-ci{color:#9da1bb;border-left-color:#1f3357}
+.pv2-hl{color:#9da1bb}
+}
   </style>
 </head>
 <body>
@@ -749,7 +781,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.19.0</div>
+  <div style="margin-top:10px">Versión 3.20.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -891,7 +923,7 @@ var _pkTab = { cat: '', i: 0 };
 const PK_CHEV = '<svg class="pk-chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 const PK_BC_ICO = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="3" y="4" width="2" height="16" rx=".4"/><rect x="7" y="4" width="1" height="16" rx=".4"/><rect x="10" y="4" width="2.4" height="16" rx=".4"/><rect x="14.4" y="4" width="1" height="16" rx=".4"/><rect x="17" y="4" width="1.4" height="16" rx=".4"/><rect x="20" y="4" width="1.6" height="16" rx=".4"/></svg>';
 function calcular() {
-  _bcRegistry = [];
+  _bcRegistry = []; _bcAnios = [];
   if(!_elPrecio){_elPrecio=document.getElementById('precio');_elRes=document.getElementById('resultados');}
   const key = catActual;
   const precio = parseFloat(_elPrecio.value.replace(/,/g,''));
@@ -947,7 +979,7 @@ function calcular() {
       const idx = n + 1;
       const widgetLabel = plan.l.toUpperCase();
       let bcIdx = -1;
-      if (plan.bc) { bcIdx = _bcRegistry.length; _bcRegistry.push(plan.bc); }
+      if (plan.bc) { bcIdx = _bcRegistry.length; _bcRegistry.push(plan.bc); _bcAnios.push(parseInt(plan.l, 10) || 1); }
       r.bcIdx = bcIdx;
       const ri = rows.length - 1 - n;
       const t = r.total;
@@ -972,7 +1004,8 @@ function calcular() {
           '<div class="pk-sep"></div>' +
           '<div class="pk-row pk-row-tot"><span>Precio final total</span><b>' + totalTxt + '</b></div>' +
           '<div class="pk-acts"><button type="button" class="pk-cuotas" onclick="openDetalleModal(' + detalleArgs + ')">Ver cuotas con Tarjeta Ripley</button>' +
-          '<button type="button" class="pk-cli" onclick="openCliente(' + gi + ',' + ri + ')">' + CLI_ICO.eye + 'Mostrar al cliente</button></div>' +
+          (function () { var np = plan.bc ? promosVigentes(key, parseInt(plan.l, 10) || 1).length : 0;
+            return np ? '<button type="button" class="pk-prm" onclick="promoOpen(' + bcIdx + ')">' + PR_GIFT + 'Promociones · ' + np + '</button>' : ''; })() + '</div>' +
         '</div>' +
         '<div class="pk-r3">' + save +
           (plan.bc ? '<button type="button" class="pk-cod" onclick="openBcModal(' + bcIdx + ')">' + PK_BC_ICO + '<span>Códigos</span></button>' : '') +
@@ -1226,6 +1259,16 @@ function openBcModal(idx, keepScroll) {
       buildBarcode(_bcProd.code) + bcCopyBtn(_bcProd.code) + '<div class="bc-pacts"><button type="button" onclick="mcPickOpen()">Cambiar</button><button type="button" onclick="bcProdClear()">Quitar</button></div></div>';
   } else {
     out += '<div class="bc-section bc-add"><button type="button" class="bc-addbtn" onclick="mcPickOpen()">' + MC_SVG.plus + 'Agregar producto</button><div class="bc-addhint">Desde tu lista de Mis códigos</div></div>';
+  }
+  var prs = promosVigentes(catActual, _bcAnios[idx] || 1);
+  if (_bcPromo && prs.indexOf(_bcPromo) < 0) _bcPromo = null;
+  if (_bcPromo) {
+    var pc = _bcPromo.codigos[catActual];
+    out += '<div class="bc-section bc-prod bc-promo"><div class="bc-subtitle">Promoción</div><div class="bc-pdesc">' + mcEsc(_bcPromo.nombre) + '</div>' +
+      '<div class="bc-pprice">+ S/ ' + cliMoney(_bcPromo.precio) + (_bcPromo.antes ? '<s>S/ ' + cliMoney(_bcPromo.antes) + '</s>' : '') + '</div>' +
+      buildBarcode(pc) + bcCopyBtn(pc) + '<div class="bc-pacts"><button type="button" onclick="promoOpen(' + idx + ')">Cambiar</button><button type="button" onclick="bcPromoClear()">Quitar</button></div></div>';
+  } else if (prs.length) {
+    out += '<div class="bc-section bc-add"><button type="button" class="bc-addbtn bc-addpr" onclick="promoOpen(' + idx + ')">' + PR_GIFT + 'Agregar promoción</button><div class="bc-addhint">' + prs.length + (prs.length === 1 ? ' promoción' : ' promociones') + ' con esta garantía</div></div>';
   }
   var box = document.getElementById('bcContent'), modal = box.closest('.bc-modal'), st = modal ? modal.scrollTop : 0;
   box.innerHTML = out;
@@ -2126,7 +2169,66 @@ function mcLineaUpd() {
 // ═══ Promociones con Extra Garantía (se actualizan cada mes) ═══
 // Formato: { nombre:'Audífonos HAVIT', precio:9.90, antes:129.90, desde:'2026-11-01', hasta:'2026-11-30',
 //            codigos:{ audio:'2044373316991' }, minAnios:0, cond:'' }
-var PROMOS_EG = [];
+var PROMOS_EG = [
+  // HAVIT · noviembre 2026 · con cualquier Extra Garantía del departamento · no acumulables · hasta agotar stock
+  { nombre: 'Audífonos inalámbricos HAVIT', precio: 9.90, antes: 129.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: 'Bluetooth 6.0 · 5,5 h por carga y hasta 30 h con el estuche',
+    cierre: 'Por {p} adicionales, ¿te los llevas junto con tu garantía?',
+    codigos: { audio: '2044374317638', tv: '2044374317638', electronicamenor: '2044373317035', lineablanca: '2044373317035' } },
+  { nombre: 'Parlante portátil HAVIT SK801BT', precio: 9.90, antes: 99.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: '5 W · Bluetooth 5.3 · hasta 6 h · llamadas manos libres',
+    cierre: 'Por {p} adicionales, ¿lo sumamos a tu compra con la garantía?',
+    codigos: { electro: '2044374317577', computo: '2044374317577', audio: '2044373317004', telefonia: '2044373317004' } },
+  { nombre: 'Cargador rápido HAVIT ST972 Pro', precio: 9.90, antes: 59.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: 'Cubo USB-C de 30 W + cable USB-C de 2 m (hasta 60 W)',
+    cierre: 'Por {p} adicionales, ¿lo agregamos junto con tu garantía?',
+    codigos: { telefonia: '2044374318826', computo: '2044373317042' } },
+  { nombre: 'Audífonos HAVIT H633BT', precio: 29.90, antes: 149.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: 'Bluetooth 5.1 · hasta 22 h · micrófono para llamadas',
+    cierre: 'Por {p} adicionales, ¿te los agrego junto con tu garantía?',
+    codigos: { telefonia: '2044374317553', computo: '2044373316991' } },
+  { nombre: 'Smartwatch HAVIT M9068', precio: 49.90, antes: 299.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: 'AMOLED 2.01" · llamadas Bluetooth · +100 modos deportivos · IP68',
+    cierre: 'Por {p} adicionales, ¿te gustaría llevarlo con tu garantía?',
+    codigos: { tv: '2044374318840', telefonia: '2044373317059' } },
+  { nombre: 'Parlante HAVIT SK907BT', precio: 79.90, antes: 359.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: '30 W (40 W pico) · hasta 25 h · Bluetooth, USB, micro-SD y AUX',
+    cierre: 'Por {p} adicionales, ¿te gustaría llevarlo junto con tu garantía?',
+    codigos: { tv: '2044374317591', lineablanca: '2044373317011' } },
+  { nombre: 'Combo HAVIT parlante + audífonos', precio: 99.00, antes: 429.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: 'Audífonos H668BT con cancelación de ruido + parlante SK905BT resistente al agua',
+    cierre: 'Por {p} adicionales, te llevas ambos productos. ¿Los agregamos con tu garantía?',
+    codigos: { tv: '2044374317614', lineablanca: '2044373317028' } },
+  { nombre: 'Proyector HAVIT PJ221-US', precio: 99.90, antes: 429.90, desde: '2026-11-01', hasta: '2026-11-30',
+    hl: 'Hasta 120" · 720p nativo (admite 1080p) · Wi-Fi, Bluetooth y HDMI',
+    cierre: 'Por {p} adicionales, ¿te gustaría llevarte el proyector junto con tu garantía?',
+    codigos: { computo: '2044373317066', lineablanca: '2044373317066', consolas: '2044374318864', tv: '2044374318864', telefonia: '2044374318864' } }
+];
+var PR_GIFT = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
+var _bcPromo = null, _bcAnios = [];
+function promoCierre(pr) { return pr.cierre ? pr.cierre.replace('{p}', 'S/ ' + cliMoney(pr.precio)) : ''; }
+function promoCard(pr, on, fn) {
+  return '<button type="button" class="pr-card' + (on ? ' on' : '') + '" onclick="' + fn + '">' +
+    '<span class="pr-top"><span class="pr-nm">' + mcEsc(pr.nombre) + '</span><span class="pr-pr"><b>+ S/ ' + cliMoney(pr.precio) + '</b>' + (pr.antes ? '<s>S/ ' + cliMoney(pr.antes) + '</s>' : '') + '</span></span>' +
+    (pr.hl ? '<span class="pr-hl">' + mcEsc(pr.hl) + '</span>' : '') +
+    (pr.cond ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') +
+    (pr.cierre ? '<span class="pr-ci">“' + mcEsc(promoCierre(pr)) + '”</span>' : '') + '</button>';
+}
+// Lista de promociones para el plan de la ventana de Códigos
+function promoOpen(idx) {
+  var ps = promosVigentes(catActual, _bcAnios[idx] || 1); if (!ps.length) return;
+  var fin = ps.map(function (x) { return x.hasta || ''; }).sort()[0];
+  var h = mcTop('Promociones') + '<div class="cli-body mc-form"><p class="pr-sub">Con esta Extra Garantía en ' + mcEsc(mcCatName(catActual)) + ' · elige 1, no son acumulables</p><div class="pr-list">';
+  ps.forEach(function (x, i) { h += promoCard(x, _bcPromo === x, 'promoSel(' + idx + ',' + i + ')'); });
+  h += '</div>' + (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + '</div>';
+  mcSheet(h);
+}
+function promoSel(idx, i) {
+  var x = promosVigentes(catActual, _bcAnios[idx] || 1)[i]; if (!x) return;
+  var abierta = document.getElementById('bcBackdrop').classList.contains('open');
+  _bcPromo = x; mcClose(); openBcModal(idx, abierta);
+}
+function bcPromoClear() { _bcPromo = null; if (_bcIdxOpen >= 0) openBcModal(_bcIdxOpen, true); }
 function hoyISO() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
 function promosVigentes(cat, anios) {
   var h = hoyISO();
@@ -2204,6 +2306,7 @@ function vgRender() {
       var on = _vg.promo === i;
       h += '<button type="button" class="vg-pr' + (on ? ' on' : '') + '" onclick="vgPromo(' + i + ')"><span class="vg-rd">' + (on ? PF_SVG.check : '') + '</span>' +
         '<span class="pv2-tx"><span class="pv2-nm">' + mcEsc(p.nombre) + '</span><span class="pv2-pr"><b>S/ ' + cliMoney(p.precio) + '</b>' + (p.antes ? '<s>S/ ' + cliMoney(p.antes) + '</s>' : '') + '</span>' +
+        (p.hl ? '<span class="pv2-hl">' + mcEsc(p.hl) + '</span>' : '') +
         (p.cond ? '<span class="pv3-tg hoy">' + mcEsc(p.cond) + '</span>' : '') + '</span></button>';
     });
     h += '<button type="button" class="vg-pr vg-none' + (_vg.promo === -1 ? ' on' : '') + '" onclick="vgPromo(-1)"><span class="vg-rd">' + (_vg.promo === -1 ? PF_SVG.check : '') + '</span><span class="pv2-nm">Sin promoción</span></button></div></div>' +
@@ -2342,7 +2445,7 @@ function safeRemove(k){ try{localStorage.removeItem(k);}catch(e){} }
 
 // Chip selection
 function applyCat(value, label, el) {
-  if (value !== catActual) _bcProd = null;
+  if (value !== catActual) { _bcProd = null; _bcPromo = null; }
   catActual = value;
   safeSet(LAST_KEY, value);
   var chips = document.querySelectorAll('.chip');
