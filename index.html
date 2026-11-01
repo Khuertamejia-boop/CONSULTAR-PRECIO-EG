@@ -317,6 +317,15 @@ header{background:transparent;border:0}
 .cli-foot{background:#07070c;border-color:#22243a}
 }
 /* Mis códigos v3.14 */
+.bc-add{padding:16px 10px}
+.bc-addbtn{width:100%;max-width:285px;height:50px;border-radius:14px;border:1.5px dashed #9bb7f0;background:#f2f6fe;color:#1d4fc4;font:inherit;font-size:15px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.bc-addhint{margin-top:8px;font-size:12px;color:#8b8fa8}
+.bc-pdesc{margin:-6px 0 12px;font-size:15px;font-weight:800;color:#16162c;line-height:1.3}
+.bc-pacts{display:flex;justify-content:center;gap:18px;margin-top:10px}
+.bc-pacts button{border:0;background:none;padding:6px 4px;font:inherit;font-size:13.5px;font-weight:700;color:#2563eb;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.bc-pacts button+button{color:#6e7189}
+.mc-pick{margin-top:14px}
+#mcSheet{z-index:250}
 .mode-tab{white-space:nowrap}
 #viewCodigos{padding:6px 2px 4px}
 .mc-sub{margin:-6px 0 16px;text-align:center;font-size:13.5px;line-height:1.45;color:#5d6178}
@@ -325,8 +334,8 @@ header{background:transparent;border:0}
 .mc-search{position:relative;margin-top:14px}
 .mc-search[hidden]{display:none}
 .mc-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8b8fa8;pointer-events:none}
-#mcSearch{width:100%;height:46px;box-sizing:border-box;padding:0 14px 0 42px;border:1.5px solid #e4e5ef;border-radius:14px;background:#fff;font:inherit;font-size:16px;color:#16162c;outline:none}
-#mcSearch:focus{border-color:#2563eb}
+#mcSearch,#mcPickQ{width:100%;height:46px;box-sizing:border-box;padding:0 14px 0 42px;border:1.5px solid #e4e5ef;border-radius:14px;background:#fff;font:inherit;font-size:16px;color:#16162c;outline:none}
+#mcSearch:focus,#mcPickQ:focus{border-color:#2563eb}
 #mcList{margin-top:16px}
 .mc-grp+.mc-grp{margin-top:18px}
 .mc-grp-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:13px;font-weight:800;color:#4b4f6b}
@@ -400,7 +409,7 @@ header{background:transparent;border:0}
 #mcImpDep[hidden]{display:none}
 @media(prefers-color-scheme:dark){
 .mc-sub,.mc-help{color:#b4b8cf}.mc-help b{color:#f2f3f8}
-#mcSearch,.mc-in{background:transparent;border-color:#2f3148;color:#f2f3f8}
+#mcSearch,#mcPickQ,.mc-in{background:transparent;border-color:#2f3148;color:#f2f3f8}
 .mc-grp-h{color:#b4b8cf}.mc-grp-h small{color:#7d81a0}
 .mc-rows,.mc-row{border-color:#22243a}
 .mc-tx small,.mc-tx code{color:#9da1bb}
@@ -422,6 +431,9 @@ header{background:transparent;border:0}
 .mc-msg{background:rgba(210,59,90,.16);color:#ff8fa5}
 .mc-msg.warn{background:rgba(240,180,74,.14);color:#ffc56b}
 .mc-msg.ok{background:#123826;color:#6fe0a8}
+.bc-add{background:transparent}
+.bc-addbtn{background:rgba(37,99,235,.12);border-color:rgba(143,186,255,.5);color:#a9c8ff}
+.bc-addhint{color:#7d81a0}
 }
   </style>
 </head>
@@ -498,7 +510,7 @@ header{background:transparent;border:0}
 
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
-  <div style="margin-top:10px">Versión 3.14.0</div>
+  <div style="margin-top:10px">Versión 3.15.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -962,15 +974,24 @@ function closeDetalleModal(e) {
 }
 
 // Barcode modal
-function openBcModal(idx) {
+function openBcModal(idx, keepScroll) {
   var parsed = _bcRegistry[idx];
   if (!parsed) return;
+  _bcIdxOpen = idx;
   var out = '';
   for (var i=0;i<parsed.length;i++) {
     out += '<div class="bc-section"><div class="bc-subtitle">' + parsed[i].titulo + '</div>' + buildBarcode(parsed[i].cod) + '</div>';
   }
-  document.getElementById('bcContent').innerHTML = out;
+  if (_bcProd) {
+    out += '<div class="bc-section bc-prod"><div class="bc-subtitle">Producto</div><div class="bc-pdesc">' + mcEsc(_bcProd.desc || 'Sin descripción') + '</div>' +
+      buildBarcode(_bcProd.code) + '<div class="bc-pacts"><button type="button" onclick="mcPickOpen()">Cambiar</button><button type="button" onclick="bcProdClear()">Quitar</button></div></div>';
+  } else {
+    out += '<div class="bc-section bc-add"><button type="button" class="bc-addbtn" onclick="mcPickOpen()">' + MC_SVG.plus + 'Agregar producto</button><div class="bc-addhint">Desde tu lista de Mis códigos</div></div>';
+  }
+  var box = document.getElementById('bcContent'), modal = box.closest('.bc-modal'), st = modal ? modal.scrollTop : 0;
+  box.innerHTML = out;
   document.getElementById('bcBackdrop').classList.add('open');
+  if (modal) modal.scrollTop = keepScroll ? modal.scrollHeight : 0;
 }
 function closeBcModal(e) {
   if (!e || e.target === document.getElementById('bcBackdrop'))
@@ -1221,7 +1242,7 @@ function copiarCodigo(cod, el){
 var MC_KEY = 'eg_mis_codigos';
 var MC_PREF = {tv:'2018', audio:'2018', computo:'2004', consolas:'2031', lineablanca:'2003', electro:'2019', cuidado:'2019', electronicamenor:'2065', telefonia:'2065'};
 var MC_ORDER = ['tv','audio','electronicamenor','computo','consolas','telefonia','lineablanca','electro','cuidado'];
-var _mcForm = null, _mcImport = { cat: '' }, _mcViewBlob = null, _mcDelTimer = null;
+var _mcForm = null, _mcImport = { cat: '' }, _mcViewBlob = null, _mcDelTimer = null, _bcProd = null, _bcIdxOpen = -1;
 
 function mcEsc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function mcLoad() { try { var a = JSON.parse(safeGet(MC_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
@@ -1263,24 +1284,60 @@ function mcRender() {
       '<span>Agrega tus modelos una vez y luego muéstralos en caja con un toque.</span></div>';
     return;
   }
-  var q = (document.getElementById('mcSearch').value || '').trim().toLowerCase();
-  var list = all.filter(function (it) { return !q || (it.desc + ' ' + (it.note || '') + ' ' + it.code).toLowerCase().indexOf(q) >= 0; });
+  var q = (document.getElementById('mcSearch').value || '').trim();
+  var list = mcFilter(all, q);
   if (!list.length) { box.innerHTML = '<div class="mc-none">No hay resultados para “' + mcEsc(q) + '”.</div>'; return; }
+  box.innerHTML = mcGroupsHtml(list, 'mcOpenView', '');
+}
+function mcFilter(list, q) {
+  q = (q || '').trim().toLowerCase();
+  return list.filter(function (it) { return !q || (it.desc + ' ' + (it.note || '') + ' ' + it.code).toLowerCase().indexOf(q) >= 0; });
+}
+function mcGroupsHtml(list, fn, first) {
   var groups = {};
   list.forEach(function (it) { var k = it.cat || ''; (groups[k] = groups[k] || []).push(it); });
   var keys = MC_ORDER.filter(function (k) { return groups[k]; }); if (groups['']) keys.push('');
+  if (first && groups[first]) keys = [first].concat(keys.filter(function (k) { return k !== first; }));
   var h = '';
   keys.forEach(function (k) {
     var g = groups[k].sort(function (a, b) { return (a.desc || '').localeCompare(b.desc || '', 'es', { sensitivity: 'base' }); });
     h += '<div class="mc-grp"><div class="mc-grp-h">' + (k ? '<span class="chip" data-cat="' + k + '">' + mcIcon(k) + '</span>' : '') + '<span>' + mcEsc(k ? mcCatName(k) : 'Otros') + '</span><small>' + g.length + '</small></div><div class="mc-rows">';
     g.forEach(function (it) {
-      h += '<button type="button" class="mc-row" onclick="mcOpenView(\'' + it.id + '\')"><span class="mc-tx"><b>' + mcEsc(it.desc || 'Sin descripción') + '</b>' +
-        (it.note ? '<small>' + mcEsc(it.note) + '</small>' : '') + '<code>' + it.code + '</code></span>' + MC_SVG.bc + '</button>';
+      h += '<button type="button" class="mc-row" onclick="' + fn + '(\'' + it.id + '\')"><span class="mc-tx"><b>' + mcEsc(it.desc || 'Sin descripción') + '</b>' +
+        (it.note ? '<small>' + mcEsc(it.note) + '</small>' : '') + '<code>' + it.code + '</code></span>' + (fn === 'mcOpenView' ? MC_SVG.bc : MC_SVG.add) + '</button>';
     });
     h += '</div></div>';
   });
-  box.innerHTML = h;
+  return h;
 }
+
+// ── Agregar producto a la ventana de Códigos ──
+function mcPickOpen() {
+  var all = mcLoad();
+  var h = mcTop('Agregar producto') + '<div class="cli-body mc-form">' +
+    '<button type="button" class="mc-new" onclick="mcOpenForm(null, true)">' + MC_SVG.plus + 'Nuevo código</button>' +
+    '<div class="mc-search" id="mcPickBox"' + (all.length < 4 ? ' hidden' : '') + '>' + MC_SVG.search + '<input id="mcPickQ" type="search" placeholder="Buscar modelo o SKU" autocomplete="off" oninput="mcPickRender()"></div>' +
+    '<div id="mcPickList" class="mc-pick"></div></div>';
+  mcSheet(h);
+  mcPickRender();
+}
+function mcPickRender() {
+  var box = document.getElementById('mcPickList'); if (!box) return;
+  var all = mcLoad();
+  if (!all.length) {
+    box.innerHTML = '<div class="mc-empty"><div class="mc-empty-ic">' + MC_SVG.barcode + '</div><b>Aún no tienes productos guardados</b>' +
+      '<span>Toca «Nuevo código» para agregar este producto. Quedará en tu lista para la próxima venta.</span></div>';
+    return;
+  }
+  var q = document.getElementById('mcPickQ').value, list = mcFilter(all, q);
+  box.innerHTML = list.length ? mcGroupsHtml(list, 'mcPickSel', catActual) : '<div class="mc-none">No hay resultados para “' + mcEsc(q.trim()) + '”.</div>';
+}
+function mcPickSel(id) {
+  var it = mcLoad().filter(function (x) { return x.id === id; })[0]; if (!it) return;
+  _bcProd = it; mcClose();
+  if (_bcIdxOpen >= 0) openBcModal(_bcIdxOpen, true);
+}
+function bcProdClear() { _bcProd = null; if (_bcIdxOpen >= 0) openBcModal(_bcIdxOpen, true); }
 
 // ── Hoja (pantalla completa) reutilizable ──
 function mcSheet(html) {
@@ -1410,10 +1467,10 @@ function mcShareImg(id) {
 }
 
 // ── Crear / editar ──
-function mcOpenForm(id) {
+function mcOpenForm(id, fromPick) {
   var it = id ? mcLoad().filter(function (x) { return x.id === id; })[0] : null;
   var cat = it ? (it.cat || '') : (catActual && MC_PREF[catActual] ? catActual : '');
-  _mcForm = { id: it ? it.id : null, cat: cat, pref: '', userCat: !!it };
+  _mcForm = { id: it ? it.id : null, cat: cat, pref: '', userCat: !!it, fromPick: !!fromPick };
   var h = mcTop(it ? 'Editar código' : 'Nuevo código') + '<div class="cli-body mc-form">' +
     '<label class="mc-lbl" for="mcCode">SKU o código <small id="mcCount"></small></label>' +
     '<input id="mcCode" class="mc-in mc-in-code" inputmode="numeric" autocomplete="off" placeholder="8 o 13 dígitos" value="' + (it ? it.code : '') + '" oninput="mcFormUpd()">' +
@@ -1468,7 +1525,9 @@ function mcFormSave() {
   else all.push({ id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), code: code, desc: desc, note: note, cat: cat, ts: Date.now() });
   mcSave(all);
   var id = (target || all[all.length - 1]).id;
-  mcRender(); mcToast(target ? 'Código actualizado' : 'Código guardado');
+  mcRender();
+  if (_mcForm.fromPick) { mcToast('Producto agregado'); mcPickSel(id); return; }
+  mcToast(target ? 'Código actualizado' : 'Código guardado');
   mcOpenView(id);
 }
 
@@ -1543,6 +1602,7 @@ var MC_SVG = (function () {
     barcode: s('<path d="M4 5v14M7 5v14M11 5v14M14 5v14M17 5v14M20 5v14"/>', 30),
     bc: '<span class="mc-go">' + s('<path d="M4 5v14M7 5v14M11 5v14M14 5v14M17 5v14M20 5v14"/>', 16) + '</span>',
     plus: s('<path d="M12 5v14M5 12h14"/>', 20),
+    add: '<span class="mc-go">' + s('<path d="M12 5v14M5 12h14"/>', 16) + '</span>',
     edit: s('<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/>'),
     trash: s('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>'),
     share: s('<path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/>'),
@@ -1575,6 +1635,7 @@ function safeRemove(k){ try{localStorage.removeItem(k);}catch(e){} }
 
 // Chip selection
 function applyCat(value, label, el) {
+  if (value !== catActual) _bcProd = null;
   catActual = value;
   safeSet(LAST_KEY, value);
   var chips = document.querySelectorAll('.chip');
