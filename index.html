@@ -736,7 +736,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.18.1</div>
+  <div style="margin-top:10px">Versión 3.18.2</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -2308,6 +2308,17 @@ function switchMode(m){
   safeSet('eg_mode', m);
   updMini();
 }
+// Si dejan la app en Mis códigos y vuelven después de 5 minutos, regresa a Tienda
+(function () {
+  var oculto = 0;
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { oculto = Date.now(); return; }
+    if (oculto && Date.now() - oculto >= 5 * 60 * 1000 && document.getElementById('viewCodigos').style.display !== 'none') {
+      mcClose(); switchMode('fisica'); window.scrollTo(0, 0);
+    }
+    oculto = 0;
+  });
+})();
 
 // Storage
 const FAV_KEY = 'eg_fav_cat';
@@ -2464,7 +2475,7 @@ function buildBarcode(code) {
 // Splash: solo la primera vez que se abre la app
 window.addEventListener('load', function(){
   mcChipUpd();
-  var _modo = safeGet('eg_mode'); if (_modo === 'virtual' || _modo === 'codigos') switchMode(_modo);
+  var _modo = safeGet('eg_mode'); if (_modo === 'virtual') switchMode(_modo); // Mis códigos no se recuerda: siempre abre en Tienda
   var sp = document.getElementById('splash');
   if (!sp || document.documentElement.classList.contains('sin-splash')) { if (sp) sp.remove(); return; }
   safeSet('eg_splash_visto', '1');
