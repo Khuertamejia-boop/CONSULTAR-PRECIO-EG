@@ -663,14 +663,15 @@ header{background:transparent;border:0}
 .mc-act-del.arm .ic{background:#d23b5a;color:#fff}
 }
 /* v3.19 · Copiar código */
-.bc-copy{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;margin-top:10px;padding:0 14px;border:1.5px solid #dcdde8;border-radius:999px;background:#fff;color:#1d4fc4;font:inherit;font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .15s,border-color .15s}
+.bc-copy{display:inline-flex;align-items:center;justify-content:center;gap:5px;height:28px;margin-top:8px;padding:0 11px;border:1.5px solid #dcdde8;border-radius:999px;background:#fff;color:#1d4fc4;font:inherit;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .15s,border-color .15s}
+.bc-copy svg{width:13px;height:13px}
 .bc-copy:active{background:#f0f4ff}
 .bc-copy .i2{display:none}
 .bc-copy.ok{border-color:#9fd8b8;color:#1a7a4d}
 .bc-copy.ok .i1{display:none}.bc-copy.ok .i2{display:inline}
-.bc-copy.sm{flex:none;margin:0 0 0 auto;height:30px;padding:0 10px;font-size:12.5px;gap:5px}
+.bc-copy.sm{flex:none;margin:0 0 0 auto;height:26px;padding:0 9px;font-size:11.5px;gap:4px}
 .vg-code .h>span:nth-child(2){min-width:0}
-.mc-vbc .bc-copy{margin-top:8px}
+.mc-vbc .bc-copy{margin-top:6px}
 @media(prefers-color-scheme:dark){
 .vg-code .bc-copy.sm{background:transparent;border-color:#2f3148;color:#8fbaff}
 .vg-code .bc-copy.sm.ok{border-color:#1f5a3c;color:#5fd39a}
@@ -722,7 +723,7 @@ header{background:transparent;border:0}
 #bcContent .bc-section{border:1px solid #ecedf4}
 #bcContent .bc-section+.bc-section{margin-top:12px;padding-top:14px;border-top:1px solid #ecedf4;border-radius:14px}
 #bcContent .bc-subtitle{margin-bottom:10px}
-#bcContent .bc-copy{margin-top:8px}
+#bcContent .bc-copy{margin-top:6px}
 .bc-adds{display:flex;gap:8px;margin-top:12px}
 .bc-adds .bc-addbtn{flex:1;min-width:0;max-width:none;height:44px;border-radius:12px;font-size:14px;gap:6px;white-space:nowrap}
 .bc-adds .bc-addbtn svg{width:17px;height:17px;flex:none}
@@ -919,7 +920,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.26.0</div>
+  <div style="margin-top:10px">Versión 3.26.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -2365,12 +2366,11 @@ var VT_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" strok
 function prCorto(pr) { return String(pr.nombre).split(' HAVIT')[0]; }
 function vtHtml(o) {
   if (!o) return '';
-  var eg = o.eg || 0, cup = o.cup || 0, pr = o.pr, base = o.precio + eg - cup, total = base + (pr ? pr.precio : 0);
+  var eg = o.eg || 0, cup = o.cup || 0, egNeto = eg - cup, pr = o.pr, base = o.precio + egNeto, total = base + (pr ? pr.precio : 0);
   var ln = o.prev && pr ? 'Venta S/ ' + cliMoney(base) + ' <i>+ 🎁 ' + mcEsc(prCorto(pr)) + ' S/ ' + cliMoney(pr.precio) + '</i>'
-    : 'S/ ' + cliMoney(o.precio) + (eg ? ' + EG S/ ' + cliMoney(eg) : '') + (cup ? ' − cupón S/ ' + cliMoney(cup) : '') + (pr ? ' <i>+ 🎁 S/ ' + cliMoney(pr.precio) + '</i>' : '');
+    : 'S/ ' + cliMoney(o.precio) + (eg ? ' + EG S/ ' + cliMoney(egNeto) : '') + (pr ? ' <i>+ 🎁 S/ ' + cliMoney(pr.precio) + '</i>' : '');
   var rows = '<div class="vt-r"><span>' + mcEsc(o.prod || 'Producto') + '</span><b>S/ ' + cliMoney(o.precio) + '</b></div>' +
-    (eg ? '<div class="vt-r"><span>Extra Garantía ' + mcEsc((o.tipo ? o.tipo + ' ' : '') + o.l) + '</span><b>+ S/ ' + cliMoney(eg) + '</b></div>' : '') +
-    (cup ? '<div class="vt-r g"><span>Cupón ' + p(o.d) + '</span><b>− S/ ' + cliMoney(cup) + '</b></div>' : '') +
+    (eg ? '<div class="vt-r"><span>Extra Garantía ' + mcEsc((o.tipo ? o.tipo + ' ' : '') + o.l) + '</span><b>+ S/ ' + cliMoney(egNeto) + '</b></div>' : '') +
     (pr ? '<div class="vt-r p"><span>🎁 ' + mcEsc(pr.nombre) + '</span><b>+ S/ ' + cliMoney(pr.precio) + '</b></div>' : '');
   return '<div class="vt' + (pr ? ' pr' : '') + (_vtOpen ? ' open' : '') + '"><button type="button" class="vt-h" aria-expanded="' + _vtOpen + '" onclick="vtToggle()">' +
     '<small>' + (o.prev && pr ? 'Total con esta promo' : 'Total de la venta') + '</small><b>S/ ' + cliMoney(total) + '</b>' + VT_CHEV + '<span class="ln">' + ln + '</span></button>' +
