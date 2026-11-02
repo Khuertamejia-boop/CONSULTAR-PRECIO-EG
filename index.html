@@ -768,6 +768,55 @@ header{background:transparent;border:0}
 .pf-cambiar{color:#8fbaff}
 .pf-foot{background:#07070c;box-shadow:0 -10px 14px -6px rgba(7,7,12,.95)}
 }
+/* v3.25 · Todo lo promocional en rosado HAVIT */
+.pk-btns{display:inline-flex;align-items:center;gap:6px;margin-left:auto}
+.pk-btns .pk-cod{margin-left:0;padding:0 12px}
+.pk-prm{display:inline-flex;align-items:center;gap:5px;height:44px;padding:0 11px;border:0;border-radius:10px;background:#fd1585;color:#fff;font:inherit;font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer}
+.pk-prm svg{width:18px;height:18px;flex:none}
+.pk-prm b{font-size:15px;font-weight:800}
+.pk-prm:active{transform:scale(.96);background:#d90f70}
+.bc-addpr{border-color:#ff8cc3;background:#fff0f7;color:#d10f6e}
+#bcContent .bc-promo,#bcContent .bc-section.bc-promo+.bc-section,#bcContent .bc-section+.bc-section.bc-promo{border:1.5px solid #fd1585}
+.bc-promo .bc-subtitle{color:#d10f6e}
+.bc-pprice{color:#d10f6e}
+.bc-promo .bc-copy,.pr-body .bc-copy{border-color:#ffb3d6;color:#d10f6e}
+.bc-promo .bc-copy:active,.pr-body .bc-copy:active{background:#fff0f7}
+.bc-promo .bc-pacts button:first-child{color:#d10f6e}
+.pr-ttl{display:inline-flex;align-items:center;gap:7px}
+.pr-ttl svg{color:#fd1585}
+.pr-card{display:block;padding:0;overflow:hidden;cursor:default;gap:0}
+.pr-card:active{transform:none}
+.pr-top{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pr-top:active{background:rgba(253,21,133,.06)}
+.pr-pr b{color:#d10f6e}
+.pr-chev{flex:none;display:flex;color:#b4b8cf;transition:transform .2s}
+.pr-card.open{border-color:#fd1585}
+.pr-card.open .pr-chev{transform:rotate(180deg);color:#fd1585}
+.pr-card.on{border-color:#fd1585;background:#fff6fa}
+.pr-in{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:800;color:#d10f6e}
+.pr-in svg{width:13px;height:13px}
+.pr-body{padding:0 12px 14px;text-align:center}
+.pr-bc{border:1px solid #ffd1e6}
+.pr-add{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;height:46px;margin-top:10px;border:0;border-radius:12px;background:#fd1585;color:#fff;font:inherit;font-size:15px;font-weight:800;cursor:pointer}
+.pr-add:active{background:#d90f70}
+.pr-add svg{width:18px;height:18px}
+.vg-pr.ft.on{border-color:#fd1585;background:#fff0f7}
+.vg-pr.ft.on .vg-rd{border-color:#fd1585;background:#fd1585}
+.vg-pr.ft .pv2-pr b{color:#d10f6e}
+.vg-code.vg-prc{border-color:#ff8cc3}
+.vg-code.vg-prc .n{background:#fd1585}
+.vg-code.vg-prc .h b{color:#d10f6e}
+@media(prefers-color-scheme:dark){
+.bc-addpr{border-color:rgba(253,21,133,.55);background:rgba(253,21,133,.13);color:#ff6fb5}
+.pr-pr b,.pr-in,.vg-pr.ft .pv2-pr b{color:#ff6fb5}
+.pr-card.open{border-color:rgba(253,21,133,.75)}
+.pr-card.on{border-color:rgba(253,21,133,.75);background:#1d0b15}
+.pr-chev{color:#4d5170}
+.pr-bc{border-color:transparent}
+.vg-pr.ft.on{border-color:#fd1585;background:#1d0b15}
+.vg-code.vg-prc{border-color:rgba(253,21,133,.6)}
+.vg-code.vg-prc .h b{color:#ff6fb5}
+}
   </style>
 </head>
 <body>
@@ -842,7 +891,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.24.1</div>
+  <div style="margin-top:10px">Versión 3.25.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -1066,12 +1115,13 @@ function calcular() {
           '<div class="pk-sep"></div>' +
           '<div class="pk-row pk-row-tot"><span>Precio final total</span><b>' + totalTxt + '</b></div>' +
           '<div class="pk-acts"><button type="button" class="pk-cuotas" onclick="openDetalleModal(' + detalleArgs + ')">Ver cuotas con Tarjeta Ripley</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pk-r3">' + save + '<span class="pk-btns">' +
           (function () { var np = plan.bc ? promosVigentes(key, parseInt(plan.l, 10) || 1).length : 0;
-            return np ? '<button type="button" class="pk-prm" onclick="promoOpen(' + bcIdx + ')">' + PR_GIFT + 'Promociones · ' + np + '</button>' : ''; })() + '</div>' +
-        '</div>' +
-        '<div class="pk-r3">' + save +
+            return np ? '<button type="button" class="pk-prm" onclick="promoOpen(' + bcIdx + ')" aria-label="Promociones (' + np + ')">' + PR_GIFT + '<b>' + np + '</b></button>' : ''; })() +
           (plan.bc ? '<button type="button" class="pk-cod" onclick="openBcModal(' + bcIdx + ')">' + PK_BC_ICO + '<span>Códigos</span></button>' : '') +
-        '</div>' +
+        '</span></div>' +
       '</div>';
     });
     html += '</div></div>';
@@ -2281,24 +2331,34 @@ var PROMOS_EG = [
 var PR_GIFT = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
 var _bcPromo = null, _bcAnios = [];
 function promoFoto(pr, cls) { return pr.foto ? '<img class="' + cls + '" src="' + pr.foto + '" alt="">' : ''; }
-// Tarjeta: foto, nombre, precio y el código de barras del departamento
-function promoCard(pr, on, fn, cat) {
+var PR_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+var _prOpen = -1;
+// Tarjeta: foto, nombre y precio; al tocarla muestra el código de barras del departamento
+function promoCard(pr, i, idx, cat, open, on) {
   var code = pr.codigos[cat];
-  return '<button type="button" class="pr-card' + (on ? ' on' : '') + '" onclick="' + fn + '">' +
-    '<span class="pr-top">' + promoFoto(pr, 'pr-img') + '<span class="pr-tx"><span class="pr-nm">' + mcEsc(pr.nombre) + '</span>' +
+  return '<div class="pr-card' + (open ? ' open' : '') + (on ? ' on' : '') + '" id="prCard' + i + '">' +
+    '<button type="button" class="pr-top" aria-expanded="' + open + '" onclick="promoToggle(' + idx + ',' + i + ')">' + promoFoto(pr, 'pr-img') +
+    '<span class="pr-tx"><span class="pr-nm">' + mcEsc(pr.nombre) + '</span>' +
     '<span class="pr-pr"><b>+ S/ ' + cliMoney(pr.precio) + '</b>' + (pr.antes ? '<s>S/ ' + cliMoney(pr.antes) + '</s>' : '') + '</span>' +
-    (pr.cond ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + '</span>' + (on ? '<span class="pr-ok">' + PF_SVG.check + '</span>' : '') + '</span>' +
-    (code ? '<span class="pr-bc">' + buildBarcode(code) + '</span>' : '') + '</button>';
+    (pr.cond ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + '</span>' +
+    '<span class="pr-chev">' + PR_CHEV + '</span></button>' +
+    (open && code ? '<div class="pr-body"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) +
+      '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar a Códigos de barra') + '</button></div>' : '') + '</div>';
 }
-// Lista de promociones para el plan de la ventana de Códigos
-function promoOpen(idx) {
+// Lista de promociones del plan: primero productos; el código aparece al tocar
+function promoOpen(idx, keep) {
   var ps = promosVigentes(catActual, _bcAnios[idx] || 1); if (!ps.length) return;
+  if (!keep) _prOpen = -1;
   var fin = ps.map(function (x) { return x.hasta || ''; }).sort()[0];
-  var h = mcTop('Promociones') + '<div class="cli-body mc-form"><p class="pr-sub">Con esta Extra Garantía en ' + mcEsc(mcCatName(catActual)) + '. Toca una para agregarla a los códigos (no son acumulables).</p><div class="pr-list">';
-  ps.forEach(function (x, i) { h += promoCard(x, _bcPromo === x, 'promoSel(' + idx + ',' + i + ')', catActual); });
+  var old = document.querySelector('#mcSheet:not([hidden]) .pr-list'), st = keep && old ? old.closest('.cli-body').scrollTop : 0;
+  var h = mcTop('<span class="pr-ttl">' + PR_GIFT + 'Promociones</span>') + '<div class="cli-body mc-form"><p class="pr-sub">Con esta Extra Garantía en ' + mcEsc(mcCatName(catActual)) + '. Toca un producto para ver su código (no son acumulables).</p><div class="pr-list">';
+  ps.forEach(function (x, i) { h += promoCard(x, i, idx, catActual, _prOpen === i, _bcPromo === x); });
   h += '</div>' + (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + REF_NOTE + '</div>';
-  mcSheet(h);
+  var sh = mcSheet(h), body = sh.querySelector('.cli-body'); body.scrollTop = st;
+  var c = _prOpen >= 0 && document.getElementById('prCard' + _prOpen);
+  if (c) { var r = c.getBoundingClientRect(), b = body.getBoundingClientRect(); if (r.bottom > b.bottom) body.scrollTop += Math.min(r.bottom - b.bottom + 12, r.top - b.top - 8); }
 }
+function promoToggle(idx, i) { _prOpen = _prOpen === i ? -1 : i; promoOpen(idx, true); }
 function promoSel(idx, i) {
   var x = promosVigentes(catActual, _bcAnios[idx] || 1)[i]; if (!x) return;
   var abierta = document.getElementById('bcBackdrop').classList.contains('open');
@@ -2450,7 +2510,7 @@ function vgCodes() {
     if (s.cupc) c.push({ t: s.cupc.titulo, d: 'Descuento por llevar la Extra Garantía', code: s.cupc.cod });
   }
   c.push({ t: 'Producto', d: _vg.it.desc || 'Sin descripción', code: _vg.it.code });
-  if (_vg.promo !== null && _vg.promo >= 0 && ps[_vg.promo]) { var pr = ps[_vg.promo]; c.push({ t: 'Promoción', d: pr.nombre + ' · S/ ' + cliMoney(pr.precio), code: pr.codigos[_vg.it.cat] }); }
+  if (_vg.promo !== null && _vg.promo >= 0 && ps[_vg.promo]) { var pr = ps[_vg.promo]; c.push({ t: 'Promoción', d: pr.nombre + ' · S/ ' + cliMoney(pr.precio), code: pr.codigos[_vg.it.cat], pr: true }); }
   return c;
 }
 function vgCodesRender() {
@@ -2465,7 +2525,7 @@ function vgCodesRender() {
     (eg ? '<div class="vg-cuota"><span>12 cuotas Tarjeta Ripley</span><b>S/ ' + cliMoney(total * CUOTA_VG) + '</b></div>' : '') + '</div><div class="vg-codes">';
   vgCodes().forEach(function (c, i) {
     var d = !!_vg.done[i];
-    h += '<button type="button" class="vg-code' + (d ? ' done' : '') + '" onclick="vgDone(' + i + ')"><span class="h"><span class="n">' + (d ? PF_SVG.check : i + 1) + '</span><span><b>' + mcEsc(c.t) + '</b><small>' + mcEsc(c.d) + '</small></span>' + bcCopyBtn(c.code, true) + '</span>' +
+    h += '<button type="button" class="vg-code' + (c.pr ? ' vg-prc' : '') + (d ? ' done' : '') + '" onclick="vgDone(' + i + ')"><span class="h"><span class="n">' + (d ? PF_SVG.check : i + 1) + '</span><span><b>' + mcEsc(c.t) + '</b><small>' + mcEsc(c.d) + '</small></span>' + bcCopyBtn(c.code, true) + '</span>' +
       '<span class="bcw">' + buildBarcode(c.code) + '</span></button>';
   });
   h += '</div><div class="vg-hint">Toca cada código después de escanearlo para marcarlo.</div>' + REF_NOTE + '</div>' +
