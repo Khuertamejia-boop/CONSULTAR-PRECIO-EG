@@ -817,6 +817,34 @@ header{background:transparent;border:0}
 .vg-code.vg-prc{border-color:rgba(253,21,133,.6)}
 .vg-code.vg-prc .h b{color:#ff6fb5}
 }
+/* v3.26 · Resumen de la venta fijo */
+#bcVt{flex:none}
+#bcVt .vt{margin-top:10px}
+#vgVt .vt{margin-bottom:10px}
+#mcSheet .cli-foot.vt-foot{padding-top:10px}
+.vt{border-radius:14px;background:#f2f4fb;border:1px solid #e3e6f2;text-align:left;font-variant-numeric:tabular-nums}
+.vt-h{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;column-gap:6px;row-gap:1px;width:100%;padding:9px 10px 9px 12px;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vt-h small{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#8b8fa8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vt-h b{font-size:21px;font-weight:800;color:#16162c;white-space:nowrap}
+.vt-h svg{flex:none;color:#8b8fa8;transition:transform .2s}
+.vt.open .vt-h svg{transform:rotate(180deg)}
+.vt-h .ln{grid-column:1/-1;font-size:12.5px;color:#5d6178;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vt-h .ln i{font-style:normal;color:#d10f6e;font-weight:700}
+.vt-d{padding:0 12px 10px}
+.vt-r{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:13.5px;color:#4b4f6b}
+.vt-r span{min-width:0}
+.vt-r b{color:#16162c;font-weight:700;white-space:nowrap}
+.vt-r.g b{color:#1a7a4d}
+.vt-r.p,.vt-r.p b{color:#d10f6e}
+.vt.pr{border-color:#fd1585;background:#fff3f9}
+@media(prefers-color-scheme:dark){
+.vt{background:#11121b;border-color:#1d1f2e}
+.vt-h b,.vt-r b{color:#f2f3f8}
+.vt-h .ln,.vt-r{color:#b4b8cf}
+.vt-r.g b{color:#5fd39a}
+.vt-r.p,.vt-r.p b,.vt-h .ln i{color:#ff6fb5}
+.vt.pr{border-color:rgba(253,21,133,.7);background:#1d0b15}
+}
   </style>
 </head>
 <body>
@@ -891,7 +919,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.25.0</div>
+  <div style="margin-top:10px">Versión 3.26.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="share-toast" id="shareToast">Enlace copiado</div>
@@ -1034,7 +1062,7 @@ var _pkTab = { cat: '', i: 0 };
 const PK_CHEV = '<svg class="pk-chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 const PK_BC_ICO = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="3" y="4" width="2" height="16" rx=".4"/><rect x="7" y="4" width="1" height="16" rx=".4"/><rect x="10" y="4" width="2.4" height="16" rx=".4"/><rect x="14.4" y="4" width="1" height="16" rx=".4"/><rect x="17" y="4" width="1.4" height="16" rx=".4"/><rect x="20" y="4" width="1.6" height="16" rx=".4"/></svg>';
 function calcular() {
-  _bcRegistry = []; _bcAnios = [];
+  _bcRegistry = []; _bcAnios = []; _bcVenta = [];
   if(!_elPrecio){_elPrecio=document.getElementById('precio');_elRes=document.getElementById('resultados');}
   const key = catActual;
   const precio = parseFloat(_elPrecio.value.replace(/,/g,''));
@@ -1090,7 +1118,8 @@ function calcular() {
       const idx = n + 1;
       const widgetLabel = plan.l.toUpperCase();
       let bcIdx = -1;
-      if (plan.bc) { bcIdx = _bcRegistry.length; _bcRegistry.push(plan.bc); _bcAnios.push(parseInt(plan.l, 10) || 1); }
+      if (plan.bc) { bcIdx = _bcRegistry.length; _bcRegistry.push(plan.bc); _bcAnios.push(parseInt(plan.l, 10) || 1);
+        _bcVenta.push({ precio: precio, eg: r.eg, cup: r.cuponAplica ? r.descMonto : 0, d: plan.d, tipo: grupo.tipo, l: plan.l }); }
       r.bcIdx = bcIdx;
       const ri = rows.length - 1 - n;
       const t = r.total;
@@ -1386,6 +1415,7 @@ function openBcModal(idx, keepScroll) {
   if (adds.length) out += '<div class="bc-adds">' + adds.join('') + '</div>';
   var box = document.getElementById('bcContent');
   box.innerHTML = out + REF_NOTE;
+  document.getElementById('bcVt').innerHTML = vtHtml(vtBc(idx));
   document.getElementById('bcBackdrop').classList.add('open');
   box.scrollTop = keepScroll ? box.scrollHeight : 0;
 }
@@ -2329,7 +2359,38 @@ var PROMOS_EG = [
     codigos: { computo: '2044373317066', lineablanca: '2044373317066', consolas: '2044374318864', tv: '2044374318864', telefonia: '2044374318864' } }
 ];
 var PR_GIFT = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
-var _bcPromo = null, _bcAnios = [];
+var _bcPromo = null, _bcAnios = [], _bcVenta = [], _vtOpen = false, _prIdx = -1;
+// ── Resumen de la venta (fijo abajo): producto + EG − cupón + promoción ──
+var VT_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>';
+function prCorto(pr) { return String(pr.nombre).split(' HAVIT')[0]; }
+function vtHtml(o) {
+  if (!o) return '';
+  var eg = o.eg || 0, cup = o.cup || 0, pr = o.pr, base = o.precio + eg - cup, total = base + (pr ? pr.precio : 0);
+  var ln = o.prev && pr ? 'Venta S/ ' + cliMoney(base) + ' <i>+ 🎁 ' + mcEsc(prCorto(pr)) + ' S/ ' + cliMoney(pr.precio) + '</i>'
+    : 'S/ ' + cliMoney(o.precio) + (eg ? ' + EG S/ ' + cliMoney(eg) : '') + (cup ? ' − cupón S/ ' + cliMoney(cup) : '') + (pr ? ' <i>+ 🎁 S/ ' + cliMoney(pr.precio) + '</i>' : '');
+  var rows = '<div class="vt-r"><span>' + mcEsc(o.prod || 'Producto') + '</span><b>S/ ' + cliMoney(o.precio) + '</b></div>' +
+    (eg ? '<div class="vt-r"><span>Extra Garantía ' + mcEsc((o.tipo ? o.tipo + ' ' : '') + o.l) + '</span><b>+ S/ ' + cliMoney(eg) + '</b></div>' : '') +
+    (cup ? '<div class="vt-r g"><span>Cupón ' + p(o.d) + '</span><b>− S/ ' + cliMoney(cup) + '</b></div>' : '') +
+    (pr ? '<div class="vt-r p"><span>🎁 ' + mcEsc(pr.nombre) + '</span><b>+ S/ ' + cliMoney(pr.precio) + '</b></div>' : '');
+  return '<div class="vt' + (pr ? ' pr' : '') + (_vtOpen ? ' open' : '') + '"><button type="button" class="vt-h" aria-expanded="' + _vtOpen + '" onclick="vtToggle()">' +
+    '<small>' + (o.prev && pr ? 'Total con esta promo' : 'Total de la venta') + '</small><b>S/ ' + cliMoney(total) + '</b>' + VT_CHEV + '<span class="ln">' + ln + '</span></button>' +
+    (_vtOpen ? '<div class="vt-d">' + rows + '</div>' : '') + '</div>';
+}
+function vtBc(idx, prev) {
+  var v = _bcVenta[idx]; if (!v) return null;
+  return { precio: v.precio, eg: v.eg, cup: v.cup, d: v.d, tipo: v.tipo, l: v.l, prod: _bcProd ? _bcProd.desc : '', pr: prev || _bcPromo, prev: !!prev && prev !== _bcPromo };
+}
+function vtVg() {
+  var s = _vg.sel, eg = s && s !== 'none', ps = vgPromos(), pr = _vg.promo !== null && _vg.promo >= 0 ? ps[_vg.promo] : null;
+  return { precio: _vg.precio, eg: eg ? s.eg : 0, cup: eg ? s.cup : 0, d: eg ? s.pl.d : 0, tipo: _vg.selTipo || '', l: eg ? s.pl.l : '', prod: _vg.it.desc, pr: pr, prev: false };
+}
+function prPrev() { if (_prIdx < 0 || _prOpen < 0) return null; return promosVigentes(catActual, _bcAnios[_prIdx] || 1)[_prOpen] || null; }
+function vtToggle() {
+  _vtOpen = !_vtOpen;
+  var a = document.getElementById('bcVt'); if (a && _bcIdxOpen >= 0) a.innerHTML = vtHtml(vtBc(_bcIdxOpen));
+  var b = document.getElementById('prVt'); if (b) b.innerHTML = vtHtml(vtBc(_prIdx, prPrev()));
+  var c = document.getElementById('vgVt'); if (c && _vg) c.innerHTML = vtHtml(vtVg());
+}
 function promoFoto(pr, cls) { return pr.foto ? '<img class="' + cls + '" src="' + pr.foto + '" alt="">' : ''; }
 var PR_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 var _prOpen = -1;
@@ -2343,17 +2404,19 @@ function promoCard(pr, i, idx, cat, open, on) {
     (pr.cond ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + '</span>' +
     '<span class="pr-chev">' + PR_CHEV + '</span></button>' +
     (open && code ? '<div class="pr-body"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) +
-      '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar a Códigos de barra') + '</button></div>' : '') + '</div>';
+      '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar promoción a la venta') + '</button></div>' : '') + '</div>';
 }
 // Lista de promociones del plan: primero productos; el código aparece al tocar
 function promoOpen(idx, keep) {
   var ps = promosVigentes(catActual, _bcAnios[idx] || 1); if (!ps.length) return;
   if (!keep) _prOpen = -1;
+  _prIdx = idx;
   var fin = ps.map(function (x) { return x.hasta || ''; }).sort()[0];
   var old = document.querySelector('#mcSheet:not([hidden]) .pr-list'), st = keep && old ? old.closest('.cli-body').scrollTop : 0;
   var h = mcTop('<span class="pr-ttl">' + PR_GIFT + 'Promociones</span>') + '<div class="cli-body mc-form"><p class="pr-sub">Con esta Extra Garantía en ' + mcEsc(mcCatName(catActual)) + '. Toca un producto para ver su código (no son acumulables).</p><div class="pr-list">';
   ps.forEach(function (x, i) { h += promoCard(x, i, idx, catActual, _prOpen === i, _bcPromo === x); });
-  h += '</div>' + (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + REF_NOTE + '</div>';
+  h += '</div>' + (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + REF_NOTE + '</div>' +
+    '<div class="cli-foot vt-foot" id="prVt">' + vtHtml(vtBc(idx, prPrev())) + '</div>';
   var sh = mcSheet(h), body = sh.querySelector('.cli-body'); body.scrollTop = st;
   var c = _prOpen >= 0 && document.getElementById('prCard' + _prOpen);
   if (c) { var r = c.getBoundingClientRect(), b = body.getBoundingClientRect(); if (r.bottom > b.bottom) body.scrollTop += Math.min(r.bottom - b.bottom + 12, r.top - b.top - 8); }
@@ -2445,7 +2508,7 @@ function vgRender() {
         (p.cond ? '<span class="pv3-tg hoy">' + mcEsc(p.cond) + '</span>' : '') + '</span></button>';
     });
     h += '<button type="button" class="vg-pr vg-none' + (_vg.promo === -1 ? ' on' : '') + '" onclick="vgPromo(-1)"><span class="vg-rd">' + (_vg.promo === -1 ? PF_SVG.check : '') + '</span><span class="pv2-nm">Sin promoción</span></button></div></div>' +
-      '<div class="cli-foot"><button type="button" class="mc-b1 mc-wide" onclick="vgGoCodes()"' + (_vg.promo === null ? ' disabled' : '') + '>Ver códigos para caja</button></div>';
+      '<div class="cli-foot"><div id="vgVt">' + vtHtml(vtVg()) + '</div><button type="button" class="mc-b1 mc-wide" onclick="vgGoCodes()"' + (_vg.promo === null ? ' disabled' : '') + '>Ver códigos para caja</button></div>';
     mcSheet(h);
   } else {
     vgCodesRender();
@@ -2514,22 +2577,14 @@ function vgCodes() {
   return c;
 }
 function vgCodesRender() {
-  var s = _vg.sel, eg = s && s !== 'none', ps = vgPromos(), pr = _vg.promo !== null && _vg.promo >= 0 ? ps[_vg.promo] : null;
-  var total = _vg.precio + (eg ? s.eg - s.cup : 0) + (pr ? pr.precio : 0);
-  var h = vgTop('Códigos para caja') + '<div class="cli-body mc-form">' + vgSteps() +
-    '<div class="vg-sum"><div><span>' + mcEsc(_vg.it.desc || 'Producto') + '</span><b>S/ ' + cliMoney(_vg.precio) + '</b></div>' +
-    (eg ? '<div><span>Extra Garantía ' + s.pl.l + '</span><b>+ S/ ' + cliMoney(s.eg) + '</b></div>' : '') +
-    (eg && s.cup ? '<div class="g"><span>Cupón ' + p(s.pl.d) + '</span><b>− S/ ' + cliMoney(s.cup) + '</b></div>' : '') +
-    (pr ? '<div><span>' + mcEsc(pr.nombre) + '</span><b>+ S/ ' + cliMoney(pr.precio) + '</b></div>' : '') +
-    '<div class="t"><span>Total referencial</span><b>S/ ' + cliMoney(total) + '</b></div>' +
-    (eg ? '<div class="vg-cuota"><span>12 cuotas Tarjeta Ripley</span><b>S/ ' + cliMoney(total * CUOTA_VG) + '</b></div>' : '') + '</div><div class="vg-codes">';
+  var h = vgTop('Códigos para caja') + '<div class="cli-body mc-form">' + vgSteps() + '<div class="vg-codes">';
   vgCodes().forEach(function (c, i) {
     var d = !!_vg.done[i];
     h += '<button type="button" class="vg-code' + (c.pr ? ' vg-prc' : '') + (d ? ' done' : '') + '" onclick="vgDone(' + i + ')"><span class="h"><span class="n">' + (d ? PF_SVG.check : i + 1) + '</span><span><b>' + mcEsc(c.t) + '</b><small>' + mcEsc(c.d) + '</small></span>' + bcCopyBtn(c.code, true) + '</span>' +
       '<span class="bcw">' + buildBarcode(c.code) + '</span></button>';
   });
   h += '</div><div class="vg-hint">Toca cada código después de escanearlo para marcarlo.</div>' + REF_NOTE + '</div>' +
-    '<div class="cli-foot"><button type="button" class="mc-b1 mc-wide" onclick="vgFin()">' + VG_SVG.done + 'Nueva venta</button></div>';
+    '<div class="cli-foot"><div id="vgVt">' + vtHtml(vtVg()) + '</div><button type="button" class="mc-b1 mc-wide" onclick="vgFin()">' + VG_SVG.done + 'Nueva venta</button></div>';
   var old = document.querySelector('#mcSheet .cli-body'), st = old && _vg.keep ? old.scrollTop : 0;
   mcSheet(h);
   var nb = document.querySelector('#mcSheet .cli-body'); if (nb) nb.scrollTop = st;
@@ -2778,6 +2833,7 @@ if (window.caches) caches.delete('eg-cache-v1').catch(function(){});
   <div class="bc-modal" onclick="event.stopPropagation()">
     <div class="bc-modal-title">Códigos de barra</div>
     <div id="bcContent"></div>
+    <div id="bcVt"></div>
     <button class="bc-modal-btn" onclick="closeBcModal()">Cerrar</button>
   </div>
 </div>
