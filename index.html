@@ -864,7 +864,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.29.1</div>
+  <div style="margin-top:10px">Versión 3.30.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1085,7 +1085,7 @@ function openBcModal(idx, keepScroll) {
   if (_bcPromo) {
     var pc = _bcPromo.codigos[catActual];
     out += '<div class="bc-section bc-prod bc-promo"><div class="bc-subtitle">Promoción</div>' + promoFoto(_bcPromo, 'bc-pimg') + '<div class="bc-pdesc">' + mcEsc(_bcPromo.nombre) + '</div>' +
-      '<div class="bc-pprice">+ S/ ' + cliMoney(_bcPromo.precio) + (_bcPromo.antes ? '<s>S/ ' + cliMoney(_bcPromo.antes) + '</s>' : '') + '</div>' +
+      '<div class="bc-pprice">' + prTxt(_bcPromo, '+ S/ ') + (_bcPromo.antes ? '<s>S/ ' + cliMoney(_bcPromo.antes) + '</s>' : '') + '</div>' +
       buildBarcode(pc) + bcCopyBtn(pc) + '<div class="bc-pacts"><button type="button" onclick="promoOpen(' + idx + ')">Cambiar</button><button type="button" onclick="bcPromoClear()">Quitar</button></div></div>';
   } else if (prs.length) {
     adds.push('<button type="button" class="bc-addbtn bc-addpr" onclick="promoOpen(' + idx + ')">' + PR_GIFT + 'Promoción · ' + prs.length + '</button>');
@@ -1968,12 +1968,12 @@ var VT_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" strok
 function prCorto(pr) { return String(pr.nombre).split(' HAVIT')[0]; }
 function vtHtml(o) {
   if (!o) return '';
-  var eg = o.eg || 0, cup = o.cup || 0, egNeto = eg - cup, pr = o.pr, base = o.precio + egNeto, total = base + (pr ? pr.precio : 0);
-  var ln = o.prev && pr ? 'Venta S/ ' + cliMoney(base) + ' <i>+ 🎁 ' + mcEsc(prCorto(pr)) + ' S/ ' + cliMoney(pr.precio) + '</i>'
-    : 'S/ ' + cliMoney(o.precio) + (eg ? ' + EG S/ ' + cliMoney(egNeto) : '') + (pr ? ' <i>+ 🎁 S/ ' + cliMoney(pr.precio) + '</i>' : '');
+  var eg = o.eg || 0, cup = o.cup || 0, egNeto = eg - cup, pr = o.pr, base = o.precio + egNeto, total = base + prVal(pr);
+  var ln = o.prev && pr ? 'Venta S/ ' + cliMoney(base) + ' <i>+ 🎁 ' + mcEsc(prCorto(pr)) + ' ' + prTxt(pr, 'S/ ') + '</i>'
+    : 'S/ ' + cliMoney(o.precio) + (eg ? ' + EG S/ ' + cliMoney(egNeto) : '') + (pr ? ' <i>+ 🎁 ' + prTxt(pr, 'S/ ') + '</i>' : '');
   var rows = '<div class="vt-r"><span>' + mcEsc(o.prod || 'Producto') + '</span><b>S/ ' + cliMoney(o.precio) + '</b></div>' +
     (eg ? '<div class="vt-r"><span>Extra Garantía ' + mcEsc((o.tipo ? o.tipo + ' ' : '') + o.l) + '</span><b>+ S/ ' + cliMoney(egNeto) + '</b></div>' : '') +
-    (pr ? '<div class="vt-r p"><span>🎁 ' + mcEsc(pr.nombre) + '</span><b>+ S/ ' + cliMoney(pr.precio) + '</b></div>' : '');
+    (pr ? '<div class="vt-r p"><span>🎁 ' + mcEsc(pr.nombre) + '</span><b>' + prTxt(pr, '+ S/ ') + '</b></div>' : '');
   return '<div class="vt' + (pr ? ' pr' : '') + (_vtOpen ? ' open' : '') + '"><button type="button" class="vt-h" aria-expanded="' + _vtOpen + '" onclick="vtToggle()">' +
     '<small>' + (o.prev && pr ? 'Total con esta promo' : 'Total de la venta') + '</small><b>S/ ' + cliMoney(total) + '</b>' + VT_CHEV + '<span class="ln">' + ln + '</span></button>' +
     (_vtOpen ? '<div class="vt-d">' + rows + '</div>' : '') + '</div>';
@@ -1993,6 +1993,8 @@ function vtToggle() {
   var b = document.getElementById('prVt'); if (b) b.innerHTML = vtHtml(vtBc(_prIdx, prPrev()));
   var c = document.getElementById('vgVt'); if (c && _vg) c.innerHTML = vtHtml(vtVg());
 }
+function prVal(pr) { return pr && pr.precio > 0 ? pr.precio : 0; }
+function prTxt(pr, pre) { return prVal(pr) ? pre + cliMoney(pr.precio) : 'Precio en caja'; }
 function promoFoto(pr, cls) { return pr.foto ? '<img class="' + cls + '" src="' + pr.foto + '" alt="">' : ''; }
 var PR_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 var _prOpen = -1;
@@ -2002,7 +2004,7 @@ function promoCard(pr, i, idx, cat, open, on) {
   return '<div class="pr-card' + (open ? ' open' : '') + (on ? ' on' : '') + '" id="prCard' + i + '">' +
     '<button type="button" class="pr-top" aria-expanded="' + open + '" onclick="promoToggle(' + idx + ',' + i + ')">' + promoFoto(pr, 'pr-img') +
     '<span class="pr-tx"><span class="pr-nm">' + mcEsc(pr.nombre) + '</span>' +
-    '<span class="pr-pr"><b>+ S/ ' + cliMoney(pr.precio) + '</b>' + (pr.antes ? '<s>S/ ' + cliMoney(pr.antes) + '</s>' : '') + '</span>' +
+    '<span class="pr-pr"><b>' + prTxt(pr, '+ S/ ') + '</b>' + (pr.antes ? '<s>S/ ' + cliMoney(pr.antes) + '</s>' : '') + '</span>' +
     (pr.cond ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + '</span>' +
     '<span class="pr-chev">' + PR_CHEV + '</span></button>' +
     (open && code ? '<div class="pr-body"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) +
@@ -2037,7 +2039,7 @@ function promosVigentes(cat, anios) {
     return p.codigos && p.codigos[cat] && promoEnFecha(p) && (!p.minAnios || anios >= p.minAnios);
   });
 }
-// ═══ Chip "Promociones Havit": todos los promocionales por departamento con su código ═══
+// ═══ Chip de promocionales (PROMOS_TITULO): todos los promocionales por departamento con su código ═══
 var _hvOpen = null;
 function hvChipUpd() {
   var c = document.getElementById('hvChip'); if (!c) return;
@@ -2065,7 +2067,7 @@ function hvAbrir(keep) {
     g.items.forEach(function (x, i) {
       var key = g.cat + '-' + i, open = _hvOpen === key, code = x.codigos[g.cat];
       h += '<div class="hv-row' + (open ? ' open' : '') + '" id="hvr-' + key + '"><button type="button" class="hv-top" aria-expanded="' + open + '" onclick="hvToggle(\'' + key + '\')">' + promoFoto(x, 'hv-img') +
-        '<span class="hv-tx"><b>' + mcEsc(x.nombre) + '</b><span class="hv-pr"><i>+ S/ ' + cliMoney(x.precio) + '</i>' + (x.antes ? '<s>S/ ' + cliMoney(x.antes) + '</s>' : '') + '</span><code>' + code + '</code></span>' +
+        '<span class="hv-tx"><b>' + mcEsc(x.nombre) + '</b><span class="hv-pr"><i>' + prTxt(x, '+ S/ ') + '</i>' + (x.antes ? '<s>S/ ' + cliMoney(x.antes) + '</s>' : '') + '</span><code>' + code + '</code></span>' +
         '<span class="pr-chev">' + PR_CHEV + '</span></button>' +
         (open ? '<div class="hv-bc"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) + '</div>' : '') + '</div>';
     });
@@ -2151,7 +2153,7 @@ function vgRender() {
     ps.forEach(function (p, i) {
       var on = _vg.promo === i;
       h += '<button type="button" class="vg-pr' + (p.foto ? ' ft' : '') + (on ? ' on' : '') + '" onclick="vgPromo(' + i + ')"><span class="vg-rd">' + (on ? PF_SVG.check : '') + '</span>' + promoFoto(p, 'vg-primg') +
-        '<span class="pv2-tx"><span class="pv2-nm">' + mcEsc(p.nombre) + '</span><span class="pv2-pr"><b>S/ ' + cliMoney(p.precio) + '</b>' + (p.antes ? '<s>S/ ' + cliMoney(p.antes) + '</s>' : '') + '</span>' +
+        '<span class="pv2-tx"><span class="pv2-nm">' + mcEsc(p.nombre) + '</span><span class="pv2-pr"><b>' + prTxt(p, 'S/ ') + '</b>' + (p.antes ? '<s>S/ ' + cliMoney(p.antes) + '</s>' : '') + '</span>' +
         (p.cond ? '<span class="pv3-tg hoy">' + mcEsc(p.cond) + '</span>' : '') + '</span></button>';
     });
     h += '<button type="button" class="vg-pr vg-none' + (_vg.promo === -1 ? ' on' : '') + '" onclick="vgPromo(-1)"><span class="vg-rd">' + (_vg.promo === -1 ? PF_SVG.check : '') + '</span><span class="pv2-nm">Sin promoción</span></button></div></div>' +
@@ -2220,7 +2222,7 @@ function vgCodes() {
     if (s.cupc) c.push({ t: s.cupc.titulo, d: 'Descuento por llevar la Extra Garantía', code: s.cupc.cod });
   }
   c.push({ t: 'Producto', d: _vg.it.desc || 'Sin descripción', code: _vg.it.code });
-  if (_vg.promo !== null && _vg.promo >= 0 && ps[_vg.promo]) { var pr = ps[_vg.promo]; c.push({ t: 'Promoción', d: pr.nombre + ' · S/ ' + cliMoney(pr.precio), code: pr.codigos[_vg.it.cat], pr: true }); }
+  if (_vg.promo !== null && _vg.promo >= 0 && ps[_vg.promo]) { var pr = ps[_vg.promo]; c.push({ t: 'Promoción', d: pr.nombre + ' · ' + prTxt(pr, 'S/ '), code: pr.codigos[_vg.it.cat], pr: true }); }
   return c;
 }
 function vgCodesRender() {
@@ -2466,7 +2468,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.29.1';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.30.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
