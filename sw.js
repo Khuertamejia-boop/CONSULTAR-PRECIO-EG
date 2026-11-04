@@ -5,7 +5,7 @@
 // IMPORTANTE: sube VERSION en cada publicación (también si solo cambia
 // datos.js). Así los celulares detectan el cambio y muestran el aviso.
 // ═════════════════════════════════════════════════════════════════════
-const VERSION = '3.33.1';
+const VERSION = '3.33.2';
 const CACHE = 'eg-' + VERSION;
 const ARCHIVOS = ['./', './index.html', './datos.js', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
