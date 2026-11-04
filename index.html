@@ -792,6 +792,14 @@ header{background:transparent;border:0}
 .hv-tx code{color:#b4b8cf}
 .hv-bc .pr-bc{border-color:transparent}
 }
+/* v3.34 · Chip de promocionales destacado: rosado sólido, letras blancas */
+.mc-chipgo.hv-chip,.mc-chipgo.hv-chip:active{height:46px;padding:0 18px;border:0;background:linear-gradient(135deg,#ff2e93 0%,#e0117a 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}
+.mc-chipgo.hv-chip svg{color:#fff;width:20px;height:20px}
+.mc-chipgo.hv-chip .n{background:#fff;color:#d10f6e;font-size:12.5px}
+.mc-chipgo.hv-chip:active{transform:scale(.97);filter:brightness(.95)}
+.mc-chipgo.hv-chip{animation:hvPulso 2.6s ease-in-out infinite}
+@keyframes hvPulso{0%,100%{box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}50%{box-shadow:0 6px 26px rgba(253,21,133,.65),inset 0 1px 0 rgba(255,255,255,.25)}}
+@media(prefers-reduced-motion:reduce){.mc-chipgo.hv-chip{animation:none}}
   </style>
 </head>
 <body>
@@ -866,7 +874,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.33.2</div>
+  <div style="margin-top:10px">Versión 3.34.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2472,7 +2480,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.33.2';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.34.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }

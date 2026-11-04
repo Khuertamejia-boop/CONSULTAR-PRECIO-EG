@@ -145,7 +145,7 @@ var MARCAS = [
 ];
 
 // ═══ Promociones con Extra Garantía (se actualizan cada mes) ═══
-var PROMOS_TITULO = 'Promocionales EG';   // texto del chip debajo de Mis productos
+var PROMOS_TITULO = 'Promocionales Extra Garantía';   // texto del chip debajo de Mis productos
 // Formato: { nombre:'Audífonos HAVIT', precio:9.90, antes:129.90, desde:'2026-11-01', hasta:'2026-11-30',
 //            codigos:{ audio:'2044373316991' }, minAnios:0, cond:'' }
 //          Si aún no hay precio, deja fuera precio/antes: se muestra "Precio en caja". precio: 0 = "Gratis".
