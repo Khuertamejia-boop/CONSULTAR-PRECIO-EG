@@ -746,6 +746,8 @@ header{background:transparent;border:0}
 .share-btn[hidden]{display:none}
 @media(prefers-color-scheme:dark){.upd{background:#1f2133;border:1px solid #2f3148}}
 /* v3.29 · Chip Promociones Havit */
+.hv-cond{font-size:12px;font-weight:600;line-height:1.3;color:#8a5a00}
+@media(prefers-color-scheme:dark){.hv-cond{color:#f5c26b}}
 .mc-chiprow{flex-direction:column;align-items:center;gap:8px}
 .hv-chip{border-color:#ffb3d6}
 .hv-chip[hidden]{display:none}
@@ -864,7 +866,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.31.0</div>
+  <div style="margin-top:10px">Versión 3.32.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -913,7 +915,7 @@ var _pkTab = { cat: '', i: 0 };
 const PK_CHEV = '<svg class="pk-chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 const PK_BC_ICO = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="3" y="4" width="2" height="16" rx=".4"/><rect x="7" y="4" width="1" height="16" rx=".4"/><rect x="10" y="4" width="2.4" height="16" rx=".4"/><rect x="14.4" y="4" width="1" height="16" rx=".4"/><rect x="17" y="4" width="1.4" height="16" rx=".4"/><rect x="20" y="4" width="1.6" height="16" rx=".4"/></svg>';
 function calcular() {
-  _bcRegistry = []; _bcAnios = []; _bcVenta = [];
+  _bcRegistry = []; _bcAnios = []; _bcTipo = []; _bcVenta = [];
   if(!_elPrecio){_elPrecio=document.getElementById('precio');_elRes=document.getElementById('resultados');}
   const key = catActual;
   const precio = parseFloat(_elPrecio.value.replace(/,/g,''));
@@ -967,7 +969,7 @@ function calcular() {
       const idx = n + 1;
       const widgetLabel = plan.l.toUpperCase();
       let bcIdx = -1;
-      if (plan.bc) { bcIdx = _bcRegistry.length; _bcRegistry.push(plan.bc); _bcAnios.push(parseInt(plan.l, 10) || 1);
+      if (plan.bc) { bcIdx = _bcRegistry.length; _bcRegistry.push(plan.bc); _bcAnios.push(parseInt(plan.l, 10) || 1); _bcTipo.push(grupo.tipo);
         _bcVenta.push({ precio: precio, eg: r.eg, cup: r.cuponAplica ? r.descMonto : 0, d: plan.d, tipo: grupo.tipo, l: plan.l }); }
       r.bcIdx = bcIdx;
       const t = r.total;
@@ -995,7 +997,7 @@ function calcular() {
           '</div>' +
         '</div>' +
         '<div class="pk-r3">' + save + '<span class="pk-btns">' +
-          (function () { var np = plan.bc ? promosVigentes(key, parseInt(plan.l, 10) || 1).length : 0;
+          (function () { var np = plan.bc ? promosVigentes(key, parseInt(plan.l, 10) || 1, grupo.tipo).length : 0;
             return np ? '<button type="button" class="pk-prm" onclick="promoOpen(' + bcIdx + ')" aria-label="Promociones (' + np + ')">' + PR_GIFT + '<b>' + np + '</b></button>' : ''; })() +
           (plan.bc ? '<button type="button" class="pk-cod" onclick="openBcModal(' + bcIdx + ')">' + PK_BC_ICO + '<span>Códigos</span></button>' : '') +
         '</span></div>' +
@@ -1080,7 +1082,7 @@ function openBcModal(idx, keepScroll) {
   }
   var adds = [];
   if (!_bcProd) adds.push('<button type="button" class="bc-addbtn" onclick="mcPickOpen()">' + MC_SVG.plus + 'Producto</button>');
-  var prs = promosVigentes(catActual, _bcAnios[idx] || 1);
+  var prs = promosVigentes(catActual, _bcAnios[idx] || 1, _bcTipo[idx]);
   if (_bcPromo && prs.indexOf(_bcPromo) < 0) _bcPromo = null;
   if (_bcPromo) {
     var pc = _bcPromo.codigos[catActual];
@@ -1962,7 +1964,7 @@ function mcLineaUpd() {
 }
 
 var PR_GIFT = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
-var _bcPromo = null, _bcAnios = [], _bcVenta = [], _vtOpen = false, _prIdx = -1;
+var _bcPromo = null, _bcAnios = [], _bcTipo = [], _bcVenta = [], _vtOpen = false, _prIdx = -1;
 // ── Resumen de la venta (fijo abajo): producto + EG − cupón + promoción ──
 var VT_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>';
 function prCorto(pr) { return String(pr.nombre).split(' HAVIT')[0]; }
@@ -1986,7 +1988,7 @@ function vtVg() {
   var s = _vg.sel, eg = s && s !== 'none', ps = vgPromos(), pr = _vg.promo !== null && _vg.promo >= 0 ? ps[_vg.promo] : null;
   return { precio: _vg.precio, eg: eg ? s.eg : 0, cup: eg ? s.cup : 0, d: eg ? s.pl.d : 0, tipo: _vg.selTipo || '', l: eg ? s.pl.l : '', prod: _vg.it.desc, pr: pr, prev: false };
 }
-function prPrev() { if (_prIdx < 0 || _prOpen < 0) return null; return promosVigentes(catActual, _bcAnios[_prIdx] || 1)[_prOpen] || null; }
+function prPrev() { if (_prIdx < 0 || _prOpen < 0) return null; return promosVigentes(catActual, _bcAnios[_prIdx] || 1, _bcTipo[_prIdx])[_prOpen] || null; }
 function vtToggle() {
   _vtOpen = !_vtOpen;
   var a = document.getElementById('bcVt'); if (a && _bcIdxOpen >= 0) a.innerHTML = vtHtml(vtBc(_bcIdxOpen));
@@ -1994,7 +1996,7 @@ function vtToggle() {
   var c = document.getElementById('vgVt'); if (c && _vg) c.innerHTML = vtHtml(vtVg());
 }
 function prVal(pr) { return pr && pr.precio > 0 ? pr.precio : 0; }
-function prTxt(pr, pre) { return prVal(pr) ? pre + cliMoney(pr.precio) : 'Precio en caja'; }
+function prTxt(pr, pre) { return prVal(pr) ? pre + cliMoney(pr.precio) : pr && pr.precio === 0 ? 'Gratis' : 'Precio en caja'; }
 function promoFoto(pr, cls) { return pr.foto ? '<img class="' + cls + '" src="' + pr.foto + '" alt="">' : ''; }
 var PR_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 var _prOpen = -1;
@@ -2012,7 +2014,7 @@ function promoCard(pr, i, idx, cat, open, on) {
 }
 // Lista de promociones del plan: primero productos; el código aparece al tocar
 function promoOpen(idx, keep) {
-  var ps = promosVigentes(catActual, _bcAnios[idx] || 1); if (!ps.length) return;
+  var ps = promosVigentes(catActual, _bcAnios[idx] || 1, _bcTipo[idx]); if (!ps.length) return;
   if (!keep) _prOpen = -1;
   _prIdx = idx;
   var fin = ps.map(function (x) { return x.hasta || ''; }).sort()[0];
@@ -2027,16 +2029,18 @@ function promoOpen(idx, keep) {
 }
 function promoToggle(idx, i) { _prOpen = _prOpen === i ? -1 : i; promoOpen(idx, true); }
 function promoSel(idx, i) {
-  var x = promosVigentes(catActual, _bcAnios[idx] || 1)[i]; if (!x) return;
+  var x = promosVigentes(catActual, _bcAnios[idx] || 1, _bcTipo[idx])[i]; if (!x) return;
   var abierta = document.getElementById('bcBackdrop').classList.contains('open');
   _bcPromo = x; mcClose(); openBcModal(idx, abierta);
 }
 function bcPromoClear() { _bcPromo = null; if (_bcIdxOpen >= 0) openBcModal(_bcIdxOpen, true); }
 function hoyISO() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
 function promoEnFecha(p) { var h = hoyISO(); return (!p.desde || p.desde <= h) && (!p.hasta || p.hasta >= h); }
-function promosVigentes(cat, anios) {
+// planes: { 'Reparación': [1, 2], 'Reemplazo': [] } → solo esos planes (sin tipo = lista general, se muestran todas)
+function promoEnPlan(p, anios, tipo) { return !p.planes || !tipo || (p.planes[tipo] || []).indexOf(anios) >= 0; }
+function promosVigentes(cat, anios, tipo) {
   return PROMOS_EG.filter(function (p) {
-    return p.codigos && p.codigos[cat] && promoEnFecha(p) && (!p.minAnios || anios >= p.minAnios);
+    return p.codigos && p.codigos[cat] && promoEnFecha(p) && (!p.minAnios || anios >= p.minAnios) && promoEnPlan(p, anios, tipo);
   });
 }
 // ═══ Chip de promocionales (PROMOS_TITULO): todos los promocionales por departamento con su código ═══
@@ -2067,7 +2071,7 @@ function hvAbrir(keep) {
     g.items.forEach(function (x, i) {
       var key = g.cat + '-' + i, open = _hvOpen === key, code = x.codigos[g.cat];
       h += '<div class="hv-row' + (open ? ' open' : '') + '" id="hvr-' + key + '"><button type="button" class="hv-top" aria-expanded="' + open + '" onclick="hvToggle(\'' + key + '\')">' + promoFoto(x, 'hv-img') +
-        '<span class="hv-tx"><b>' + mcEsc(x.nombre) + '</b><span class="hv-pr"><i>' + prTxt(x, '+ S/ ') + '</i>' + (x.antes ? '<s>S/ ' + cliMoney(x.antes) + '</s>' : '') + '</span><code>' + code + '</code></span>' +
+        '<span class="hv-tx"><b>' + mcEsc(x.nombre) + '</b><span class="hv-pr"><i>' + prTxt(x, '+ S/ ') + '</i>' + (x.antes ? '<s>S/ ' + cliMoney(x.antes) + '</s>' : '') + '</span>' + (x.cond ? '<span class="hv-cond">' + mcEsc(x.cond) + '</span>' : '') + '<code>' + code + '</code></span>' +
         '<span class="pr-chev">' + PR_CHEV + '</span></button>' +
         (open ? '<div class="hv-bc"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) + '</div>' : '') + '</div>';
     });
@@ -2132,7 +2136,7 @@ function vgProd() {
 }
 function vgPromos() {
   if (!_vg.sel || _vg.sel === 'none') return [];
-  return promosVigentes(_vg.it.cat, _vg.sel.anios);
+  return promosVigentes(_vg.it.cat, _vg.sel.anios, _vg.selTipo);
 }
 function vgRender() {
   var h;
@@ -2468,7 +2472,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.31.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.32.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
