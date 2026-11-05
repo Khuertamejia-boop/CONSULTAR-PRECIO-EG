@@ -849,6 +849,11 @@ header{background:transparent;border:0}
 .sc-res .acts{display:flex;gap:8px;margin-top:10px}
 .sc-go{flex:1.5;display:flex;align-items:center;justify-content:center;gap:7px;height:48px;border-radius:13px;background:#2563eb;color:#fff;font-size:15px;font-weight:800;text-decoration:none}
 .sc-go:active{transform:scale(.98)}
+.sc-pv{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;margin-top:10px;padding:8px 12px;border-radius:13px;background:linear-gradient(135deg,#ff2e93,#e0117a);color:#fff;text-align:center;text-decoration:none;box-shadow:0 4px 14px rgba(224,17,122,.3)}
+.sc-pv b{font-size:15.5px;font-weight:800}
+.sc-pv small{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.9)}
+.sc-pv:active{transform:scale(.98)}
+.sc-res .acts .sc-go{background:transparent;border:1.5px solid #2563eb;color:#2563eb;font-size:14px}
 .sc-otro{flex:1;height:48px;border-radius:13px;border:1.5px solid #b8cbf5;background:transparent;color:#2563eb;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 .sc-cam{position:fixed;inset:0;z-index:600;background:#000;color:#fff;overflow:hidden;touch-action:none}
 .sc-cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -879,7 +884,7 @@ header{background:transparent;border:0}
 .sc-res .h{color:#5fd39a}
 .sc-res code{color:#eceef6}
 .sc-res .av{background:#33270f;color:#f5c26b}
-.sc-otro{border-color:rgba(59,130,246,.55);color:#8fbaff}
+.sc-otro,.sc-res .acts .sc-go{border-color:rgba(59,130,246,.55);color:#8fbaff}
 }
 /* v3.34 · Chip de promocionales destacado: rosado sólido, letras blancas */
 .mc-chipgo.hv-chip,.mc-chipgo.hv-chip:active{height:46px;padding:0 18px;border:0;background:linear-gradient(135deg,#ff2e93 0%,#e0117a 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}
@@ -966,7 +971,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.37.0</div>
+  <div style="margin-top:10px">Versión 3.37.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1399,8 +1404,15 @@ function scResultado(c) {
   var tienda = /^2\d/.test(c);
   document.getElementById('scRes').innerHTML = '<div class="sc-res"><div class="h">' + SC_OK + 'Código leído</div><code>' + c + '</code>' +
     (tienda ? '' : '<div class="av">Este parece el código del fabricante (de la caja). Si ripley.com.pe no encuentra el producto, escanea la etiqueta Ripley: su código empieza con 20…</div>') +
+    '<a class="sc-pv" href="https://lector-precios.ripley.com.pe/search" target="_blank" rel="noopener" onclick="scCopiar(\'' + c + '\')"><b>Ver precio vigente en tienda</b><small>Se copia el código: en la lupa 🔍 mantén presionado y elige Pegar</small></a>' +
     '<div class="acts"><a class="sc-go" href="https://simple.ripley.com.pe/search/' + c + '" target="_blank" rel="noopener">Ver en ripley.com.pe <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>' +
     '<button type="button" class="sc-otro" onclick="scAbrir()">Escanear otro</button></div></div>';
+}
+// Copia el código (se llama dentro del toque, como pide Safari) y avisa
+function scCopiar(c) {
+  var ok = function () { var t = document.getElementById('shareToast'); if (!t) return; t.textContent = 'Código copiado · pégalo en la lupa'; t.classList.add('show'); clearTimeout(scCopiar._t); scCopiar._t = setTimeout(function () { t.classList.remove('show'); }, 2600); };
+  var viejo = function () { var a = document.createElement('textarea'); a.value = c; a.setAttribute('readonly', ''); a.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(a); a.select(); a.setSelectionRange(0, 99); try { document.execCommand('copy'); ok(); } catch (e) {} document.body.removeChild(a); };
+  try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(c).then(ok, viejo); else viejo(); } catch (e) { viejo(); }
 }
 function scLuz() {
   if (!_sc || !_sc.stream) return;
@@ -2718,7 +2730,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.37.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.37.1';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
