@@ -829,6 +829,7 @@ header{background:transparent;border:0}
 .pr-ok,.pr-sec.g+.pr-list .pr-pr b{color:#5fd39a}
 .pr-vc{border-color:#2a2d42;background:#181a27;color:#c9cbe0}
 }
+.pr-tx .pv3-tg{align-self:flex-start;font-size:11.5px;line-height:1.35;font-weight:700;white-space:normal}
 /* v3.34 · Chip de promocionales destacado: rosado sólido, letras blancas */
 .mc-chipgo.hv-chip,.mc-chipgo.hv-chip:active{height:46px;padding:0 18px;border:0;background:linear-gradient(135deg,#ff2e93 0%,#e0117a 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}
 .mc-chipgo.hv-chip svg{color:#fff;width:20px;height:20px}
@@ -911,7 +912,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.35.1</div>
+  <div style="margin-top:10px">Versión 3.36.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2051,11 +2052,11 @@ function prMarca(pr) { var m = String(pr.nombre).match(PR_MARCAS); return m ? m[
 function prNombre(pr) { return String(pr.nombre).replace(PR_MARCAS, '').replace(/\s+/g, ' ').trim(); }
 var PR_BCSVG = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>';
 // Tarjeta v3.35: foto con % o cinta GRATIS, marca, nombre, precio + ahorro; botón "Código" muestra el código de barras
-function promoCard(pr, i, idx, cat, open, on, enPlan) {
+function promoCard(pr, i, idx, cat, open, on, enPlan, hv) {
   var code = pr.codigos[cat], gratis = pr.precio === 0, mc = prMarca(pr);
   var pct = prVal(pr) && pr.antes > pr.precio ? Math.round((1 - pr.precio / pr.antes) * 100) : 0;
-  return '<div class="pr-card' + (gratis ? ' free' : '') + (open ? ' open' : '') + (on ? ' on' : '') + '" id="prCard' + i + '">' +
-    '<button type="button" class="pr-top" aria-expanded="' + open + '" onclick="promoToggle(' + idx + ',' + i + ')">' +
+  return '<div class="pr-card' + (gratis ? ' free' : '') + (open ? ' open' : '') + (on ? ' on' : '') + '" id="' + (hv ? 'hvr-' + hv : 'prCard' + i) + '">' +
+    '<button type="button" class="pr-top" aria-expanded="' + open + '" onclick="' + (hv ? "hvToggle('" + hv + "')" : 'promoToggle(' + idx + ',' + i + ')') + '">' +
     '<span class="pr-ph">' + promoFoto(pr, 'pr-img') + (pct ? '<span class="pr-pct">-' + pct + '%</span>' : '') + (gratis ? '<span class="pr-rib">GRATIS</span>' : '') + '</span>' +
     '<span class="pr-tx">' + (mc ? '<span class="pr-mc">' + mc + '</span>' : '') + '<span class="pr-nm">' + mcEsc(prNombre(pr)) + '</span>' +
     (gratis ? (enPlan ? '<span class="pr-ok">' + PF_SVG.check + 'Incluido en tu plan</span>' : '<span class="pr-pr"><b>Gratis</b></span>')
@@ -2064,7 +2065,7 @@ function promoCard(pr, i, idx, cat, open, on, enPlan) {
     (pr.cond && !enPlan ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + '</span>' +
     '<span class="pr-vc">' + PR_BCSVG + '<span>' + (open ? 'Ocultar' : 'Código') + '</span></span></button>' +
     (open && code ? '<div class="pr-body"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) +
-      '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar a la venta') + '</button></div>' : '') + '</div>';
+      (hv ? '' : '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar a la venta') + '</button>') + '</div>' : '') + '</div>';
 }
 // Lista de promociones del plan: primero productos; el código aparece al tocar
 function promoOpen(idx, keep) {
@@ -2121,7 +2122,7 @@ function hvChipUpd() {
 }
 function hvLista() {
   var out = [];
-  hvCats().forEach(function (k) { var ps = promosVigentes(k, 99); if (ps.length) out.push({ cat: k, items: ps }); });
+  hvCats().forEach(function (k) { var ps = promosVigentes(k, 99).sort(function (a, b) { return (b.precio === 0) - (a.precio === 0); }); if (ps.length) out.push({ cat: k, items: ps }); });
   return out;
 }
 function hvCorto(k) { var ch = document.querySelector('#chipsRow .chip[data-cat="' + k + '"] .chip-txt'); return ch ? ch.textContent : mcCatName(k); }
@@ -2135,13 +2136,10 @@ function hvAbrir(keep) {
     '<p class="pr-sub">Con cualquier Extra Garantía del departamento. Cada producto tiene un código distinto por departamento; toca uno para ver su código de barras.</p>' +
     '<div class="hv-nav">' + gs.map(function (g) { return '<button type="button" onclick="hvIr(\'' + g.cat + '\')">' + mcIcon(g.cat) + mcEsc(hvCorto(g.cat)) + '</button>'; }).join('') + '</div>';
   gs.forEach(function (g) {
-    h += '<section class="hv-sec" id="hv-' + g.cat + '"><h3 class="hv-h"><span class="chip" data-cat="' + g.cat + '">' + mcIcon(g.cat) + '</span>' + mcEsc(mcCatName(g.cat)) + '<small>' + g.items.length + (g.items.length === 1 ? ' producto' : ' productos') + '</small></h3><div class="hv-list">';
+    h += '<section class="hv-sec" id="hv-' + g.cat + '"><h3 class="hv-h"><span class="chip" data-cat="' + g.cat + '">' + mcIcon(g.cat) + '</span>' + mcEsc(mcCatName(g.cat)) + '<small>' + g.items.length + (g.items.length === 1 ? ' producto' : ' productos') + '</small></h3><div class="pr-list">';
     g.items.forEach(function (x, i) {
-      var key = g.cat + '-' + i, open = _hvOpen === key, code = x.codigos[g.cat];
-      h += '<div class="hv-row' + (open ? ' open' : '') + '" id="hvr-' + key + '"><button type="button" class="hv-top" aria-expanded="' + open + '" onclick="hvToggle(\'' + key + '\')">' + promoFoto(x, 'hv-img') +
-        '<span class="hv-tx"><b>' + mcEsc(x.nombre) + '</b><span class="hv-pr"><i>' + prTxt(x, '+ S/ ') + '</i>' + (x.antes ? '<s>S/ ' + cliMoney(x.antes) + '</s>' : '') + '</span>' + (x.cond ? '<span class="hv-cond">' + mcEsc(x.cond) + '</span>' : '') + '<code>' + code + '</code></span>' +
-        '<span class="pr-chev">' + PR_CHEV + '</span></button>' +
-        (open ? '<div class="hv-bc"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) + '</div>' : '') + '</div>';
+      var key = g.cat + '-' + i;
+      h += promoCard(x, i, -1, g.cat, _hvOpen === key, false, false, key);
     });
     h += '</div></section>';
   });
@@ -2540,7 +2538,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.35.1';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.36.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
