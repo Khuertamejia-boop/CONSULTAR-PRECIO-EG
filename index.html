@@ -792,6 +792,43 @@ header{background:transparent;border:0}
 .hv-tx code{color:#b4b8cf}
 .hv-bc .pr-bc{border-color:transparent}
 }
+/* v3.35 · Ventana de promociones rediseñada */
+.pr-ctx{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 6px}
+.pr-ctx span{font-size:12px;font-weight:700;padding:5px 11px;border-radius:99px;background:#eef0f6;color:#4a4e68}
+.pr-ctx span.p{background:#ffe6f2;color:#d10f6e}
+.pr-sub{margin:0 0 4px;font-size:12px}
+.pr-sec{display:flex;align-items:center;gap:8px;margin:16px 2px 10px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6e7189}
+.pr-sec .c{padding:2px 8px;border-radius:99px;background:#eef0f6;color:#4a4e68;letter-spacing:0}
+.pr-sec.g{color:#1a7a4d}.pr-sec.g .c{background:#dff5e9;color:#1a7a4d}
+.pr-card{border-radius:18px}
+.pr-card.free{border-color:#a9e3c4;background:linear-gradient(135deg,#ecfaf2,#fff 60%)}
+.pr-card.open{box-shadow:0 0 0 3px rgba(253,21,133,.15)}
+.pr-ph{position:relative;flex:none;width:76px;height:76px;padding:4px;border-radius:14px;background:#fff;border:1px solid #ecedf4}
+.pr-ph .pr-img{width:100%;height:100%;border:0;border-radius:9px;background:#fff}
+.pr-pct{position:absolute;top:-7px;left:-7px;padding:3px 7px;border-radius:99px;background:#fd1585;color:#fff;font-size:11px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.pr-rib{position:absolute;left:-1px;right:-1px;bottom:-1px;padding:3px 0;border-radius:0 0 14px 14px;background:#1fae6b;color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;text-align:center}
+.pr-tx{gap:3px}
+.pr-mc{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:#8b8fa8}
+.pr-nm{font-size:14.5px;font-weight:700;line-height:1.25}
+.pr-pr b{font-size:19px}
+.pr-sv{align-self:flex-start;padding:2px 8px;border-radius:6px;background:#dff5e9;color:#1a7a4d;font-size:11px;font-weight:800}
+.pr-ok{display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-size:12px;font-weight:800;color:#1a7a4d}
+.pr-ok svg{width:13px;height:13px}
+.pr-vc{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px;width:58px;padding:9px 0;border-radius:12px;border:1px solid #e2e3ec;background:#f6f7fb;color:#4a4e68;font-size:10.5px;font-weight:700}
+.pr-card.open .pr-vc{border-color:#fd1585;background:#fd1585;color:#fff}
+.pr-sec.g+.pr-list .pr-pr b{color:#1a7a4d}
+@media(prefers-color-scheme:dark){
+.pr-ctx span,.pr-sec .c{background:#1a1c2a;color:#c9cbe0}
+.pr-ctx span.p{background:rgba(253,21,133,.15);color:#ff7cbc}
+.pr-sec{color:#9da1bb}
+.pr-sec.g{color:#5fd39a}.pr-sec.g .c{background:rgba(95,211,154,.15);color:#5fd39a}
+.pr-card.free{border-color:rgba(95,211,154,.35);background:linear-gradient(135deg,#0f2219,#11121b 60%)}
+.pr-ph{border-color:transparent}
+.pr-mc{color:#7d81a0}
+.pr-sv{background:rgba(95,211,154,.12);color:#5fd39a}
+.pr-ok,.pr-sec.g+.pr-list .pr-pr b{color:#5fd39a}
+.pr-vc{border-color:#2a2d42;background:#181a27;color:#c9cbe0}
+}
 /* v3.34 · Chip de promocionales destacado: rosado sólido, letras blancas */
 .mc-chipgo.hv-chip,.mc-chipgo.hv-chip:active{height:46px;padding:0 18px;border:0;background:linear-gradient(135deg,#ff2e93 0%,#e0117a 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}
 .mc-chipgo.hv-chip svg{color:#fff;width:20px;height:20px}
@@ -874,7 +911,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.34.1</div>
+  <div style="margin-top:10px">Versión 3.35.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1979,8 +2016,8 @@ function prCorto(pr) { return String(pr.nombre).split(' HAVIT')[0]; }
 function vtHtml(o) {
   if (!o) return '';
   var eg = o.eg || 0, cup = o.cup || 0, egNeto = eg - cup, pr = o.pr, base = o.precio + egNeto, total = base + prVal(pr);
-  var ln = o.prev && pr ? 'Venta S/ ' + cliMoney(base) + ' <i>+ 🎁 ' + mcEsc(prCorto(pr)) + ' ' + prTxt(pr, 'S/ ') + '</i>'
-    : 'S/ ' + cliMoney(o.precio) + (eg ? ' + EG S/ ' + cliMoney(egNeto) : '') + (pr ? ' <i>+ 🎁 ' + prTxt(pr, 'S/ ') + '</i>' : '');
+  var ln = o.prev && pr ? 'Venta S/ ' + cliMoney(base) + ' <i>+ 🎁 ' + mcEsc(prCorto(pr)) + ' ' + (prVal(pr) ? prTxt(pr, 'S/ ') : prTxt(pr, '').toLowerCase()) + '</i>'
+    : 'S/ ' + cliMoney(o.precio) + (eg ? ' + EG S/ ' + cliMoney(egNeto) : '') + (pr ? ' <i>+ 🎁 ' + (prVal(pr) ? prTxt(pr, 'S/ ') : mcEsc(prCorto(pr)) + ' ' + prTxt(pr, '').toLowerCase()) + '</i>' : '');
   var rows = '<div class="vt-r"><span>' + mcEsc(o.prod || 'Producto') + '</span><b>S/ ' + cliMoney(o.precio) + '</b></div>' +
     (eg ? '<div class="vt-r"><span>Extra Garantía ' + mcEsc((o.tipo ? o.tipo + ' ' : '') + o.l) + '</span><b>+ S/ ' + cliMoney(egNeto) + '</b></div>' : '') +
     (pr ? '<div class="vt-r p"><span>🎁 ' + mcEsc(pr.nombre) + '</span><b>' + prTxt(pr, '+ S/ ') + '</b></div>' : '');
@@ -2009,16 +2046,25 @@ function promoFoto(pr, cls) { return pr.foto ? '<img class="' + cls + '" src="' 
 var PR_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 var _prOpen = -1;
 // Tarjeta: foto, nombre y precio; al tocarla muestra el código de barras del departamento
-function promoCard(pr, i, idx, cat, open, on) {
-  var code = pr.codigos[cat];
-  return '<div class="pr-card' + (open ? ' open' : '') + (on ? ' on' : '') + '" id="prCard' + i + '">' +
-    '<button type="button" class="pr-top" aria-expanded="' + open + '" onclick="promoToggle(' + idx + ',' + i + ')">' + promoFoto(pr, 'pr-img') +
-    '<span class="pr-tx"><span class="pr-nm">' + mcEsc(pr.nombre) + '</span>' +
-    '<span class="pr-pr"><b>' + prTxt(pr, '+ S/ ') + '</b>' + (pr.antes ? '<s>S/ ' + cliMoney(pr.antes) + '</s>' : '') + '</span>' +
-    (pr.cond ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + '</span>' +
-    '<span class="pr-chev">' + PR_CHEV + '</span></button>' +
+var PR_MARCAS = /\s*\b(HAVIT|Taurus|Electrolux|Practika|Thomas|Tannen|Lit)\b/i;
+function prMarca(pr) { var m = String(pr.nombre).match(PR_MARCAS); return m ? m[1].toUpperCase() : ''; }
+function prNombre(pr) { return String(pr.nombre).replace(PR_MARCAS, '').replace(/\s+/g, ' ').trim(); }
+var PR_BCSVG = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>';
+// Tarjeta v3.35: foto con % o cinta GRATIS, marca, nombre, precio + ahorro; botón "Código" muestra el código de barras
+function promoCard(pr, i, idx, cat, open, on, enPlan) {
+  var code = pr.codigos[cat], gratis = pr.precio === 0, mc = prMarca(pr);
+  var pct = prVal(pr) && pr.antes > pr.precio ? Math.round((1 - pr.precio / pr.antes) * 100) : 0;
+  return '<div class="pr-card' + (gratis ? ' free' : '') + (open ? ' open' : '') + (on ? ' on' : '') + '" id="prCard' + i + '">' +
+    '<button type="button" class="pr-top" aria-expanded="' + open + '" onclick="promoToggle(' + idx + ',' + i + ')">' +
+    '<span class="pr-ph">' + promoFoto(pr, 'pr-img') + (pct ? '<span class="pr-pct">-' + pct + '%</span>' : '') + (gratis ? '<span class="pr-rib">GRATIS</span>' : '') + '</span>' +
+    '<span class="pr-tx">' + (mc ? '<span class="pr-mc">' + mc + '</span>' : '') + '<span class="pr-nm">' + mcEsc(prNombre(pr)) + '</span>' +
+    (gratis ? (enPlan ? '<span class="pr-ok">' + PF_SVG.check + 'Incluido en tu plan</span>' : '<span class="pr-pr"><b>Gratis</b></span>')
+      : '<span class="pr-pr"><b>' + prTxt(pr, '+ S/ ') + '</b>' + (pr.antes ? '<s>S/ ' + cliMoney(pr.antes) + '</s>' : '') + '</span>' +
+        (pct ? '<span class="pr-sv">Ahorra S/ ' + cliMoney(pr.antes - pr.precio) + '</span>' : '')) +
+    (pr.cond && !enPlan ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + '</span>' +
+    '<span class="pr-vc">' + PR_BCSVG + '<span>' + (open ? 'Ocultar' : 'Código') + '</span></span></button>' +
     (open && code ? '<div class="pr-body"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) +
-      '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar promoción a la venta') + '</button></div>' : '') + '</div>';
+      '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar a la venta') + '</button></div>' : '') + '</div>';
 }
 // Lista de promociones del plan: primero productos; el código aparece al tocar
 function promoOpen(idx, keep) {
@@ -2027,9 +2073,18 @@ function promoOpen(idx, keep) {
   _prIdx = idx;
   var fin = ps.map(function (x) { return x.hasta || ''; }).sort()[0];
   var old = document.querySelector('#mcSheet:not([hidden]) .pr-list'), st = keep && old ? old.closest('.cli-body').scrollTop : 0;
-  var h = mcTop('<span class="pr-ttl">' + PR_GIFT + 'Promociones</span>') + '<div class="cli-body mc-form"><p class="pr-sub">Con esta Extra Garantía en ' + mcEsc(mcCatName(catActual)) + '. Toca un producto para ver su código (no son acumulables).</p><div class="pr-list">';
-  ps.forEach(function (x, i) { h += promoCard(x, i, idx, catActual, _prOpen === i, _bcPromo === x); });
-  h += '</div>' + (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + REF_NOTE + '</div>' +
+  var tipo = _bcTipo[idx], an = _bcAnios[idx] || 1;
+  var h = mcTop('<span class="pr-ttl">' + PR_GIFT + 'Promociones</span>') + '<div class="cli-body mc-form"><div class="pr-ctx"><span>' + mcEsc(mcCatName(catActual)) + '</span>' +
+    '<span class="p">EG ' + (tipo ? mcEsc(tipo) + ' ' : '') + an + (an === 1 ? ' año' : ' años') + '</span></div><p class="pr-sub">Toca “Código” para escanear · No son acumulables</p>';
+  var grp = function (cls, ttl, lst) {
+    if (!lst.length) return '';
+    var o = '<div class="pr-sec' + cls + '">' + ttl + ' <span class="c">' + lst.length + '</span></div><div class="pr-list">';
+    lst.forEach(function (x) { var i = ps.indexOf(x); o += promoCard(x, i, idx, catActual, _prOpen === i, _bcPromo === x, !!tipo); });
+    return o + '</div>';
+  };
+  h += grp(' g', '🎁 Gratis con este plan', ps.filter(function (x) { return x.precio === 0; })) +
+    grp('', 'Precio especial', ps.filter(function (x) { return x.precio !== 0; }));
+  h +=  (fin ? '<p class="pr-foot">Válidas hasta el ' + +fin.slice(8, 10) + '/' + fin.slice(5, 7) + ' o hasta agotar stock.</p>' : '') + REF_NOTE + '</div>' +
     '<div class="cli-foot vt-foot" id="prVt">' + vtHtml(vtBc(idx, prPrev())) + '</div>';
   var sh = mcSheet(h), body = sh.querySelector('.cli-body'); body.scrollTop = st;
   var c = _prOpen >= 0 && document.getElementById('prCard' + _prOpen);
@@ -2485,7 +2540,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.34.1';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.35.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
