@@ -832,6 +832,55 @@ header{background:transparent;border:0}
 .pr-tx .pv3-tg{align-self:flex-start;font-size:11.5px;line-height:1.35;font-weight:700;white-space:normal}
 .pr-code{margin-top:2px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:600;letter-spacing:.6px;color:#4b4f6b}
 @media(prefers-color-scheme:dark){.pr-code{color:#b4b8cf}}
+/* v3.37 · Escáner EAN-13 (pestaña Web) */
+.sc-btn{display:flex;align-items:center;gap:12px;width:100%;margin:2px 0 14px;padding:12px 14px;border:0;border-radius:16px;background:linear-gradient(135deg,#3b7bff,#2056d8);color:#fff;font:inherit;text-align:left;cursor:pointer;box-shadow:0 6px 18px rgba(37,99,235,.3);-webkit-tap-highlight-color:transparent}
+.sc-btn:active{transform:scale(.98);filter:brightness(.95)}
+.sc-btn .ic{flex:none;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
+.sc-btn b{display:block;font-size:16.5px;font-weight:800}
+.sc-btn small{display:block;margin-top:2px;font-size:12.5px;color:rgba(255,255,255,.85)}
+.sc-or{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:11.5px;font-weight:700;color:#8b8fa8;text-transform:uppercase;letter-spacing:.5px}
+.sc-or::before,.sc-or::after{content:'';flex:1;height:1px;background:#e2e3ec}
+.sc-res:empty{display:none}
+.sc-res{margin:-4px 0 14px;padding:12px;border-radius:16px;border:1.5px solid #2563eb;background:#f2f6fe}
+.sc-res .h{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#1a7a4d}
+.sc-res .h svg{width:15px;height:15px}
+.sc-res code{display:block;margin:4px 0 2px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:20px;font-weight:700;letter-spacing:1.5px;color:#16162c}
+.sc-res .av{margin:6px 0 2px;padding:8px 10px;border-radius:10px;background:#fff6e0;color:#8a5a00;font-size:12.5px;line-height:1.4}
+.sc-res .acts{display:flex;gap:8px;margin-top:10px}
+.sc-go{flex:1.5;display:flex;align-items:center;justify-content:center;gap:7px;height:48px;border-radius:13px;background:#2563eb;color:#fff;font-size:15px;font-weight:800;text-decoration:none}
+.sc-go:active{transform:scale(.98)}
+.sc-otro{flex:1;height:48px;border-radius:13px;border:1.5px solid #b8cbf5;background:transparent;color:#2563eb;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.sc-cam{position:fixed;inset:0;z-index:600;background:#000;color:#fff;overflow:hidden;touch-action:none}
+.sc-cam video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sc-dim{position:absolute;inset:0;background:rgba(0,0,0,.5);-webkit-mask:linear-gradient(#000,#000) top/100% 34% no-repeat,linear-gradient(#000,#000) bottom/100% 42% no-repeat,linear-gradient(#000,#000) left/6% 100% no-repeat,linear-gradient(#000,#000) right/6% 100% no-repeat;mask:linear-gradient(#000,#000) top/100% 34% no-repeat,linear-gradient(#000,#000) bottom/100% 42% no-repeat,linear-gradient(#000,#000) left/6% 100% no-repeat,linear-gradient(#000,#000) right/6% 100% no-repeat}
+.sc-frame{position:absolute;left:6%;right:6%;top:34%;bottom:42%}
+.sc-frame i{position:absolute;width:30px;height:30px;border:4px solid #fff}
+.sc-frame i:nth-child(1){left:-2px;top:-2px;border-right:0;border-bottom:0;border-radius:14px 0 0 0}
+.sc-frame i:nth-child(2){right:-2px;top:-2px;border-left:0;border-bottom:0;border-radius:0 14px 0 0}
+.sc-frame i:nth-child(3){left:-2px;bottom:-2px;border-right:0;border-top:0;border-radius:0 0 0 14px}
+.sc-frame i:nth-child(4){right:-2px;bottom:-2px;border-left:0;border-top:0;border-radius:0 0 14px 0}
+.sc-frame u{position:absolute;left:6%;right:6%;top:50%;height:2px;background:#ff3b5c;box-shadow:0 0 12px #ff3b5c;animation:scLinea 1.6s ease-in-out infinite}
+.sc-cam.ok .sc-frame u{background:#22c55e;box-shadow:0 0 14px #22c55e;animation:none}
+.sc-cam.ok .sc-frame i{border-color:#22c55e}
+@keyframes scLinea{0%,100%{transform:translateY(-26px)}50%{transform:translateY(26px)}}
+@media(prefers-reduced-motion:reduce){.sc-frame u{animation:none}}
+.sc-top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 0}
+.sc-top button{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.5);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.sc-top button.on{background:#fff;color:#111}
+.sc-top button[hidden]{visibility:hidden;display:flex}
+.sc-top b{font-size:16px;font-weight:800;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.sc-hint{position:absolute;left:16px;right:16px;top:calc(58% + 18px);text-align:center;font-size:15px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.sc-hint small{display:block;margin-top:5px;font-size:12.5px;font-weight:500;color:#d6d9ea}
+.sc-bot{position:absolute;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);display:flex}
+.sc-bot button{flex:1;height:50px;border-radius:14px;border:1.5px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font:inherit;font-size:14.5px;font-weight:700;cursor:pointer}
+@media(prefers-color-scheme:dark){
+.sc-or::before,.sc-or::after{background:#26263a}
+.sc-res{background:#0f1a33;border-color:#3b82f6}
+.sc-res .h{color:#5fd39a}
+.sc-res code{color:#eceef6}
+.sc-res .av{background:#33270f;color:#f5c26b}
+.sc-otro{border-color:rgba(59,130,246,.55);color:#8fbaff}
+}
 /* v3.34 · Chip de promocionales destacado: rosado sólido, letras blancas */
 .mc-chipgo.hv-chip,.mc-chipgo.hv-chip:active{height:46px;padding:0 18px;border:0;background:linear-gradient(135deg,#ff2e93 0%,#e0117a 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}
 .mc-chipgo.hv-chip svg{color:#fff;width:20px;height:20px}
@@ -888,6 +937,9 @@ header{background:transparent;border:0}
   <div id="viewVirtual" style="display:none">
     <div class="card" id="buscaCard">
       <div class="cat-label">Buscar producto en ripley.com.pe</div>
+      <button type="button" class="sc-btn" onclick="scAbrir()"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M7 9v6M10 9v6M13 9v6M16.5 9v6" stroke-width="1.8"/></svg></span><span><b>Escanear código</b><small>Apunta la cámara a la etiqueta Ripley</small></span></button>
+      <div id="scRes"></div>
+      <div class="sc-or">o escribe el código</div>
       <div class="busca-row">
         <input type="text" id="eanInput" placeholder="Código EAN" oninput="eanInput(this)" onkeydown="if(event.key==='Enter')buscarEAN()">
         <button class="busca-btn" onclick="buscarEAN()">Buscar</button>
@@ -914,7 +966,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.36.2</div>
+  <div style="margin-top:10px">Versión 3.37.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1239,6 +1291,133 @@ function buscarEAN(){
   el.blur();
   window.open('https://simple.ripley.com.pe/search/' + v, '_blank', 'noopener');
 }
+
+// ═══ Escáner EAN-13 (pestaña Web): lee el código con la cámara y abre ripley.com.pe ═══
+// Lector: zxing-wasm (MIT, lib/) se carga solo al tocar "Escanear código".
+var _sc = null;
+var SC_X = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+var SC_LUZ = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>';
+var SC_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>';
+function scLib() {
+  if (scLib._p) return scLib._p;
+  scLib._p = new Promise(function (ok, ko) {
+    var go = function () {
+      ZXingWASM.prepareZXingModule({
+        overrides: { locateFile: function (f, pre) { return /\.wasm$/.test(f) ? 'lib/' + f + '?v=' + APP_VERSION : pre + f; } },
+        fireImmediately: true
+      }).then(function () { ok(ZXingWASM); }, ko);
+    };
+    if (window.ZXingWASM) return go();
+    var sc = document.createElement('script');
+    sc.src = 'lib/zxing-reader.js?v=' + APP_VERSION; sc.onload = go; sc.onerror = ko;
+    document.head.appendChild(sc);
+  });
+  scLib._p.catch(function () { scLib._p = null; });
+  return scLib._p;
+}
+function eanValido(c) {
+  if (!/^\d{13}$/.test(c)) return false;
+  var s = 0; for (var i = 0; i < 12; i++) s += +c[i] * (i % 2 ? 3 : 1);
+  return (10 - s % 10) % 10 === +c[12];
+}
+function scMsg(t) { var m = document.getElementById('eanMsg'); m.className = 'busca-msg err'; m.textContent = t; }
+function scAbrir() {
+  if (_sc) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { scMsg('Este navegador no permite usar la cámara. Escribe el código.'); return; }
+  document.getElementById('scRes').innerHTML = '';
+  var cam = document.createElement('div'); cam.className = 'sc-cam'; cam.id = 'scCam';
+  cam.innerHTML = '<video playsinline muted autoplay></video><div class="sc-dim"></div><div class="sc-frame"><i></i><i></i><i></i><i></i><u></u></div>' +
+    '<div class="sc-top"><button type="button" onclick="scCerrar()" aria-label="Cerrar">' + SC_X + '</button><b>Escanear código</b><button type="button" id="scLuz" onclick="scLuz()" aria-label="Linterna" hidden>' + SC_LUZ + '</button></div>' +
+    '<div class="sc-hint" id="scHint">Abriendo la cámara…</div>' +
+    '<div class="sc-bot"><button type="button" onclick="scCerrar(true)">⌨︎ Escribir el código</button></div>';
+  document.body.appendChild(cam);
+  _sc = { cam: cam, video: cam.querySelector('video'), stream: null, t: 0, hits: {}, vivo: true, luz: false };
+  try { var AC = window.AudioContext || window.webkitAudioContext; if (AC) { _sc.ac = new AC(); _sc.ac.resume && _sc.ac.resume(); } } catch (e) {}
+  var st = _sc;
+  Promise.all([
+    navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } } }),
+    scLib()
+  ]).then(function (r) {
+    if (!st.vivo) { r[0].getTracks().forEach(function (t) { t.stop(); }); return; }
+    st.stream = r[0]; st.zx = r[1]; st.video.srcObject = st.stream;
+    var p = st.video.play(); if (p && p.catch) p.catch(function () {});
+    var tr = st.stream.getVideoTracks()[0], caps = tr && tr.getCapabilities ? tr.getCapabilities() : {};
+    if (caps.torch) document.getElementById('scLuz').hidden = false;
+    if (caps.focusMode && caps.focusMode.indexOf('continuous') >= 0) tr.applyConstraints({ advanced: [{ focusMode: 'continuous' }] }).catch(function () {});
+    document.getElementById('scHint').innerHTML = 'Apunta al código de barras<small>Se lee solo · Si se ve borroso, aleja un poco el celular</small>';
+    scLoop(st);
+  }).catch(function (e) {
+    var cam = !e || e.name === 'NotAllowedError' || e.name === 'SecurityError' ? 'permiso' : e.name === 'NotFoundError' || e.name === 'OverconstrainedError' || e.name === 'NotReadableError' ? 'cam' : 'lib';
+    scCerrar();
+    scMsg(cam === 'permiso' ? 'No hay permiso para usar la cámara. Actívalo en Ajustes › Safari › Cámara (o en el permiso del sitio) y vuelve a intentar.'
+      : cam === 'cam' ? 'No se pudo abrir la cámara. Cierra otras apps que la usen y vuelve a intentar.'
+      : 'No se pudo cargar el lector. Revisa tu conexión y vuelve a intentar.');
+  });
+}
+function scLoop(st) {
+  if (!st.vivo) return;
+  var v = st.video, vw = v.videoWidth, vh = v.videoHeight;
+  if (!vw || !vh || v.readyState < 2) { st.t = setTimeout(function () { scLoop(st); }, 120); return; }
+  // Zona del marco (pantalla) → píxeles del video (object-fit: cover), con margen
+  var ew = v.clientWidth, eh = v.clientHeight, k = Math.max(ew / vw, eh / vh), ox = (ew - vw * k) / 2, oy = (eh - vh * k) / 2;
+  var fx = ew * 0.02, fw = ew * 0.96, fy = eh * 0.28, fh = eh * 0.36;
+  var sx = Math.max(0, (fx - ox) / k), sy = Math.max(0, (fy - oy) / k);
+  var sw = Math.min(vw - sx, fw / k), sh = Math.min(vh - sy, fh / k);
+  var esc = Math.min(1, 1280 / sw), cw = Math.round(sw * esc), chh = Math.round(sh * esc);
+  var cv = st.cv || (st.cv = document.createElement('canvas'));
+  if (cv.width !== cw || cv.height !== chh) { cv.width = cw; cv.height = chh; }
+  var cx = st.cx || (st.cx = cv.getContext('2d', { willReadFrequently: true }));
+  cx.drawImage(v, sx, sy, sw, sh, 0, 0, cw, chh);
+  var img = cx.getImageData(0, 0, cw, chh);
+  st.zx.readBarcodes(img, { formats: ['EAN13'], tryHarder: true, maxNumberOfSymbols: 1 }).then(function (rs) {
+    if (!st.vivo) return;
+    var c = rs && rs[0] && rs[0].isValid ? String(rs[0].text).replace(/\D/g, '') : '';
+    if (eanValido(c)) {
+      st.hits[c] = (st.hits[c] || 0) + 1;
+      if (st.hits[c] >= 2) return scLeido(st, c);
+    }
+    st.t = setTimeout(function () { scLoop(st); }, 90);
+  }, function () { if (st.vivo) st.t = setTimeout(function () { scLoop(st); }, 200); });
+}
+function scBip(st) {
+  try { if (navigator.vibrate) navigator.vibrate(60); } catch (e) {}
+  try {
+    var ac = st.ac; if (!ac) return;
+    var o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine'; o.frequency.value = 1760; g.gain.value = 0.12;
+    o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime + 0.12);
+  } catch (e) {}
+}
+function scLeido(st, c) {
+  st.vivo = false; scBip(st);
+  st.cam.classList.add('ok');
+  document.getElementById('scHint').innerHTML = 'Código leído<small>' + c + '</small>';
+  setTimeout(function () { scCerrar(); scResultado(c); }, 450);
+}
+function scResultado(c) {
+  var el = document.getElementById('eanInput'); el.value = c; eanInput(el);
+  var tienda = /^2\d/.test(c);
+  document.getElementById('scRes').innerHTML = '<div class="sc-res"><div class="h">' + SC_OK + 'Código leído</div><code>' + c + '</code>' +
+    (tienda ? '' : '<div class="av">Este parece el código del fabricante (de la caja). Si ripley.com.pe no encuentra el producto, escanea la etiqueta Ripley: su código empieza con 20…</div>') +
+    '<div class="acts"><a class="sc-go" href="https://simple.ripley.com.pe/search/' + c + '" target="_blank" rel="noopener">Ver en ripley.com.pe <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>' +
+    '<button type="button" class="sc-otro" onclick="scAbrir()">Escanear otro</button></div></div>';
+}
+function scLuz() {
+  if (!_sc || !_sc.stream) return;
+  var tr = _sc.stream.getVideoTracks()[0]; _sc.luz = !_sc.luz;
+  tr.applyConstraints({ advanced: [{ torch: _sc.luz }] }).catch(function () {});
+  document.getElementById('scLuz').classList.toggle('on', _sc.luz);
+}
+function scCerrar(escribir) {
+  var st = _sc; if (!st) return; _sc = null;
+  st.vivo = false; clearTimeout(st.t);
+  if (st.stream) st.stream.getTracks().forEach(function (t) { t.stop(); });
+  if (st.ac && st.ac.close) setTimeout(function () { try { st.ac.close(); } catch (e) {} }, 300);
+  if (st.cam.parentNode) st.cam.parentNode.removeChild(st.cam);
+  if (escribir) document.getElementById('eanInput').focus();
+}
+document.addEventListener('visibilitychange', function () { if (document.hidden && _sc) scCerrar(); });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && _sc) scCerrar(); });
 
 // ── ACCESO INTERNO (enlace cifrado; solo se descifra con el PIN) ──
 var ENLACE_INTERNO = 'f40T+UvHOcKceIzpQ82orA==.wTJjY7nx1yx6xAZk.CULduB0JGFXSbFoDsT15S8t4QtiGAHOvmXl6qTsfe2fn+FTKKKCrEkrqXjAWeot0XoJ3eP4Vf4c=';
@@ -2539,7 +2718,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.36.2';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.37.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
