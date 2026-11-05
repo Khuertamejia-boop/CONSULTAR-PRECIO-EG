@@ -870,7 +870,7 @@ header{background:transparent;border:0}
     </div>
 
     <div class="field field-price">
-      <label for="precio">Precio todo medio de pago</label>
+      <label for="precio">Ingrese precio todo medio de pago</label>
       <div class="price-box"><span class="price-pre" aria-hidden="true">S/</span><input type="number" id="precio" placeholder="Ej: 1999" min="1" step="0.01" inputmode="decimal"/></div>
     </div>
     <div class="tools-row" id="toolsRow">
@@ -911,7 +911,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.35.0</div>
+  <div style="margin-top:10px">Versión 3.35.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2540,7 +2540,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.35.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.35.1';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
