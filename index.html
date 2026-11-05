@@ -830,6 +830,8 @@ header{background:transparent;border:0}
 .pr-vc{border-color:#2a2d42;background:#181a27;color:#c9cbe0}
 }
 .pr-tx .pv3-tg{align-self:flex-start;font-size:11.5px;line-height:1.35;font-weight:700;white-space:normal}
+.pr-code{margin-top:2px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:600;letter-spacing:.6px;color:#4b4f6b}
+@media(prefers-color-scheme:dark){.pr-code{color:#b4b8cf}}
 /* v3.34 · Chip de promocionales destacado: rosado sólido, letras blancas */
 .mc-chipgo.hv-chip,.mc-chipgo.hv-chip:active{height:46px;padding:0 18px;border:0;background:linear-gradient(135deg,#ff2e93 0%,#e0117a 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}
 .mc-chipgo.hv-chip svg{color:#fff;width:20px;height:20px}
@@ -912,7 +914,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.36.0</div>
+  <div style="margin-top:10px">Versión 3.36.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2062,7 +2064,7 @@ function promoCard(pr, i, idx, cat, open, on, enPlan, hv) {
     (gratis ? (enPlan ? '<span class="pr-ok">' + PF_SVG.check + 'Incluido en tu plan</span>' : '<span class="pr-pr"><b>Gratis</b></span>')
       : '<span class="pr-pr"><b>' + prTxt(pr, '+ S/ ') + '</b>' + (pr.antes ? '<s>S/ ' + cliMoney(pr.antes) + '</s>' : '') + '</span>' +
         (pct ? '<span class="pr-sv">Ahorra S/ ' + cliMoney(pr.antes - pr.precio) + '</span>' : '')) +
-    (pr.cond && !enPlan ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + '</span>' +
+    (pr.cond && !enPlan ? '<span class="pv3-tg hoy">' + mcEsc(pr.cond) + '</span>' : '') + (on ? '<span class="pr-in">' + PF_SVG.check + 'En tus códigos</span>' : '') + (code && !open ? '<code class="pr-code">' + code + '</code>' : '') + '</span>' +
     '<span class="pr-vc">' + PR_BCSVG + '<span>' + (open ? 'Ocultar' : 'Código') + '</span></span></button>' +
     (open && code ? '<div class="pr-body"><div class="pr-bc">' + buildBarcode(code) + '</div>' + bcCopyBtn(code) +
       (hv ? '' : '<button type="button" class="pr-add" onclick="promoSel(' + idx + ',' + i + ')">' + (on ? 'Ver en Códigos de barra' : MC_SVG.plus + 'Agregar a la venta') + '</button>') + '</div>' : '') + '</div>';
@@ -2538,7 +2540,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.36.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.36.1';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
