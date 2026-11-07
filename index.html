@@ -751,6 +751,7 @@ header{background:transparent;border:0}
 .mc-chiprow{flex-direction:column;align-items:center;gap:8px}
 .hv-chip{border-color:#ffb3d6}
 .hv-chip[hidden]{display:none}
+body[data-mode="virtual"] #hvChip{display:none!important}
 .hv-chip svg{color:#fd1585}
 .hv-chip .n{background:#ffe3f0;color:#d10f6e}
 .hv-chip:active{background:#fff0f7}
@@ -942,7 +943,7 @@ header{background:transparent;border:0}
   <div id="viewVirtual" style="display:none">
     <div class="card" id="buscaCard">
       <div class="cat-label">Buscar producto en ripley.com.pe</div>
-      <button type="button" class="sc-btn" onclick="scAbrir()"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M7 9v6M10 9v6M13 9v6M16.5 9v6" stroke-width="1.8"/></svg></span><span><b>Escanear código</b><small>Apunta la cámara a la etiqueta Ripley</small></span></button>
+      <button type="button" class="sc-btn" onclick="scAbrir()"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M7 9v6M10 9v6M13 9v6M16.5 9v6" stroke-width="1.8"/></svg></span><span><b>Escanear código</b><small>Apunta la cámara a la etiqueta del producto</small></span></button>
       <div id="scRes"></div>
       <div class="sc-or">o escribe el código</div>
       <div class="busca-row">
@@ -971,7 +972,7 @@ header{background:transparent;border:0}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.37.1</div>
+  <div style="margin-top:10px">Versión 3.37.2</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2522,6 +2523,7 @@ function switchMode(m){
   }
   if (m === 'virtual') buildCupones();
   if (m === 'codigos') mcRender();
+  document.body.setAttribute('data-mode', m); // v3.37.2: en Web no se muestra el botón de promocionales
   safeSet('eg_mode', m);
   updMini();
 }
@@ -2730,7 +2732,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.37.1';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.37.2';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
