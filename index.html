@@ -972,7 +972,7 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.37.2</div>
+  <div style="margin-top:10px">Versión 3.37.3</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1298,7 +1298,7 @@ function buscarEAN(){
   window.open('https://simple.ripley.com.pe/search/' + v, '_blank', 'noopener');
 }
 
-// ═══ Escáner EAN-13 (pestaña Web): lee el código con la cámara y abre ripley.com.pe ═══
+// ═══ Escáner EAN-13 (pestaña Web): lee el código con la cámara y busca solo en ripley.com.pe ═══
 // Lector: zxing-wasm (MIT, lib/) se carga solo al tocar "Escanear código".
 var _sc = null;
 var SC_X = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
@@ -1397,8 +1397,14 @@ function scBip(st) {
 function scLeido(st, c) {
   st.vivo = false; scBip(st);
   st.cam.classList.add('ok');
-  document.getElementById('scHint').innerHTML = 'Código leído<small>' + c + '</small>';
-  setTimeout(function () { scCerrar(); scResultado(c); }, 450);
+  // v3.37.3: si es la etiqueta Ripley (empieza con 2…) busca solo en ripley.com.pe.
+  // Se abre en la misma ventana porque Safari bloquea ventanas nuevas que no salen de un toque.
+  var auto = /^2\d/.test(c);
+  document.getElementById('scHint').innerHTML = (auto ? 'Buscando en ripley.com.pe…' : 'Código leído') + '<small>' + c + '</small>';
+  setTimeout(function () {
+    scCerrar(); scResultado(c);
+    if (auto) location.assign('https://simple.ripley.com.pe/search/' + c);
+  }, 450);
 }
 function scResultado(c) {
   var el = document.getElementById('eanInput'); el.value = c; eanInput(el);
@@ -2732,7 +2738,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.37.2';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.37.3';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
