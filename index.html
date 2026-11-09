@@ -972,7 +972,7 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.37.4</div>
+  <div style="margin-top:10px">Versión 3.38.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1103,7 +1103,7 @@ function calcular() {
           '</div>' +
         '</div>' +
         '<div class="pk-r3">' + save + '<span class="pk-btns">' +
-          (function () { var np = plan.bc ? promosVigentes(key, parseInt(plan.l, 10) || 1, grupo.tipo, precio).length : 0;
+          (function () { var np = plan.bc ? promosVigentes(key, parseInt(plan.l, 10) || 1, grupo.tipo, precio, r.eg - (r.cuponAplica ? r.descMonto : 0)).length : 0;
             return np ? '<button type="button" class="pk-prm" onclick="promoOpen(' + bcIdx + ')" aria-label="Promociones (' + np + ')">' + PR_GIFT + '<b>' + np + '</b></button>' : ''; })() +
           (plan.bc ? '<button type="button" class="pk-cod" onclick="openBcModal(' + bcIdx + ')">' + PK_BC_ICO + '<span>Códigos</span></button>' : '') +
         '</span></div>' +
@@ -1188,7 +1188,7 @@ function openBcModal(idx, keepScroll) {
   }
   var adds = [];
   if (!_bcProd) adds.push('<button type="button" class="bc-addbtn" onclick="mcPickOpen()">' + MC_SVG.plus + 'Producto</button>');
-  var prs = promosVigentes(catActual, _bcAnios[idx] || 1, _bcTipo[idx], prPrecioTienda());
+  var prs = promosIdx(idx);
   if (_bcPromo && prs.indexOf(_bcPromo) < 0) _bcPromo = null;
   if (_bcPromo) {
     var pc = _bcPromo.codigos[catActual];
@@ -2234,7 +2234,7 @@ function vtVg() {
   var s = _vg.sel, eg = s && s !== 'none', ps = vgPromos(), pr = _vg.promo !== null && _vg.promo >= 0 ? ps[_vg.promo] : null;
   return { precio: _vg.precio, eg: eg ? s.eg : 0, cup: eg ? s.cup : 0, d: eg ? s.pl.d : 0, tipo: _vg.selTipo || '', l: eg ? s.pl.l : '', prod: _vg.it.desc, pr: pr, prev: false };
 }
-function prPrev() { if (_prIdx < 0 || _prOpen < 0) return null; return promosVigentes(catActual, _bcAnios[_prIdx] || 1, _bcTipo[_prIdx], prPrecioTienda())[_prOpen] || null; }
+function prPrev() { if (_prIdx < 0 || _prOpen < 0) return null; return promosIdx(_prIdx)[_prOpen] || null; }
 function vtToggle() {
   _vtOpen = !_vtOpen;
   var a = document.getElementById('bcVt'); if (a && _bcIdxOpen >= 0) a.innerHTML = vtHtml(vtBc(_bcIdxOpen));
@@ -2247,7 +2247,7 @@ function promoFoto(pr, cls) { return pr.foto ? '<img class="' + cls + '" src="' 
 var PR_CHEV = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 var _prOpen = -1;
 // Tarjeta: foto, nombre y precio; al tocarla muestra el código de barras del departamento
-var PR_MARCAS = /\s*\b(HAVIT|Taurus|Electrolux|Practika|Thomas|Tannen|Lit)\b/i;
+var PR_MARCAS = /\s*\b(HAVIT|Taurus|Electrolux|Practika|Thomas|Tannen|Lit|Samsung)\b/i;
 function prMarca(pr) { var m = String(pr.nombre).match(PR_MARCAS); return m ? m[1].toUpperCase() : ''; }
 function prNombre(pr) { return String(pr.nombre).replace(PR_MARCAS, '').replace(/\s+/g, ' ').trim(); }
 var PR_BCSVG = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>';
@@ -2268,7 +2268,7 @@ function promoCard(pr, i, idx, cat, open, on, enPlan, hv) {
 }
 // Lista de promociones del plan: primero productos; el código aparece al tocar
 function promoOpen(idx, keep) {
-  var ps = promosVigentes(catActual, _bcAnios[idx] || 1, _bcTipo[idx], prPrecioTienda()); if (!ps.length) return;
+  var ps = promosIdx(idx); if (!ps.length) return;
   if (!keep) _prOpen = -1;
   _prIdx = idx;
   var fin = ps.map(function (x) { return x.hasta || ''; }).sort()[0];
@@ -2292,7 +2292,7 @@ function promoOpen(idx, keep) {
 }
 function promoToggle(idx, i) { _prOpen = _prOpen === i ? -1 : i; promoOpen(idx, true); }
 function promoSel(idx, i) {
-  var x = promosVigentes(catActual, _bcAnios[idx] || 1, _bcTipo[idx], prPrecioTienda())[i]; if (!x) return;
+  var x = promosIdx(idx)[i]; if (!x) return;
   var abierta = document.getElementById('bcBackdrop').classList.contains('open');
   _bcPromo = x; mcClose(); openBcModal(idx, abierta);
 }
@@ -2301,14 +2301,18 @@ function hoyISO() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d
 function promoEnFecha(p) { var h = hoyISO(); return (!p.desde || p.desde <= h) && (!p.hasta || p.hasta >= h); }
 // planes: { 'Reparación': [1, 2], 'Reemplazo': [] } → solo esos planes (sin tipo = lista general, se muestran todas)
 function promoEnPlan(p, anios, tipo) { return !p.planes || !tipo || (p.planes[tipo] || []).indexOf(anios) >= 0; }
-// v3.37.4: minPrecio → solo si el producto cuesta eso o más (sin precio, p. ej. en la lista general, no se filtra)
-function promoEnPrecio(p, precio) { return !p.minPrecio || precio == null || precio >= p.minPrecio; }
-function prPrecioTienda() { var v = parseFloat((document.getElementById('precio').value || '').replace(/,/g, '')); return v > 0 ? v : 0; }
-function promosVigentes(cat, anios, tipo, precio) {
+// minPrecio → solo si el producto cuesta eso o más · egMayorA → solo si la EG (ya con cupón) cuesta más que eso
+// (sin montos, p. ej. en la lista general de promocionales, no se filtra)
+function promoEnMonto(p, precio, eg) {
+  return (!p.minPrecio || precio == null || precio >= p.minPrecio) && (!p.egMayorA || eg == null || eg > p.egMayorA);
+}
+function promosVigentes(cat, anios, tipo, precio, eg) {
   return PROMOS_EG.filter(function (p) {
-    return p.codigos && p.codigos[cat] && promoEnFecha(p) && (!p.minAnios || anios >= p.minAnios) && promoEnPlan(p, anios, tipo) && promoEnPrecio(p, precio);
+    return p.codigos && p.codigos[cat] && promoEnFecha(p) && (!p.minAnios || anios >= p.minAnios) && promoEnPlan(p, anios, tipo) && promoEnMonto(p, precio, eg);
   });
 }
+// Promociones del plan idx en la pestaña Tienda (usa el precio y la EG de ese plan)
+function promosIdx(idx) { var v = _bcVenta[idx] || {}; return promosVigentes(catActual, _bcAnios[idx] || 1, _bcTipo[idx], v.precio, v.eg == null ? null : v.eg - (v.cup || 0)); }
 // ═══ Chip de promocionales (PROMOS_TITULO): todos los promocionales por departamento con su código ═══
 var _hvOpen = null;
 // Departamentos a mostrar: el promotor solo ve los de sus áreas; el asesor, todos
@@ -2404,7 +2408,7 @@ function vgProd() {
 }
 function vgPromos() {
   if (!_vg.sel || _vg.sel === 'none') return [];
-  return promosVigentes(_vg.it.cat, _vg.sel.anios, _vg.selTipo, _vg.precio);
+  return promosVigentes(_vg.it.cat, _vg.sel.anios, _vg.selTipo, _vg.precio, _vg.sel.eg - (_vg.sel.cup || 0));
 }
 function vgRender() {
   var h;
@@ -2741,7 +2745,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.37.4';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.38.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
