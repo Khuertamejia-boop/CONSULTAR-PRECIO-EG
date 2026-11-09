@@ -241,14 +241,5 @@ var PROMOS_EG = [
   { nombre: 'Bancada Tannen (mueble para TV)', precio: 29.90, desde: '2026-11-04', hasta: '2026-11-30',
     egMayorA: 280, cond: 'Extra Garantía mayor a S/280.',
     foto: PR_FOTO.bancada,
-    codigos: { tv: '2018371227405' } },
-  // Barra de sonido Samsung HW-B400F/PE (SKU 36977035): precio según el plan · código armado con el SKU, verificar con etiqueta
-  { nombre: 'Barra de sonido Samsung HW-B400F', precio: 49.90, desde: '2026-11-04', hasta: '2026-11-30',
-    planes: { 'Reemplazo': [1, 2] }, cond: 'Con planes Reemplazo 1 y 2 años.',
-    foto: PR_FOTO.blanco,
-    codigos: { tv: '2018369770357' } },
-  { nombre: 'Barra de sonido Samsung HW-B400F', precio: 99.90, desde: '2026-11-04', hasta: '2026-11-30',
-    planes: { 'Reparación': [1, 2, 3, 4, 5] }, cond: 'Con planes Reparación 1 a 5 años.',
-    foto: PR_FOTO.blanco,
-    codigos: { tv: '2018369770357' } }
+    codigos: { tv: '2018371227405' } }
 ];
