@@ -224,6 +224,19 @@ header{background:transparent;border:0}
 .cli-x{background:#14141f;color:#b4b8cf}
 .cli-foot{background:#07070c;border-color:#22243a}
 }
+/* v3.39 · Generar código de barra con SKU (pantalla principal de Tienda) */
+.gn-row{margin:0 0 12px}
+.gn-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:10px 14px;border-radius:14px;border:1.5px solid #bcd0fb;background:#eef4ff;color:#1d4fc4;font:inherit;font-size:14.5px;font-weight:800;line-height:1.2;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gn-btn:active{background:#dfeafe}
+.gn-btn svg{flex:none}
+.gn-foot{display:flex;gap:8px}
+.gn-foot .mc-b2{flex:1}.gn-foot .mc-b1{flex:1.3}
+.gn-hint{margin:14px 0 0;font-size:13px;color:#6b6f8a;text-align:center}
+.gn-ok{margin:10px 0 0;font-size:13px;font-weight:700;color:#16a34a;text-align:center}
+@media (prefers-color-scheme:dark){.gn-btn{background:#101a33;border-color:#27407a;color:#a9c8ff}.gn-btn:active{background:#16203a}.gn-hint{color:#8b8fab}.gn-ok{color:#4ade80}}
+:root[data-theme="dark"] .gn-btn{background:#101a33;border-color:#27407a;color:#a9c8ff}
+:root[data-theme="dark"] .gn-hint{color:#8b8fab}
+:root[data-theme="dark"] .gn-ok{color:#4ade80}
 /* Mis códigos v3.14 */
 
 .bc-addbtn{width:100%;max-width:285px;height:50px;border-radius:14px;border:1.5px dashed #9bb7f0;background:#f2f6fe;color:#1d4fc4;font:inherit;font-size:15px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
@@ -912,6 +925,7 @@ body[data-mode="virtual"] #hvChip{display:none!important}
   <div class="mc-chiprow"><button type="button" class="mc-chipgo" id="modeCodigos" onclick="switchMode('codigos')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>Mis productos<span class="n" id="mcChipN" hidden></span></button><button type="button" class="mc-chipgo hv-chip" id="hvChip" onclick="hvAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg><span id="hvChipT">Promociones</span><span class="n" id="hvChipN"></span></button></div>
 
   <div id="viewFisica">
+  <div class="gn-row"><button type="button" class="gn-btn" id="gnBtn" onclick="gnOpen()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M3 5v14M6.5 5v14M10 5v14M13.5 5v14M17 5v8" stroke-width="1.6"/><path d="M8.2 5v14M15.2 5v8" stroke-width="2.6"/><path d="M18 18h4M20 16v4" stroke-width="2"/></svg><span>Generar código de barra con sku</span></button></div>
   <div class="card">
     <div class="cat-label">Categoría</div>
     <div class="chip-hint">Mantén presionado un chip para fijarlo como favorito &#9733;</div>
@@ -972,7 +986,7 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.38.2</div>
+  <div style="margin-top:10px">Versión 3.39.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1749,7 +1763,7 @@ function mcSheet(html) {
 function mcClose() {
   var ov = document.getElementById('mcSheet'); if (ov) ov.hidden = true;
   document.documentElement.classList.remove('cli-lock');
-  _mcForm = null; _mcViewBlob = null;
+  _mcForm = null; _mcViewBlob = null; _gn = null;
 }
 function mcTop(title) {
   return '<div class="cli-top"><button type="button" class="cli-x" aria-label="Cerrar" onclick="mcClose()">' + CLI_ICO.x + '</button><span class="mc-title">' + title + '</span><span class="cli-sp"></span></div>';
@@ -1930,6 +1944,76 @@ function mcFormSave() {
   if (_mcForm.fromPick) { mcToast('Producto agregado'); mcPickSel(id); return; }
   mcToast(target ? 'Código actualizado' : 'Código guardado');
   mcOpenView(id);
+}
+
+// ── Generar código de barra con SKU (desde la pantalla principal de Tienda) ──
+// SKU de 8 dígitos + departamento (prefijo) → EAN-13 con su dígito verificador. Se puede guardar en Mis productos o descartar.
+var _gn = null;
+function gnOpen() {
+  var cat = catActual && MC_PREF[catActual] ? catActual : '';
+  _gn = { cat: cat, userCat: false, res: null, saved: 0 };
+  var h = mcTop('Generar código de barra') + '<div class="cli-body mc-form">' +
+    '<label class="mc-lbl" for="gnCode">SKU o código <small id="gnCount"></small></label>' +
+    '<input id="gnCode" class="mc-in mc-in-code" inputmode="numeric" autocomplete="off" placeholder="8 o 13 dígitos" oninput="gnUpd()">' +
+    '<div id="gnDep"><div class="mc-lbl">Departamento <small id="gnPrefLbl"></small></div>' +
+    '<div class="chips-row mc-chips">' + mcChips(cat, 'gnCat') + '</div>' +
+    '<div class="mc-otro"><label for="gnPref">¿Otro departamento? Prefijo</label><input id="gnPref" class="mc-in" inputmode="numeric" maxlength="4" placeholder="0000" oninput="gnUpd()"></div></div>' +
+    '<div id="gnPrev" class="mc-prev"></div>' +
+    '<div id="gnMore" hidden><label class="mc-lbl" for="gnDesc">Descripción <small>opcional</small></label>' +
+    '<input id="gnDesc" class="mc-in" maxlength="80" placeholder="Ej: Parlante JBL Go 4"></div>' +
+    '<div id="gnMsg"></div>' +
+    '</div><div class="cli-foot gn-foot"><button type="button" class="mc-b2" id="gnDiscard" onclick="gnDiscard()">Descartar y generar otro</button>' +
+    '<button type="button" class="mc-b1" id="gnSave" onclick="gnSave()" disabled>' + MC_SVG.check + 'Guardar</button></div>';
+  mcSheet(h);
+  gnUpd();
+  setTimeout(function () { var i = document.getElementById('gnCode'); if (i) i.focus(); }, 60);
+}
+function gnCat(k) {
+  if (!_gn) return;
+  _gn.cat = _gn.cat === k ? '' : k; _gn.userCat = true;
+  document.getElementById('gnPref').value = '';
+  mcSetChips('#gnDep', _gn.cat);
+  gnUpd();
+}
+function gnUpd() {
+  if (!_gn) return;
+  var raw = document.getElementById('gnCode').value, d = raw.replace(/\D/g, '');
+  var otro = document.getElementById('gnPref').value.replace(/\D/g, '');
+  if (otro && _gn.cat) { _gn.cat = ''; mcSetChips('#gnDep', ''); }
+  var pref = otro.length === 4 ? otro : (_gn.cat ? MC_PREF[_gn.cat] : '');
+  document.getElementById('gnCount').textContent = d.length ? d.length + ' dígitos' : '';
+  document.getElementById('gnPrefLbl').textContent = d.length === 8 ? (pref ? 'Prefijo ' + pref : 'necesario para el SKU') : 'para ordenar tu lista';
+  var r = mcResolve(raw, pref); _gn.res = r;
+  var pv = document.getElementById('gnPrev'), btn = document.getElementById('gnSave'), more = document.getElementById('gnMore');
+  btn.disabled = !r.ok; more.hidden = !r.ok;
+  document.getElementById('gnMsg').innerHTML = '';
+  if (!r.ok) { pv.innerHTML = d.length ? '<div class="mc-msg">' + mcEsc(r.msg) + '</div>' : '<p class="gn-hint">Escribe el SKU de 8 dígitos, elige el departamento y se genera el código de barras.</p>'; return; }
+  if (!otro && r.how !== 'sku' && !_gn.userCat) { var k = mcCatOf(r.code); if (k !== _gn.cat) { _gn.cat = k; mcSetChips('#gnDep', k); } }
+  var dup = mcLoad().filter(function (x) { return x.code === r.code; })[0];
+  pv.innerHTML = '<div class="mc-parts"><div class="p"><b>' + r.code.slice(0, 4) + '</b><span>Depto.</span></div><div class="s"><b>' + r.code.slice(4, 12) + '</b><span>SKU</span></div><div class="c"><b>' + r.code[12] + '</b><span>Verificador</span></div></div>' +
+    '<div class="mc-pbc">' + buildBarcode(r.code) + bcCopyBtn(r.code) + '</div>' +
+    (dup ? '<div class="mc-msg warn">Ya lo tienes guardado como “' + mcEsc(dup.desc || dup.code) + '”. Si guardas, se actualiza.</div>' : '');
+}
+// Descartar: limpia el SKU y la descripción, mantiene el departamento elegido y deja el teclado listo
+function gnDiscard() {
+  if (!_gn) return;
+  document.getElementById('gnCode').value = ''; document.getElementById('gnDesc').value = '';
+  document.getElementById('gnPref').value = ''; _gn.userCat = !!_gn.cat;
+  gnUpd();
+  var i = document.getElementById('gnCode'); if (i) i.focus();
+}
+function gnSave() {
+  if (!_gn || !_gn.res || !_gn.res.ok) return;
+  var code = _gn.res.code, all = mcLoad(), desc = document.getElementById('gnDesc').value.trim();
+  var cat = _gn.cat || mcCatOf(code);
+  var target = all.filter(function (x) { return x.code === code; })[0];
+  if (target) { if (desc) target.desc = desc; target.cat = cat; target.ts = Date.now(); }
+  else all.push({ id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), code: code, desc: desc, note: '', cat: cat, linea: '', ts: Date.now() });
+  mcSave(all); mcRender();
+  _gn.saved++;
+  mcToast(target ? 'Código actualizado en Mis productos' : 'Guardado en Mis productos');
+  gnDiscard();
+  document.getElementById('gnMsg').innerHTML = '<p class="gn-ok">Guardado. Puedes generar otro.</p>';
 }
 
 // ── Importar / compartir lista ──
@@ -2747,7 +2831,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.38.2';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.39.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
