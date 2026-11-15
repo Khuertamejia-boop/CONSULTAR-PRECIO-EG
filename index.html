@@ -225,18 +225,49 @@ header{background:transparent;border:0}
 .cli-x{background:#14141f;color:#b4b8cf}
 .cli-foot{background:#000000;border-color:#22243a}
 }
+/* v3.41 · Libreta 3 por fila, favoritos, precio y portada del promotor */
+.mc-hd-pro{padding:14px;border-radius:18px;background:#fff;border:1px solid #e2e3ec}
+.mc-hd-pro .mc-mono{width:52px;height:52px;min-width:52px;border-radius:15px;font-size:20px}
+.mc-hd-pro .mc-hd-t b{font-size:21px}
+.mc-eyebrow{display:block;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6e7189}
+.mc-fav{flex:none;width:30px;height:30px;margin:-4px 0 -4px -4px;display:flex;align-items:center;justify-content:center;font-size:19px;line-height:1;color:#b9bcc8;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mc-fav.on{color:#e0a800}
+.mc-lc .mc-fav{position:absolute;top:0;right:2px;margin:0;width:26px;height:22px;font-size:14px}
+.mc-pr{flex:none;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+.mc-fav-h{color:#b78300}
+.mc-fav-ic{color:#e0a800;font-size:15px;line-height:1}
+.mc-grp-fav{margin-bottom:6px}
+.mc-prw{position:relative}
+.mc-prw span{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:700;color:#8b8fa8;pointer-events:none}
+.mc-prw .mc-in{padding-left:42px}
+.mc-favsw{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px 14px;border-radius:14px;background:#f2f3f8;cursor:pointer}
+.mc-favsw .mc-fav-ic{font-size:20px}
+.mc-favsw .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.mc-favsw .t b{font-size:15px}
+.mc-favsw .t small{font-size:12.5px;color:#6e7189}
+.mc-favsw input{position:absolute;opacity:0;width:1px;height:1px}
+.mc-favsw .sw{position:relative;flex:none;width:50px;height:30px;border-radius:15px;background:#c9ccd8;transition:background .15s}
+.mc-favsw .sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:12px;background:#fff;transition:transform .15s}
+.mc-favsw input:checked+.sw{background:#2563eb}
+.mc-favsw input:checked+.sw::after{transform:translateX(20px)}
+.mc-favsw input:focus-visible+.sw{outline:2px solid #2563eb;outline-offset:2px}
+.mc-vpr{color:inherit}
+@media (prefers-color-scheme:dark){.mc-hd-pro{background:#12131c;border-color:#22243a}.mc-eyebrow{color:#9da1bb}.mc-fav{color:#5b5f78}.mc-fav.on{color:#f2c14e}.mc-lc .mc-fav{color:#b9bcc8}.mc-lc .mc-fav.on{color:#e0a800}.mc-fav-h{color:#f2c14e}.mc-favsw{background:#12131c}.mc-favsw .t small{color:#9da1bb}.mc-favsw .sw{background:#2e3046}}
+:root[data-theme="dark"] .mc-hd-pro{background:#12131c;border-color:#22243a}
+:root[data-theme="dark"] .mc-fav-h{color:#f2c14e}
+:root[data-theme="dark"] .mc-favsw{background:#12131c}
 /* v3.40 · Libreta de productos (etiquetas) */
 .mc-vt{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:4px;margin:0 0 12px;border-radius:12px;background:#eceef5}
 .mc-vt button{height:38px;border:0;border-radius:9px;background:transparent;color:#5b5f78;font:inherit;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
 .mc-vt button.on{background:#fff;color:#1d4fc4;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.mc-lib{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:4px 0 6px}
-.mc-lc{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;padding:10px 8px 11px;border:1px solid #e2e3ec;border-radius:12px;background:#fff;color:#111;font:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mc-lib{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:4px 0 6px}
+.mc-lc{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;padding:22px 6px 9px;border:1px solid #e2e3ec;border-radius:12px;background:#fff;color:#111;font:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mc-lc:active{transform:scale(.98)}
-.mc-lc .bc-svg{display:block;width:100%;height:auto;margin-bottom:-10px}
+.mc-lc .bc-svg{display:block;width:100%;height:auto;margin-bottom:-3px}
 .mc-lc .bc-svg text{display:none}
-.mc-lc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;font-weight:700;letter-spacing:.5px;color:#111}
-.mc-lc b{max-width:100%;font-size:12.5px;font-weight:700;line-height:1.25;color:#222;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
-.mc-lc small{max-width:100%;font-size:11px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-lc code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;font-weight:700;letter-spacing:0;color:#111}
+.mc-lc b{max-width:100%;font-size:11px;font-weight:700;line-height:1.25;color:#222;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.mc-lc-pr{font-size:12px;font-weight:800;color:#111;font-variant-numeric:tabular-nums}
 @media (prefers-color-scheme:dark){.mc-vt{background:#12131c}.mc-vt button{color:#9da1bb}.mc-vt button.on{background:#24314d;color:#dce7ff;box-shadow:none}.mc-lc{border-color:#2a2c42}}
 :root[data-theme="dark"] .mc-vt{background:#12131c}
 :root[data-theme="dark"] .mc-vt button{color:#9da1bb}
@@ -1002,7 +1033,7 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.40.0</div>
+  <div style="margin-top:10px">Versión 3.41.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1659,24 +1690,33 @@ function mcFilter(list, q) {
 }
 function mcGroupsHtml(list, fn, first, lib) {
   var groups = {};
+  var favs = list.filter(function (it) { return it.fav; });
+  list = list.filter(function (it) { return !it.fav; });
   list.forEach(function (it) { var k = it.cat || ''; (groups[k] = groups[k] || []).push(it); });
   var keys = MC_ORDER.filter(function (k) { return groups[k]; }); if (groups['']) keys.push('');
   if (first && groups[first]) keys = [first].concat(keys.filter(function (k) { return k !== first; }));
-  var multi = keys.length > 1, h = '';
+  var multi = keys.length > 1 || favs.length > 0, h = '';
+  var view = fn === 'mcOpenView';
+  var star = function (it) {
+    if (!view) return it.fav ? '<span class="mc-fav on" aria-hidden="true">★</span>' : '';
+    return '<span class="mc-fav' + (it.fav ? ' on' : '') + '" role="button" tabindex="0" aria-label="' + (it.fav ? 'Quitar de favoritos' : 'Marcar como favorito') + '" onclick="event.stopPropagation();mcFavToggle(\'' + it.id + '\')">' + (it.fav ? '★' : '☆') + '</span>';
+  };
   var card = function (it) {
-    return '<button type="button" class="mc-lc" onclick="mcOpenView(\'' + it.id + '\')" aria-label="' + mcEsc((it.desc || 'Producto') + ', código ' + it.code) + '">' +
+    return '<button type="button" class="mc-lc" onclick="mcOpenView(\'' + it.id + '\')" aria-label="' + mcEsc((it.desc || 'Producto') + ', código ' + it.code) + '">' + star(it) +
       buildBarcode(it.code) + '<code>' + it.code + '</code><b>' + mcEsc(it.desc || 'Sin descripción') + '</b>' +
-      (it.note ? '<small>' + mcEsc(it.note) + '</small>' : '') + '</button>';
+      (it.precio ? '<span class="mc-lc-pr">' + mcPrecioTxt(it.precio, true) + '</span>' : '') + '</button>';
   };
   var wrap = function (items) { return lib ? '<div class="mc-lib">' + items.map(card).join('') + '</div>' : '<div class="mc-rows">' + items.map(row).join('') + '</div>'; };
   var row = function (it) {
-    var inner = '<span class="mc-tx"><b>' + mcEsc(it.desc || 'Sin descripción') + '</b>' +
-      (it.note ? '<small>' + mcEsc(it.note) + '</small>' : '') + '<code>SKU ' + it.code.slice(4, 12) + '</code></span>' + (fn === 'mcOpenView' ? MC_SVG.chev : MC_SVG.add);
+    var inner = star(it) + '<span class="mc-tx"><b>' + mcEsc(it.desc || 'Sin descripción') + '</b>' +
+      (it.note ? '<small>' + mcEsc(it.note) + '</small>' : '') + '<code>SKU ' + it.code.slice(4, 12) + '</code></span>' +
+      (it.precio ? '<span class="mc-pr">' + mcPrecioTxt(it.precio, false) + '</span>' : '') + (fn === 'mcOpenView' ? MC_SVG.chev : MC_SVG.add);
     if (fn !== 'mcOpenView') return '<button type="button" class="mc-row" onclick="' + fn + '(\'' + it.id + '\')">' + inner + '</button>';
     return '<div class="mc-sw"><button type="button" class="mc-sw-del" tabindex="-1" onclick="mcSwDel(\'' + it.id + '\')">' + MC_SVG.trash + 'Eliminar</button>' +
       '<button type="button" class="mc-row" onclick="mcRowTap(this, \'' + it.id + '\')">' + inner + '</button></div>';
   };
   var bySize = function (a, b) { return (mcSize(a.desc) || 999) - (mcSize(b.desc) || 999) || (a.desc || '').localeCompare(b.desc || '', 'es', { sensitivity: 'base', numeric: true }); };
+  if (favs.length) h += '<div class="mc-grp mc-grp-fav"><div class="mc-grp-h mc-fav-h"><span class="mc-fav-ic" aria-hidden="true">★</span><span>Favoritos</span></div>' + wrap(favs.sort(bySize)) + '</div>';
   keys.forEach(function (k) {
     var g = groups[k];
     h += '<div class="mc-grp">';
@@ -1809,7 +1849,7 @@ function mcOpenView(id) {
     (it.cat ? '<span class="mc-cat chip" data-cat="' + it.cat + '">' + mcIcon(it.cat) + mcEsc(mcCatName(it.cat)) + ' · ' + mcEsc(mcLinea(it)) + '</span>' : '') +
     '<h2 class="mc-vdesc">' + mcEsc(it.desc || 'Sin descripción') + '</h2>' + (it.note ? '<p class="mc-vnote">' + mcEsc(it.note) + '</p>' : '') +
     '<div class="mc-vbc">' + buildBarcode(it.code) + bcCopyBtn(it.code) + '</div>' +
-    '<div class="mc-vsku">SKU <b>' + it.code.slice(4, 12) + '</b> · Depto. <b>' + it.code.slice(0, 4) + '</b></div>' +
+    '<div class="mc-vsku">SKU <b>' + it.code.slice(4, 12) + '</b> · Depto. <b>' + it.code.slice(0, 4) + '</b>' + (it.precio ? ' · <b class="mc-vpr">' + mcPrecioTxt(it.precio, true) + '</b>' : '') + '</div>' +
     '<div class="mc-acts">' +
     '<button type="button" class="mc-act" onclick="mcOpenForm(\'' + it.id + '\')"><span class="ic">' + MC_SVG.edit + '</span>Editar</button>' +
     '<button type="button" class="mc-act" onclick="mcShareImg(\'' + it.id + '\')"><span class="ic">' + MC_SVG.share + '</span>Imagen</button>' +
@@ -1918,6 +1958,10 @@ function mcOpenForm(id, fromPick) {
     '<input id="mcLinea" class="mc-in" maxlength="40" list="mcLineaList" autocomplete="off" placeholder="Automática" value="' + mcEsc(it ? (it.linea || '') : '') + '" oninput="mcLineaUpd()"><datalist id="mcLineaList"></datalist>' +
     '<label class="mc-lbl" for="mcNote">Nota <small>opcional</small></label>' +
     '<input id="mcNote" class="mc-in" maxlength="80" placeholder="Ej: color negro, en exhibición" value="' + mcEsc(it ? it.note : '') + '">' +
+    '<label class="mc-lbl" for="mcPrecio">Precio <small>opcional</small></label>' +
+    '<div class="mc-prw"><span>S/</span><input id="mcPrecio" class="mc-in" inputmode="decimal" autocomplete="off" placeholder="Ej: 1599" value="' + (it && it.precio ? it.precio : '') + '"></div>' +
+    '<label class="mc-favsw" for="mcFav"><span class="mc-fav-ic" aria-hidden="true">★</span><span class="t"><b>Favorito</b><small>Aparece primero en tu lista</small></span>' +
+    '<input type="checkbox" id="mcFav" role="switch"' + (it && it.fav ? ' checked' : '') + '><span class="sw" aria-hidden="true"></span></label>' +
     '</div><div class="cli-foot"><button type="button" class="mc-b1 mc-wide" id="mcSaveBtn" onclick="mcFormSave()">' + MC_SVG.check + 'Guardar</button></div>';
   mcSheet(h);
   mcFormUpd();
@@ -1957,9 +2001,12 @@ function mcFormSave() {
   var dup = all.filter(function (x) { return x.code === code && x.id !== _mcForm.id; })[0];
   var target = _mcForm.id ? all.filter(function (x) { return x.id === _mcForm.id; })[0] : dup;
   if (_mcForm.id && dup) all = all.filter(function (x) { return x !== dup; });
-  var cat = _mcForm.cat || mcCatOf(code);
+  var cat = _mcForm.cat || mcCatOf(code), precio = mcPrecioLeer('mcPrecio'), fav = document.getElementById('mcFav').checked;
   if (target) { target.code = code; target.desc = desc; target.note = note; target.cat = cat; target.linea = linea; target.ts = Date.now(); }
-  else all.push({ id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), code: code, desc: desc, note: note, cat: cat, linea: linea, ts: Date.now() });
+  else { target = null; all.push({ id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), code: code, desc: desc, note: note, cat: cat, linea: linea, ts: Date.now() }); }
+  var obj = target || all[all.length - 1];
+  if (precio) obj.precio = precio; else delete obj.precio;
+  if (fav) obj.fav = true; else delete obj.fav;
   mcSave(all);
   var id = (target || all[all.length - 1]).id;
   mcRender();
@@ -1982,7 +2029,9 @@ function gnOpen() {
     '<div class="mc-otro"><label for="gnPref">¿Otro departamento? Prefijo</label><input id="gnPref" class="mc-in" inputmode="numeric" maxlength="4" placeholder="0000" oninput="gnUpd()"></div></div>' +
     '<div id="gnPrev" class="mc-prev"></div>' +
     '<div id="gnMore" hidden><label class="mc-lbl" for="gnDesc">Descripción <small>opcional</small></label>' +
-    '<input id="gnDesc" class="mc-in" maxlength="80" placeholder="Ej: Parlante JBL Go 4"></div>' +
+    '<input id="gnDesc" class="mc-in" maxlength="80" placeholder="Ej: Parlante JBL Go 4">' +
+    '<label class="mc-lbl" for="gnPrecio">Precio <small>opcional</small></label>' +
+    '<div class="mc-prw"><span>S/</span><input id="gnPrecio" class="mc-in" inputmode="decimal" autocomplete="off" placeholder="Ej: 249"></div></div>' +
     '<div id="gnMsg"></div>' +
     '</div><div class="cli-foot gn-foot"><button type="button" class="mc-b2" id="gnDiscard" onclick="gnDiscard()">Descartar y generar otro</button>' +
     '<button type="button" class="mc-b1" id="gnSave" onclick="gnSave()" disabled>' + MC_SVG.check + 'Guardar</button></div>';
@@ -2019,7 +2068,7 @@ function gnUpd() {
 // Descartar: limpia el SKU y la descripción, mantiene el departamento elegido y deja el teclado listo
 function gnDiscard() {
   if (!_gn) return;
-  document.getElementById('gnCode').value = ''; document.getElementById('gnDesc').value = '';
+  document.getElementById('gnCode').value = ''; document.getElementById('gnDesc').value = ''; document.getElementById('gnPrecio').value = '';
   document.getElementById('gnPref').value = ''; _gn.userCat = !!_gn.cat;
   gnUpd();
   var i = document.getElementById('gnCode'); if (i) i.focus();
@@ -2029,8 +2078,9 @@ function gnSave() {
   var code = _gn.res.code, all = mcLoad(), desc = document.getElementById('gnDesc').value.trim();
   var cat = _gn.cat || mcCatOf(code);
   var target = all.filter(function (x) { return x.code === code; })[0];
-  if (target) { if (desc) target.desc = desc; target.cat = cat; target.ts = Date.now(); }
-  else all.push({ id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), code: code, desc: desc, note: '', cat: cat, linea: '', ts: Date.now() });
+  var precio = mcPrecioLeer('gnPrecio');
+  if (target) { if (desc) target.desc = desc; if (precio) target.precio = precio; target.cat = cat; target.ts = Date.now(); }
+  else { var nv = { id: 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), code: code, desc: desc, note: '', cat: cat, linea: '', ts: Date.now() }; if (precio) nv.precio = precio; all.push(nv); }
   mcSave(all); mcRender();
   _gn.saved++;
   mcToast(target ? 'Código actualizado en Mis productos' : 'Guardado en Mis productos');
@@ -2255,9 +2305,9 @@ function mcHeadRender() {
   var h = document.getElementById('mcHead'); if (!h) return;
   var p = perfil(), pro = !!(p && p.rol === 'promotor'), n = mcLoad().length;
   var cnt = n ? n + (n === 1 ? ' modelo' : ' modelos') : 'Aún sin modelos';
-  h.innerHTML = '<div class="mc-hd">' +
+  h.innerHTML = '<div class="mc-hd' + (pro ? ' mc-hd-pro' : '') + '">' +
     (pro ? '<span class="mc-mono">' + mcEsc(marcaMono(p.marca)) + '</span>' : '<span class="mc-mono mc-mono-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg></span>') +
-    '<div class="mc-hd-t"><b>' + mcEsc(pro ? p.marca : 'Mis productos') + '</b><small>' + cnt + (pro ? ' · ' + mcEsc(grupoDe(p).n) : '') + '</small></div>' +
+    '<div class="mc-hd-t">' + (pro ? '<i class="mc-eyebrow">Libreta de</i>' : '') + '<b>' + mcEsc(pro ? p.marca : 'Mis productos') + '</b><small>' + cnt + (pro ? ' · ' + mcEsc(grupoDe(p).n) : '') + '</small></div>' +
     '</div><div class="gn-row"><button type="button" class="gn-btn" id="gnBtn" onclick="gnOpen()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M3 5v14M6.5 5v14M10 5v14M13.5 5v14M17 5v8" stroke-width="1.6"/><path d="M8.2 5v14M15.2 5v8" stroke-width="2.6"/><path d="M18 18h4M20 16v4" stroke-width="2"/></svg><span>Generar código de barra con sku</span></button></div>' +
     (n ? '<div class="mc-vt" role="group" aria-label="Ver como">' +
       '<button type="button" class="' + (mcVista() === 'lista' ? 'on' : '') + '" aria-pressed="' + (mcVista() === 'lista') + '" onclick="mcSetVista(\'lista\')"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Lista</button>' +
@@ -2270,6 +2320,22 @@ function mcVista() {
   var p = perfil(); return p && p.rol === 'promotor' ? 'libreta' : 'lista';
 }
 function mcSetVista(v) { safeSet('eg_mc_vista', v); mcRender(); }
+// v3.41 · precio y favoritos en Mis productos
+function mcPrecioTxt(v, dec) {
+  var n = +v; if (!(n > 0)) return '';
+  return 'S/ ' + n.toLocaleString('en-US', { minimumFractionDigits: dec || n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+}
+function mcPrecioLeer(id) {
+  var e = document.getElementById(id); if (!e) return undefined;
+  var n = parseFloat((e.value || '').replace(/[^\d.]/g, ''));
+  return n > 0 ? Math.round(n * 100) / 100 : undefined;
+}
+function mcFavToggle(id) {
+  var all = mcLoad(), it = all.filter(function (x) { return x.id === id; })[0]; if (!it) return;
+  it.fav = !it.fav; if (!it.fav) delete it.fav;
+  mcSave(all); mcRender();
+  mcToast(it.fav ? 'Agregado a favoritos' : 'Quitado de favoritos');
+}
 var PF_SVG = (function () {
   function s(p, w, sw) { return '<svg viewBox="0 0 24 24" width="' + (w || 24) + '" height="' + (w || 24) + '" fill="none" stroke="currentColor" stroke-width="' + (sw || 2) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; }
   return {
@@ -2863,7 +2929,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.40.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.41.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
