@@ -303,8 +303,8 @@ header{background:transparent;border:0}
 .mc-search{position:relative;margin-top:14px}
 .mc-search[hidden]{display:none}
 .mc-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8b8fa8;pointer-events:none}
-#mcSearch,#mcPickQ,#pfBuscar,#egfQ{width:100%;height:46px;box-sizing:border-box;padding:0 14px 0 42px;border:1.5px solid #e4e5ef;border-radius:14px;background:#fff;font:inherit;font-size:16px;color:#16162c;outline:none}
-#mcSearch:focus,#mcPickQ:focus,#pfBuscar:focus,#egfQ:focus{border-color:#2563eb}
+#mcSearch,#mcPickQ,#pfBuscar{width:100%;height:46px;box-sizing:border-box;padding:0 14px 0 42px;border:1.5px solid #e4e5ef;border-radius:14px;background:#fff;font:inherit;font-size:16px;color:#16162c;outline:none}
+#mcSearch:focus,#mcPickQ:focus,#pfBuscar:focus{border-color:#2563eb}
 #mcList{margin-top:16px}
 .mc-grp+.mc-grp{margin-top:18px}
 .mc-grp-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:13px;font-weight:800;color:#4b4f6b}
@@ -378,7 +378,7 @@ header{background:transparent;border:0}
 #mcImpDep[hidden]{display:none}
 @media(prefers-color-scheme:dark){
 .mc-help{color:#b4b8cf}.mc-help b{color:#f2f3f8}
-#mcSearch,#mcPickQ,#pfBuscar,#egfQ,.mc-in{background:transparent;border-color:#2f3148;color:#f2f3f8}
+#mcSearch,#mcPickQ,#pfBuscar,.mc-in{background:transparent;border-color:#2f3148;color:#f2f3f8}
 .mc-grp-h{color:#b4b8cf}.mc-grp-h small{color:#7d81a0}
 .mc-rows,.mc-row{border-color:#22243a}
 .mc-tx small,.mc-tx code{color:#9da1bb}
@@ -814,6 +814,63 @@ header{background:transparent;border:0}
 .hv-chip[hidden]{display:none}
 body[data-mode="virtual"] #hvChip{display:none!important}
 /* v3.42 · Extra Garantía gratis */
+/* v3.43 · EG gratis estilo iOS */
+.cli-body.egf-body{display:flex;flex-direction:column;gap:12px}
+.cli-body.egf-body>*{margin-top:0;margin-bottom:0}
+.egf-h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+.cli-body.egf-body .egf-sub{margin-top:-8px;font-size:15px;color:#6c6c70}
+.egf-body .egf-aviso{padding:9px 12px;border-radius:12px;font-size:13px;align-items:center}
+.egf-search{position:relative}
+.egf-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8e8e93;pointer-events:none}
+#egfQ{width:100%;height:38px;box-sizing:border-box;padding:0 12px 0 34px;border:0;border-radius:11px;background:#e3e3e8;color:#000;font:inherit;font-size:17px;outline:none;-webkit-appearance:none;appearance:none}
+#egfQ:focus{box-shadow:0 0 0 2px #007aff}
+.egf-car{display:flex;gap:10px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none;scroll-snap-type:x proximity}
+.egf-car::-webkit-scrollbar{display:none}
+.egf-cc{flex:none;width:112px;height:80px;box-sizing:border-box;padding:11px 12px;border:0;border-radius:16px;color:#fff;font:inherit;text-align:left;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;scroll-snap-align:start;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.egf-cc:active{transform:scale(.96)}
+.egf-cc b{font-size:16px;font-weight:800;letter-spacing:.2px}
+.egf-cc span{font-size:12.5px;font-weight:600;opacity:.85}
+.egf-cc.todas{background:#fff;color:#000}
+.egf-cc.todas span{color:#6c6c70;opacity:1}
+.egf-cc.on{box-shadow:inset 0 0 0 3px #007aff}
+.egf-cc.on:not(.todas){box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px rgba(0,0,0,.25)}
+.cli-body.egf-body .egf-sec{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.egf-sh{display:flex;align-items:center;gap:7px;padding-left:16px;font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:#6c6c70}
+.egf-sh .d{width:8px;height:8px;border-radius:4px}
+.egf-grp{background:#fff;border-radius:12px;overflow:hidden}
+.egf-r{position:relative;width:100%;display:flex;align-items:center;gap:12px;min-height:60px;padding:9px 14px;border:0;background:transparent;color:#000;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.egf-r:active{background:#e5e5ea}
+.egf-r+.egf-r::before{content:"";position:absolute;top:0;left:60px;right:0;height:.5px;background:#c6c6c8}
+.egf-r .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.egf-r .tx b{font-size:16.5px;font-weight:500;line-height:1.25;overflow-wrap:anywhere}
+.egf-r .tx small{font-size:13px;color:#6c6c70}
+.egf-r .tx em{font-style:normal;font-weight:600;color:#1e7b34}
+.egf-r .ch{flex:none;color:#c7c7cc}
+.egf-tile{flex:none;width:34px;height:34px;border-radius:8px;color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:-.2px}
+.egf-tile.sm{font-size:11px}
+.egf-tile.big{width:46px;height:46px;border-radius:11px;font-size:19px}
+.egf-tile.big.sm{font-size:14px}
+.egf-none{text-align:center;padding:24px 0;color:#6c6c70;font-size:14px}
+.egf-back{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 6px 0 2px;border:0;background:transparent;color:#007aff;font:inherit;font-size:17px;font-weight:500;cursor:pointer}
+.egf-dh{display:flex;align-items:center;gap:12px}
+.egf-dh .tx{min-width:0;display:flex;flex-direction:column;gap:1px}
+.egf-dh .tx span{font-size:13px;font-weight:800;letter-spacing:.6px;text-transform:uppercase}
+.egf-dh .tx b{font-size:22px;font-weight:800;letter-spacing:-.3px;line-height:1.2;overflow-wrap:anywhere}
+.egf-inc{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-radius:14px;background:#e8f7ec;color:#1e7b34}
+.egf-inc div{display:flex;flex-direction:column;gap:2px}
+.egf-inc span{font-size:13px;font-weight:600}
+.egf-inc b{font-size:19px;font-weight:800;color:#145c26}
+.egf-cod{display:flex;flex-direction:column;gap:8px}
+.egf-cl{display:flex;align-items:center;gap:8px;padding-left:4px;font-size:15px;font-weight:700}
+.egf-cl small{margin-left:auto;font-size:13px;font-weight:600;color:#6c6c70}
+.egf-cl .n{width:22px;height:22px;border-radius:11px;background:#1c1c1e;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.egf-cl .n.eg{background:#16a34a}
+.egf-bc{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 12px 12px;border-radius:16px;background:#fff;border:1px solid #e5e5ea}
+.egf-bc .bc-svg{width:100%;max-width:280px;height:auto}
+.egf-nota{margin:2px 0 0;display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.4;color:#7a5600}
+.egf-nota svg{flex:none;margin-top:1px}
+@media (prefers-color-scheme:dark){.egf-sub,.egf-sh,.egf-r .tx small,.egf-cl small,.egf-none{color:#98989f}#egfQ{background:#1c1c1e;color:#fff}.egf-cc.todas{background:#1c1c1e;color:#fff}.egf-cc.todas span{color:#98989f}.egf-cc.todas.on{box-shadow:inset 0 0 0 3px #0a84ff}.egf-dh .tx span{color:#98989f!important}.egf-grp{background:#1c1c1e}.egf-r{color:#fff}.egf-r:active{background:#2c2c2e}.egf-r+.egf-r::before{background:#38383a}.egf-r .tx em{color:#30d158}.egf-r .ch{color:#48484a}.egf-tile{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.egf-back{color:#0a84ff}.egf-inc{background:rgba(48,209,88,.14);color:#30d158}.egf-inc b{color:#5be37f}.egf-cl .n{background:#3a3a3c}.egf-bc{border-color:#2c2c2e}.egf-nota{color:#f5d27a}}
+:root[data-theme="dark"] .egf-grp,:root[data-theme="dark"] #egfQ,:root[data-theme="dark"] .egf-cc.todas{background:#1c1c1e;color:#fff}
 .egf-chip[hidden]{display:none}
 body[data-mode="virtual"] #egfChip{display:none!important}
 .mc-chipgo.egf-chip{border-color:#9fdcb6}
@@ -1072,7 +1129,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.42.1</div>
+  <div style="margin-top:10px">Versión 3.43.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2562,48 +2619,74 @@ function egfChipUpd() {
   var c = document.getElementById('egfChip'); if (!c) return;
   var n = egfItems().length; document.getElementById('egfChipN').textContent = n; c.hidden = !n;
 }
-var _egf = { marca: '', open: '' };
+var _egf = { marca: '' };
+// Colores de cada marca (sin logos) · iniciales para el cuadrito de la fila
+var EGF_COLOR = { Samsung: '#1428A0', LG: '#A50034', Hisense: '#00838A', Hyundai: '#1C1C1E', TCL: '#D7262F', Sharp: '#C4161C' };
+var EGF_INI = { Samsung: 'S', LG: 'LG', Hisense: 'H', Hyundai: 'HY', TCL: 'TCL', Sharp: 'SH' };
+var EGF_ORDEN = ['Samsung', 'LG', 'Hisense', 'Hyundai', 'TCL', 'Sharp'];
+function egfColor(m) { return EGF_COLOR[m] || '#3A3A3C'; }
+function egfIni(m) { return EGF_INI[m] || (m || '?').charAt(0).toUpperCase(); }
+function egfMarcas(all) {
+  var ms = []; all.forEach(function (x) { var m = x.marca || 'Otras'; if (ms.indexOf(m) < 0) ms.push(m); });
+  return ms.sort(function (a, b) { var ia = EGF_ORDEN.indexOf(a), ib = EGF_ORDEN.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
+}
+// Código de la EG Reparación 1 año del departamento (de las tasas)
+function egfCodigoEG(cat) {
+  var c = (typeof cats !== 'undefined') && cats[cat]; if (!c) return null;
+  var out = null;
+  c.grupos.forEach(function (g) { if (out || g.tipo !== 'Reparación') return; g.planes.forEach(function (pl) { if (!out && /^1 a/.test(pl.l) && pl.bc && pl.bc[0]) out = pl.bc[0]; }); });
+  return out;
+}
+function egfTile(m, big) { return '<span class="egf-tile' + (big ? ' big' : '') + (EGF_INI[m] && EGF_INI[m].length > 2 ? ' sm' : '') + '" style="background:' + egfColor(m) + '" aria-hidden="true">' + mcEsc(egfIni(m)) + '</span>'; }
 function egfAbrir() {
   var all = egfItems(); if (!all.length) return;
-  _egf = { marca: '', open: '' };
-  var ms = []; all.forEach(function (x) { if (x.marca && ms.indexOf(x.marca) < 0) ms.push(x.marca); });
-  ms.sort();
-  var chips = ms.length > 1 ? '<div class="egf-marcas" id="egfMarcas" role="group" aria-label="Filtrar por marca">' +
-    ['' ].concat(ms).map(function (m) { var n = m ? all.filter(function (x) { return x.marca === m; }).length : all.length;
-      return '<button type="button" class="egf-m' + (m ? '' : ' on') + '" data-m="' + mcEsc(m) + '" aria-pressed="' + !m + '" onclick="egfMarca(this.dataset.m)">' + (m ? mcEsc(m) : 'Todas') + '<span>' + n + '</span></button>'; }).join('') + '</div>' : '';
-  var h = mcTop('Extra Garantía gratis') + '<div class="cli-body mc-form">' +
-    '<div class="egf-aviso" role="note"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg><span>Información referencial. Valida la promoción en caja antes de ofrecerla.</span></div>' +
-    '<p class="egf-cnt">Estos modelos ya incluyen <b>' + mcEsc(EG_GRATIS_PLAN) + '</b> de Extra Garantía gratis.</p>' +
-    '<div class="mc-search">' + MC_SVG.search + '<input id="egfQ" type="search" aria-label="Buscar modelo o SKU" placeholder="Buscar modelo o SKU" autocomplete="off" oninput="egfRender()"></div>' +
-    chips + '<div id="egfList"></div></div>';
+  _egf = { marca: _egf.marca || '' };
+  var ms = egfMarcas(all);
+  var car = '<div class="egf-car" id="egfCar" role="group" aria-label="Filtrar por marca">' +
+    '<button type="button" class="egf-cc todas' + (_egf.marca ? '' : ' on') + '" data-m="" aria-pressed="' + !_egf.marca + '" onclick="egfMarca(this.dataset.m)"><b>Todas</b><span>' + all.length + ' modelos</span></button>' +
+    ms.map(function (m) { var n = all.filter(function (x) { return (x.marca || 'Otras') === m; }).length;
+      return '<button type="button" class="egf-cc' + (_egf.marca === m ? ' on' : '') + '" data-m="' + mcEsc(m) + '" aria-pressed="' + (_egf.marca === m) + '" style="background:' + egfColor(m) + '" onclick="egfMarca(this.dataset.m)"><b>' + mcEsc(m) + '</b><span>' + n + (n === 1 ? ' modelo' : ' modelos') + '</span></button>'; }).join('') + '</div>';
+  var h = mcTop('') + '<div class="cli-body egf-body">' +
+    '<h2 class="egf-h1">EG gratis</h2><p class="egf-sub">' + all.length + ' modelos con ' + mcEsc(EG_GRATIS_PLAN) + ' incluida</p>' +
+    '<div class="egf-aviso" role="note"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg><span>Referencial · valida la promoción en caja</span></div>' +
+    '<div class="egf-search"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><input id="egfQ" type="search" aria-label="Buscar modelo o SKU" placeholder="Buscar modelo o SKU" autocomplete="off" oninput="egfRender()"></div>' +
+    car + '<div id="egfList"></div></div>';
   mcSheet(h);
   egfRender();
 }
 function egfMarca(m) {
-  _egf.marca = m; _egf.open = '';
-  document.querySelectorAll('#egfMarcas .egf-m').forEach(function (b) { var on = b.dataset.m === m; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  _egf.marca = m;
+  document.querySelectorAll('#egfCar .egf-cc').forEach(function (b) { var on = b.dataset.m === m; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   egfRender();
 }
-function egfToggle(code) { _egf.open = _egf.open === code ? '' : code; egfRender(); }
 function egfRender() {
   var box = document.getElementById('egfList'); if (!box) return;
-  var q = (document.getElementById('egfQ').value || '').trim().toLowerCase();
-  var it = egfItems().filter(function (x) { return (!_egf.marca || x.marca === _egf.marca) && (!q || (x.marca + ' ' + x.modelo).toLowerCase().indexOf(q) >= 0 || x.code.indexOf(q.replace(/\D/g, '') || '~') >= 0); });
-  if (it.length === 1) _egf.open = it[0].code;
-  if (!it.length) { box.innerHTML = '<p class="egf-cnt" style="text-align:center;padding:18px 0">No hay modelos con “' + mcEsc(q) + '”.</p>'; return; }
-  var h = '';
-  MC_ORDER.forEach(function (k) {
-    var g = it.filter(function (x) { return x.cat === k; }); if (!g.length) return;
-    h += '<div class="mc-grp"><div class="mc-grp-h mc-grp-cat"><span class="chip" data-cat="' + k + '">' + mcIcon(k) + '</span><span>' + mcEsc(mcCatName(k)) + ' · ' + g.length + (g.length === 1 ? ' modelo' : ' modelos') + '</span></div><div class="egf-list">' +
+  var q = (document.getElementById('egfQ').value || '').trim().toLowerCase(), qd = q.replace(/\D/g, '');
+  var it = egfItems().filter(function (x) { return (!_egf.marca || (x.marca || 'Otras') === _egf.marca) && (!q || (x.marca + ' ' + x.modelo).toLowerCase().indexOf(q) >= 0 || (qd && x.code.indexOf(qd) >= 0)); });
+  if (!it.length) { box.innerHTML = '<p class="egf-none">No hay modelos con “' + mcEsc(q) + '”.</p>'; return; }
+  box.innerHTML = egfMarcas(it).map(function (m) {
+    var g = it.filter(function (x) { return (x.marca || 'Otras') === m; });
+    return '<section class="egf-sec"><div class="egf-sh"><span class="d" style="background:' + egfColor(m) + '"></span>' + mcEsc(m) + '</div><div class="egf-grp">' +
       g.map(function (x) {
-        var op = _egf.open === x.code;
-        return '<div class="egf-it' + (op ? ' open' : '') + '"><button type="button" class="egf-row" aria-expanded="' + op + '" onclick="egfToggle(\'' + x.code + '\')">' +
-          '<span class="tx">' + (x.marca ? '<i>' + mcEsc(x.marca) + '</i>' : '') + '<b>' + mcEsc(x.modelo) + '</b><small>SKU ' + x.sku + ' · <em>Gratis ' + mcEsc(EG_GRATIS_PLAN) + '</em></small></span>' +
-          '<span class="egf-bcic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg></span></button>' +
-          (op ? '<div class="bcw">' + buildBarcode(x.code) + bcCopyBtn(x.code) + '</div>' : '') + '</div>';
-      }).join('') + '</div></div>';
-  });
-  box.innerHTML = h;
+        return '<button type="button" class="egf-r" onclick="egfDetalle(\'' + x.code + '\')">' + egfTile(m) +
+          '<span class="tx"><b>' + mcEsc(x.modelo) + '</b><small>SKU ' + x.sku + ' · <em>1 año gratis</em></small></span>' +
+          '<svg class="ch" viewBox="0 0 9 15" width="9" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 1.5l6 6-6 6"/></svg></button>';
+      }).join('') + '</div></section>';
+  }).join('');
+}
+function egfDetalle(code) {
+  var x = egfItems().filter(function (y) { return y.code === code; })[0]; if (!x) return;
+  var m = x.marca || 'Otras', eg = egfCodigoEG(x.cat);
+  var h = '<div class="cli-top"><button type="button" class="egf-back" onclick="egfAbrir()"><svg viewBox="0 0 12 20" width="11" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>EG gratis</button><span class="cli-sp"></span>' +
+    '<button type="button" class="cli-x" aria-label="Cerrar" onclick="mcClose()">' + CLI_ICO.x + '</button></div>' +
+    '<div class="cli-body egf-body">' +
+    '<div class="egf-dh">' + egfTile(m, true) + '<div class="tx"><span style="color:' + egfColor(m) + '">' + mcEsc(m) + '</span><b>' + mcEsc(x.modelo) + '</b></div></div>' +
+    '<div class="egf-inc"><div><span>Incluye gratis</span><b>' + mcEsc(EG_GRATIS_PLAN) + '</b></div><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>' +
+    '<div class="egf-cod"><div class="egf-cl"><span class="n">1</span>Televisor<small>SKU ' + x.sku + '</small></div><div class="egf-bc">' + buildBarcode(x.code) + bcCopyBtn(x.code) + '</div></div>' +
+    (eg ? '<div class="egf-cod"><div class="egf-cl"><span class="n eg">2</span>' + mcEsc(eg.titulo) + '<small>Gratis</small></div><div class="egf-bc">' + buildBarcode(eg.cod) + bcCopyBtn(eg.cod) + '</div></div>' : '') +
+    '<p class="egf-nota"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Información referencial. Valida la promoción en caja antes de ofrecerla.</p>' +
+    '</div>';
+  mcSheet(h);
 }
 function hvLista() {
   var out = [];
@@ -3024,7 +3107,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.42.1';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.43.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
