@@ -854,6 +854,17 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 .egf-tile.big{width:46px;height:46px;border-radius:11px;font-size:19px}
 .egf-tile.big.sm{font-size:14px}
 .egf-none{text-align:center;padding:24px 0;color:#6c6c70;font-size:14px}
+.egf-seg{display:grid;gap:3px;padding:3px;border-radius:10px;background:#e3e3e8}
+.egf-seg button{height:34px;border:0;border-radius:8px;background:transparent;color:#000;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.egf-seg button.on{background:#fff;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.egf-szh{display:flex;align-items:baseline;gap:8px;padding-left:4px}
+.egf-szh b{font-size:26px;font-weight:800;letter-spacing:-.3px}
+.egf-szh span{font-size:13px;color:#6c6c70}
+.egf-r2{min-height:56px;gap:10px}
+.egf-r2 .egf-mk{flex:none;width:74px;height:24px;border-radius:6px;color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;display:flex;align-items:center;justify-content:center}
+.egf-r2 .tx b{font-size:16px;font-weight:600}
+.egf-r2 .tx em{font-style:normal;font-size:12.5px;font-weight:700;color:#1e7b34}
+.egf-r2+.egf-r2::before{left:98px}
 .egf-back{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 6px 0 2px;border:0;background:transparent;color:#007aff;font:inherit;font-size:17px;font-weight:500;cursor:pointer}
 .egf-dh{display:flex;align-items:center;gap:12px}
 .egf-dh .tx{min-width:0;display:flex;flex-direction:column;gap:1px}
@@ -882,7 +893,8 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 .egf-cl small.pp.g{color:#1e7b34}
 .egf-nota{margin:2px 0 0;display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.4;color:#7a5600}
 .egf-nota svg{flex:none;margin-top:1px}
-@media (prefers-color-scheme:dark){.egf-ph{border-color:#38383a}.egf-ph span,.egf-pl .nm i{color:#98989f}.egf-cl small.pp{color:#ff6fb5}.egf-cl small.pp.g{color:#30d158}.egf-pf{border-color:#2c2c2e}.egf-sub,.egf-sh,.egf-r .tx small,.egf-cl small,.egf-none{color:#98989f}#egfQ{background:#1c1c1e;color:#fff}.egf-cc.todas{background:#1c1c1e;color:#fff}.egf-cc.todas span{color:#98989f}.egf-cc.todas.on{box-shadow:inset 0 0 0 3px #0a84ff}.egf-dh .tx span{color:#98989f!important}.egf-grp{background:#1c1c1e}.egf-r{color:#fff}.egf-r:active{background:#2c2c2e}.egf-r+.egf-r::before{background:#38383a}.egf-r .tx em{color:#30d158}.egf-r .ch{color:#48484a}.egf-tile{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.egf-back{color:#0a84ff}.egf-inc{background:rgba(48,209,88,.14);color:#30d158}.egf-inc b{color:#5be37f}.egf-cl .n{background:#3a3a3c}.egf-bc{border-color:#2c2c2e}.egf-nota{color:#f5d27a}}
+@media (prefers-color-scheme:dark){.egf-seg{background:#1c1c1e}.egf-seg button{color:#ebebf5}.egf-seg button.on{background:#636366;color:#fff;box-shadow:none}.egf-szh span{color:#98989f}.egf-r2 .egf-mk{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.egf-r2 .tx em{color:#30d158}.egf-ph{border-color:#38383a}.egf-ph span,.egf-pl .nm i{color:#98989f}.egf-cl small.pp{color:#ff6fb5}.egf-cl small.pp.g{color:#30d158}.egf-pf{border-color:#2c2c2e}.egf-sub,.egf-sh,.egf-r .tx small,.egf-cl small,.egf-none{color:#98989f}#egfQ{background:#1c1c1e;color:#fff}.egf-cc.todas{background:#1c1c1e;color:#fff}.egf-cc.todas span{color:#98989f}.egf-cc.todas.on{box-shadow:inset 0 0 0 3px #0a84ff}.egf-dh .tx span{color:#98989f!important}.egf-grp{background:#1c1c1e}.egf-r{color:#fff}.egf-r:active{background:#2c2c2e}.egf-r+.egf-r::before{background:#38383a}.egf-r .tx em{color:#30d158}.egf-r .ch{color:#48484a}.egf-tile{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.egf-back{color:#0a84ff}.egf-inc{background:rgba(48,209,88,.14);color:#30d158}.egf-inc b{color:#5be37f}.egf-cl .n{background:#3a3a3c}.egf-bc{border-color:#2c2c2e}.egf-nota{color:#f5d27a}}
+:root[data-theme="dark"] .egf-seg{background:#1c1c1e}
 :root[data-theme="dark"] .egf-grp,:root[data-theme="dark"] #egfQ,:root[data-theme="dark"] .egf-cc.todas{background:#1c1c1e;color:#fff}
 .egf-chip[hidden]{display:none}
 body[data-mode="virtual"] #egfChip{display:none!important}
@@ -1142,7 +1154,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.44.0</div>
+  <div style="margin-top:10px">Versión 3.45.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2648,14 +2660,14 @@ function egfItems() {
   if (typeof EG_GRATIS === 'undefined') return [];
   var cs = hvCats();
   return EG_GRATIS.filter(function (x) { return cs.indexOf(x.cat) >= 0 && MC_PREF[x.cat]; }).map(function (x) {
-    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', modelo: x.modelo, code: r.ok ? r.code : '' };
+    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', pul: +x.pulgadas || 0, corto: x.corto || x.modelo, modelo: x.modelo, code: r.ok ? r.code : '' };
   }).filter(function (x) { return x.code; });
 }
 function egfChipUpd() {
   var c = document.getElementById('egfChip'); if (!c) return;
   var n = egfItems().length; document.getElementById('egfChipN').textContent = n; c.hidden = !n;
 }
-var _egf = { marca: '' };
+var _egf = { pul: 0 };
 // Colores de cada marca (sin logos) · iniciales para el cuadrito de la fila
 var EGF_COLOR = { Samsung: '#1428A0', LG: '#A50034', Hisense: '#00838A', Hyundai: '#1C1C1E', TCL: '#D7262F', Sharp: '#C4161C' };
 var EGF_INI = { Samsung: 'S', LG: 'LG', Hisense: 'H', Hyundai: 'HY', TCL: 'TCL', Sharp: 'SH' };
@@ -2676,34 +2688,35 @@ function egfCodigoEG(cat) {
 function egfTile(m, big) { return '<span class="egf-tile' + (big ? ' big' : '') + (EGF_INI[m] && EGF_INI[m].length > 2 ? ' sm' : '') + '" style="background:' + egfColor(m) + '" aria-hidden="true">' + mcEsc(egfIni(m)) + '</span>'; }
 function egfAbrir() {
   var all = egfItems(); if (!all.length) return;
-  _egf = { marca: _egf.marca || '' };
-  var ms = egfMarcas(all);
-  var car = '<div class="egf-car" id="egfCar" role="group" aria-label="Filtrar por marca">' +
-    '<button type="button" class="egf-cc todas' + (_egf.marca ? '' : ' on') + '" data-m="" aria-pressed="' + !_egf.marca + '" onclick="egfMarca(this.dataset.m)"><b>Todas</b><span>' + all.length + ' modelos</span></button>' +
-    ms.map(function (m) { var n = all.filter(function (x) { return (x.marca || 'Otras') === m; }).length;
-      return '<button type="button" class="egf-cc' + (_egf.marca === m ? ' on' : '') + '" data-m="' + mcEsc(m) + '" aria-pressed="' + (_egf.marca === m) + '" style="background:' + egfColor(m) + '" onclick="egfMarca(this.dataset.m)"><b>' + mcEsc(m) + '</b><span>' + n + (n === 1 ? ' modelo' : ' modelos') + '</span></button>'; }).join('') + '</div>';
+  var ps = []; all.forEach(function (x) { if (x.pul && ps.indexOf(x.pul) < 0) ps.push(x.pul); }); ps.sort(function (a, b) { return a - b; });
+  if (ps.indexOf(_egf.pul) < 0) _egf.pul = 0;
+  var seg = ps.length > 1 ? '<div class="egf-seg" id="egfSeg" role="group" aria-label="Filtrar por tamaño" style="grid-template-columns:repeat(' + (ps.length + 1) + ',minmax(0,1fr))">' +
+    [0].concat(ps).map(function (pu) { var on = _egf.pul === pu; return '<button type="button" class="' + (on ? 'on' : '') + '" data-p="' + pu + '" aria-pressed="' + on + '" onclick="egfPul(+this.dataset.p)">' + (pu ? pu + '″' : 'Todos') + '</button>'; }).join('') + '</div>' : '';
   var h = mcTop('') + '<div class="cli-body egf-body">' +
-    '<h2 class="egf-h1">EG gratis TV</h2><p class="egf-sub">' + all.length + ' modelos con ' + mcEsc(EG_GRATIS_PLAN) + ' incluida</p>' +
-    car + '<div id="egfList"></div></div>';
+    '<h2 class="egf-h1">EG gratis TV</h2><p class="egf-sub">Elige el tamaño que busca el cliente</p>' +
+    seg + '<div id="egfList"></div></div>';
   mcSheet(h);
   egfRender();
 }
-function egfMarca(m) {
-  _egf.marca = m;
-  document.querySelectorAll('#egfCar .egf-cc').forEach(function (b) { var on = b.dataset.m === m; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+function egfPul(pu) {
+  _egf.pul = pu;
+  document.querySelectorAll('#egfSeg button').forEach(function (b) { var on = +b.dataset.p === pu; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   egfRender();
 }
 function egfRender() {
   var box = document.getElementById('egfList'); if (!box) return;
-  var qi = document.getElementById('egfQ'), q = qi ? (qi.value || '').trim().toLowerCase() : '', qd = q.replace(/\D/g, '');
-  var it = egfItems().filter(function (x) { return (!_egf.marca || (x.marca || 'Otras') === _egf.marca) && (!q || (x.marca + ' ' + x.modelo).toLowerCase().indexOf(q) >= 0 || (qd && x.code.indexOf(qd) >= 0)); });
-  if (!it.length) { box.innerHTML = '<p class="egf-none">No hay modelos con “' + mcEsc(q) + '”.</p>'; return; }
-  box.innerHTML = egfMarcas(it).map(function (m) {
-    var g = it.filter(function (x) { return (x.marca || 'Otras') === m; });
-    return '<section class="egf-sec"><div class="egf-sh"><span class="d" style="background:' + egfColor(m) + '"></span>' + mcEsc(m) + '</div><div class="egf-grp">' +
+  var it = egfItems().filter(function (x) { return !_egf.pul || x.pul === _egf.pul; });
+  var ord = function (m) { var i = EGF_ORDEN.indexOf(m); return i < 0 ? 99 : i; };
+  it.sort(function (a, b) { return (a.pul - b.pul) || (ord(a.marca) - ord(b.marca)) || a.corto.localeCompare(b.corto); });
+  var ps = []; it.forEach(function (x) { if (ps.indexOf(x.pul) < 0) ps.push(x.pul); });
+  box.innerHTML = ps.map(function (pu) {
+    var g = it.filter(function (x) { return x.pul === pu; });
+    return '<section class="egf-sec"><div class="egf-szh"><b>' + (pu ? pu + '″' : 'Otros') + '</b><span>' + g.length + (g.length === 1 ? ' modelo' : ' modelos') + '</span></div><div class="egf-grp">' +
       g.map(function (x) {
-        return '<button type="button" class="egf-r" onclick="egfDetalle(\'' + x.code + '\')">' + egfTile(m) +
-          '<span class="tx"><b>' + mcEsc(x.modelo) + '</b><small>SKU ' + x.sku + ' · <em>1 año gratis</em></small></span>' +
+        var m = x.marca || 'Otras';
+        return '<button type="button" class="egf-r egf-r2" onclick="egfDetalle(\'' + x.code + '\')">' +
+          '<span class="egf-mk" style="background:' + egfColor(m) + '">' + mcEsc(m) + '</span>' +
+          '<span class="tx"><b>' + mcEsc(x.corto) + '</b><em>1 año gratis</em></span>' +
           '<svg class="ch" viewBox="0 0 9 15" width="9" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 1.5l6 6-6 6"/></svg></button>';
       }).join('') + '</div></section>';
   }).join('');
@@ -3154,7 +3167,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.44.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.45.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
