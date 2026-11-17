@@ -867,9 +867,19 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 .egf-cl .n.eg{background:#16a34a}
 .egf-bc{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 12px 12px;border-radius:16px;background:#fff;border:1px solid #e5e5ea}
 .egf-bc .bc-svg{width:100%;max-width:280px;height:auto}
+.egf-ph{display:flex;flex-direction:column;gap:2px;margin-top:10px;padding:14px 4px 0;border-top:.5px solid #c6c6c8}
+.egf-ph b{font-size:20px;font-weight:800;letter-spacing:-.2px}
+.egf-ph span{font-size:13px;color:#6c6c70}
+.egf-pl{align-items:center}
+.egf-cl .n.pr{background:#d10f6e;flex:none}
+.egf-pf{width:40px;height:40px;flex:none;border-radius:9px;object-fit:cover;background:#fff;border:.5px solid #e5e5ea}
+.egf-pl .nm{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;font-size:15px;font-weight:700;line-height:1.25}
+.egf-pl .nm i{font-style:normal;font-size:12px;font-weight:600;color:#6c6c70}
+.egf-cl small.pp{flex:none;margin-left:0;font-size:15px;font-weight:800;color:#d10f6e}
+.egf-cl small.pp.g{color:#1e7b34}
 .egf-nota{margin:2px 0 0;display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.4;color:#7a5600}
 .egf-nota svg{flex:none;margin-top:1px}
-@media (prefers-color-scheme:dark){.egf-sub,.egf-sh,.egf-r .tx small,.egf-cl small,.egf-none{color:#98989f}#egfQ{background:#1c1c1e;color:#fff}.egf-cc.todas{background:#1c1c1e;color:#fff}.egf-cc.todas span{color:#98989f}.egf-cc.todas.on{box-shadow:inset 0 0 0 3px #0a84ff}.egf-dh .tx span{color:#98989f!important}.egf-grp{background:#1c1c1e}.egf-r{color:#fff}.egf-r:active{background:#2c2c2e}.egf-r+.egf-r::before{background:#38383a}.egf-r .tx em{color:#30d158}.egf-r .ch{color:#48484a}.egf-tile{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.egf-back{color:#0a84ff}.egf-inc{background:rgba(48,209,88,.14);color:#30d158}.egf-inc b{color:#5be37f}.egf-cl .n{background:#3a3a3c}.egf-bc{border-color:#2c2c2e}.egf-nota{color:#f5d27a}}
+@media (prefers-color-scheme:dark){.egf-ph{border-color:#38383a}.egf-ph span,.egf-pl .nm i{color:#98989f}.egf-cl small.pp{color:#ff6fb5}.egf-cl small.pp.g{color:#30d158}.egf-pf{border-color:#2c2c2e}.egf-sub,.egf-sh,.egf-r .tx small,.egf-cl small,.egf-none{color:#98989f}#egfQ{background:#1c1c1e;color:#fff}.egf-cc.todas{background:#1c1c1e;color:#fff}.egf-cc.todas span{color:#98989f}.egf-cc.todas.on{box-shadow:inset 0 0 0 3px #0a84ff}.egf-dh .tx span{color:#98989f!important}.egf-grp{background:#1c1c1e}.egf-r{color:#fff}.egf-r:active{background:#2c2c2e}.egf-r+.egf-r::before{background:#38383a}.egf-r .tx em{color:#30d158}.egf-r .ch{color:#48484a}.egf-tile{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.egf-back{color:#0a84ff}.egf-inc{background:rgba(48,209,88,.14);color:#30d158}.egf-inc b{color:#5be37f}.egf-cl .n{background:#3a3a3c}.egf-bc{border-color:#2c2c2e}.egf-nota{color:#f5d27a}}
 :root[data-theme="dark"] .egf-grp,:root[data-theme="dark"] #egfQ,:root[data-theme="dark"] .egf-cc.todas{background:#1c1c1e;color:#fff}
 .egf-chip[hidden]{display:none}
 body[data-mode="virtual"] #egfChip{display:none!important}
@@ -1129,7 +1139,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.43.0</div>
+  <div style="margin-top:10px">Versión 3.43.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2674,6 +2684,18 @@ function egfRender() {
       }).join('') + '</div></section>';
   }).join('');
 }
+// v3.43.1: promocionales vigentes del departamento (plan Reparación 1 año) debajo de los dos códigos
+function egfPromosHtml(cat, n0) {
+  var ps = promosVigentes(cat, 1, 'Reparación'); if (!ps.length) return '';
+  return '<div class="egf-ph"><b>Promocionales ' + mcEsc(mcCatName(cat)) + '</b><span>' + ps.length + ' · no acumulables, se cobran aparte</span></div>' +
+    ps.map(function (pr, i) {
+      var c = pr.codigos[cat];
+      return '<div class="egf-cod"><div class="egf-cl egf-pl"><span class="n pr">' + (n0 + i) + '</span>' + promoFoto(pr, 'egf-pf') +
+        '<span class="nm">' + mcEsc(pr.nombre) + (pr.cond ? '<i>' + mcEsc(pr.cond) + '</i>' : '') + '</span>' +
+        '<small class="pp' + (pr.precio === 0 ? ' g' : '') + '">' + (prVal(pr) ? '+ ' + prTxt(pr, 'S/ ') : prTxt(pr, '')) + '</small></div>' +
+        '<div class="egf-bc">' + buildBarcode(c) + bcCopyBtn(c) + '</div></div>';
+    }).join('');
+}
 function egfDetalle(code) {
   var x = egfItems().filter(function (y) { return y.code === code; })[0]; if (!x) return;
   var m = x.marca || 'Otras', eg = egfCodigoEG(x.cat);
@@ -2684,6 +2706,7 @@ function egfDetalle(code) {
     '<div class="egf-inc"><div><span>Incluye gratis</span><b>' + mcEsc(EG_GRATIS_PLAN) + '</b></div><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>' +
     '<div class="egf-cod"><div class="egf-cl"><span class="n">1</span>Televisor<small>SKU ' + x.sku + '</small></div><div class="egf-bc">' + buildBarcode(x.code) + bcCopyBtn(x.code) + '</div></div>' +
     (eg ? '<div class="egf-cod"><div class="egf-cl"><span class="n eg">2</span>' + mcEsc(eg.titulo) + '<small>Gratis</small></div><div class="egf-bc">' + buildBarcode(eg.cod) + bcCopyBtn(eg.cod) + '</div></div>' : '') +
+    egfPromosHtml(x.cat, eg ? 3 : 2) +
     '<p class="egf-nota"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Información referencial. Valida la promoción en caja antes de ofrecerla.</p>' +
     '</div>';
   mcSheet(h);
@@ -3107,7 +3130,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.43.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.43.1';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
