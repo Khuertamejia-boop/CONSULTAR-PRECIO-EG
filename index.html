@@ -297,6 +297,9 @@ header{background:transparent;border:0}
 #mcSheet{z-index:250}
 .mode-tab{white-space:nowrap}
 #viewCodigos{padding:6px 2px 4px}
+.mp-panel{z-index:220}
+.mp-body{gap:0}
+.mp-panel #viewCodigos{padding:0 0 8px}
 
 .mc-new{width:100%;height:50px;border:0;border-radius:15px;background:#2563eb;color:#fff;font:inherit;font-size:15.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
 .mc-new:active{background:#1d4fc4}
@@ -1139,7 +1142,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.43.2</div>
+  <div style="margin-top:10px">Versión 3.44.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -1928,9 +1931,32 @@ function mcSheet(html) {
   document.documentElement.classList.add('cli-lock');
   return ov;
 }
+// v3.44 · Mis productos en su propia ventana (como EG gratis)
+function mpPanel() {
+  var p = document.getElementById('mpPanel'); if (p) return p;
+  p = document.createElement('div'); p.id = 'mpPanel'; p.className = 'cli mp-panel'; p.hidden = true;
+  p.setAttribute('role', 'dialog'); p.setAttribute('aria-modal', 'true'); p.setAttribute('aria-label', 'Mis productos');
+  p.innerHTML = '<div class="cli-top"><button type="button" class="cli-x" aria-label="Cerrar" onclick="mpCerrar()">' + CLI_ICO.x + '</button><span class="cli-sp"></span></div><div class="cli-body mp-body"></div>';
+  var v = document.getElementById('viewCodigos'); v.style.display = 'block';
+  p.querySelector('.mp-body').appendChild(v);
+  document.body.appendChild(p);
+  return p;
+}
+function mpAbierto() { var p = document.getElementById('mpPanel'); return !!(p && !p.hidden); }
+function mpAbrir() {
+  var p = mpPanel(); mcRender(); p.hidden = false;
+  p.querySelector('.mp-body').scrollTop = 0;
+  document.documentElement.classList.add('cli-lock');
+}
+function mpCerrar() {
+  var p = document.getElementById('mpPanel'); if (p) p.hidden = true;
+  var sh = document.getElementById('mcSheet');
+  if (!sh || sh.hidden) document.documentElement.classList.remove('cli-lock');
+  mcChipUpd();
+}
 function mcClose() {
   var ov = document.getElementById('mcSheet'); if (ov) ov.hidden = true;
-  document.documentElement.classList.remove('cli-lock');
+  if (!mpAbierto()) document.documentElement.classList.remove('cli-lock');
   _mcForm = null; _mcViewBlob = null; _gn = null;
 }
 function mcTop(title) {
@@ -2910,15 +2936,15 @@ var VG_SVG = (function () {
 })();
 
 function switchMode(m){
-  var views = { fisica: 'viewFisica', virtual: 'viewVirtual', codigos: 'viewCodigos' };
-  var tabs = { fisica: 'modeFisica', virtual: 'modeVirtual', codigos: 'modeCodigos' };
+  if (m === 'codigos') { mpAbrir(); return; } // v3.44: Mis productos se abre como ventana
+  var views = { fisica: 'viewFisica', virtual: 'viewVirtual' };
+  var tabs = { fisica: 'modeFisica', virtual: 'modeVirtual' };
   if (!views[m]) m = 'fisica';
   for (var k in views) {
     document.getElementById(views[k]).style.display = k === m ? 'block' : 'none';
     document.getElementById(tabs[k]).classList.toggle('active', k === m);
   }
   if (m === 'virtual') buildCupones();
-  if (m === 'codigos') mcRender();
   document.body.setAttribute('data-mode', m); // v3.37.2: en Web no se muestra el botón de promocionales
   safeSet('eg_mode', m);
   updMini();
@@ -2928,8 +2954,8 @@ function switchMode(m){
   var oculto = 0;
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { oculto = Date.now(); return; }
-    if (oculto && Date.now() - oculto >= 5 * 60 * 1000 && document.getElementById('viewCodigos').style.display !== 'none') {
-      mcClose(); switchMode('fisica'); window.scrollTo(0, 0);
+    if (oculto && Date.now() - oculto >= 5 * 60 * 1000 && mpAbierto()) {
+      mcClose(); mpCerrar(); window.scrollTo(0, 0);
     }
     oculto = 0;
   });
@@ -3128,7 +3154,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.43.2';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.44.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
