@@ -249,17 +249,17 @@ var PROMOS_EG = [
 // cat = departamento · marca · pulgadas (agrupa la lista) · corto = nombre corto · sku = 8 dígitos (el código de barras se arma con el prefijo del departamento, TV = 2018)
 var EG_GRATIS_PLAN = 'Reparación 1 año';
 // Stock disponible para venta (lo pasa Kevin; el sistema de stock está desactualizado). Sin "stock" = sin dato.
-var EG_GRATIS_STOCK_FECHA = '17/11 · 12:14';
+var EG_GRATIS_STOCK_FECHA = '17/11 · 16:07';
 var EG_GRATIS = [
   { cat: 'tv', sku: '35465407', marca: 'TCL', pulgadas: 85, corto: '85C6K', modelo: '85C6K' },
-  { cat: 'tv', sku: '35465404', marca: 'TCL', pulgadas: 55, corto: '55C6K', modelo: '55C6K', stock: 3 },
+  { cat: 'tv', sku: '35465404', marca: 'TCL', pulgadas: 55, corto: '55C6K', modelo: '55C6K', stock: 4 },
   { cat: 'tv', sku: '35465405', marca: 'TCL', pulgadas: 65, corto: '65C6K', modelo: '65C6K', stock: 2 },
   { cat: 'tv', sku: '37079175', marca: 'Hisense', pulgadas: 75, corto: '75QD68SG QLED Premium Mate', modelo: 'HISENSE TV 75P 75QD68SG QLED PREMIUM MATE', stock: 3 },
   { cat: 'tv', sku: '37200085', marca: 'Hisense', pulgadas: 65, corto: '65U6ESG Mini-LED', modelo: 'HISENSE TV 65P 65U6ESG MINI-LED QD UHD GTV', stock: 12 },
   { cat: 'tv', sku: '35928577', marca: 'Hisense', pulgadas: 75, corto: '75Q6QV QLED UHD 4K', modelo: 'HISENSE TV 75P 75Q6QV QLED UHD 4K' },
-  { cat: 'tv', sku: '37292387', marca: 'LG', pulgadas: 55, corto: '55NU800BPSB', modelo: '55NU800BPSB.AWFQ', stock: 6 },
-  { cat: 'tv', sku: '37292393', marca: 'LG', pulgadas: 75, corto: '75NU800BPSB', modelo: '75NU800BPSB.AWFQ' },
-  { cat: 'tv', sku: '37385019', marca: 'LG', pulgadas: 65, corto: '65QNED70BSA', modelo: '65QNED70BSA.AWF', stock: 8 },
+  { cat: 'tv', sku: '37292387', marca: 'LG', pulgadas: 55, corto: '55NU800BPSB', modelo: '55NU800BPSB.AWFQ', stock: 8 },
+  { cat: 'tv', sku: '37292393', marca: 'LG', pulgadas: 75, corto: '75NU800BPSB', modelo: '75NU800BPSB.AWFQ', stock: 1 },
+  { cat: 'tv', sku: '37385019', marca: 'LG', pulgadas: 65, corto: '65QNED70BSA', modelo: '65QNED70BSA.AWF', stock: 5 },
   { cat: 'tv', sku: '37288639', marca: 'Samsung', pulgadas: 65, corto: 'UN65M80HAGXPE', modelo: 'UN65M80HAGXPE', stock: 1 },
   { cat: 'tv', sku: '37288642', marca: 'Samsung', pulgadas: 55, corto: 'UN55M70HAGXPE', modelo: 'UN55M70HAGXPE', stock: 1 },
   { cat: 'tv', sku: '37288638', marca: 'Samsung', pulgadas: 75, corto: 'UN75M80HAGXPE', modelo: 'UN75M80HAGXPE' },
