@@ -246,22 +246,22 @@ var PROMOS_EG = [
 
 // ═══ EXTRA GARANTÍA GRATIS · el producto ya trae 1 año de Reparación ═══
 // Vigencia incierta: se muestra hasta que se quite de esta lista. Es referencial: se valida en caja.
-// cat = departamento · sku = 8 dígitos (el código de barras se arma con el prefijo del departamento, TV = 2018)
+// cat = departamento · marca (para filtrar) · sku = 8 dígitos (el código de barras se arma con el prefijo del departamento, TV = 2018)
 var EG_GRATIS_PLAN = 'Reparación 1 año';
 var EG_GRATIS = [
-  { cat: 'tv', sku: '35465407', modelo: '85C6K' },
-  { cat: 'tv', sku: '35465404', modelo: '55C6K' },
-  { cat: 'tv', sku: '35465405', modelo: '65C6K' },
-  { cat: 'tv', sku: '37079175', modelo: 'HISENSE TV 75P 75QD68SG QLED PREMIUM MATE' },
-  { cat: 'tv', sku: '37200085', modelo: 'HISENSE TV 65P 65U6ESG MINI-LED QD UHD GTV' },
-  { cat: 'tv', sku: '35928577', modelo: 'HISENSE TV 75P 75Q6QV QLED UHD 4K' },
-  { cat: 'tv', sku: '37292387', modelo: '55NU800BPSB.AWFQ' },
-  { cat: 'tv', sku: '37292393', modelo: '75NU800BPSB.AWFQ' },
-  { cat: 'tv', sku: '37385019', modelo: '65QNED70BSA.AWF' },
-  { cat: 'tv', sku: '37288639', modelo: 'UN65M80HAGXPE' },
-  { cat: 'tv', sku: '37288642', modelo: 'UN55M70HAGXPE' },
-  { cat: 'tv', sku: '37288638', modelo: 'UN75M80HAGXPE' },
-  { cat: 'tv', sku: '35243005', modelo: 'HYUNDAI GOOGLE UHD LED TV FRAMELESS HYLED5529QG' },
-  { cat: 'tv', sku: '35243006', modelo: 'HYUNDAI GOOGLE UHD LED TV FRAMELESS HYLED6513QG' },
-  { cat: 'tv', sku: '36215058', modelo: 'TV SHARP 4T-C65GL4060L GTV 3.0 2K UHD' }
+  { cat: 'tv', sku: '35465407', marca: 'TCL', modelo: '85C6K' },
+  { cat: 'tv', sku: '35465404', marca: 'TCL', modelo: '55C6K' },
+  { cat: 'tv', sku: '35465405', marca: 'TCL', modelo: '65C6K' },
+  { cat: 'tv', sku: '37079175', marca: 'Hisense', modelo: 'HISENSE TV 75P 75QD68SG QLED PREMIUM MATE' },
+  { cat: 'tv', sku: '37200085', marca: 'Hisense', modelo: 'HISENSE TV 65P 65U6ESG MINI-LED QD UHD GTV' },
+  { cat: 'tv', sku: '35928577', marca: 'Hisense', modelo: 'HISENSE TV 75P 75Q6QV QLED UHD 4K' },
+  { cat: 'tv', sku: '37292387', marca: 'LG', modelo: '55NU800BPSB.AWFQ' },
+  { cat: 'tv', sku: '37292393', marca: 'LG', modelo: '75NU800BPSB.AWFQ' },
+  { cat: 'tv', sku: '37385019', marca: 'LG', modelo: '65QNED70BSA.AWF' },
+  { cat: 'tv', sku: '37288639', marca: 'Samsung', modelo: 'UN65M80HAGXPE' },
+  { cat: 'tv', sku: '37288642', marca: 'Samsung', modelo: 'UN55M70HAGXPE' },
+  { cat: 'tv', sku: '37288638', marca: 'Samsung', modelo: 'UN75M80HAGXPE' },
+  { cat: 'tv', sku: '35243005', marca: 'Hyundai', modelo: 'HYUNDAI GOOGLE UHD LED TV FRAMELESS HYLED5529QG' },
+  { cat: 'tv', sku: '35243006', marca: 'Hyundai', modelo: 'HYUNDAI GOOGLE UHD LED TV FRAMELESS HYLED6513QG' },
+  { cat: 'tv', sku: '36215058', marca: 'Sharp', modelo: 'TV SHARP 4T-C65GL4060L GTV 3.0 2K UHD' }
 ];

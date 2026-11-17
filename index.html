@@ -822,17 +822,33 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 .egf-aviso{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#fff7e0;border:1px solid #f3d58a;color:#7a5600;font-size:13.5px;font-weight:600;line-height:1.4}
 .egf-aviso svg{flex:none;margin-top:1px}
 .egf-plan{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:#dcfce7;color:#15803d;font-size:12px;font-weight:800;letter-spacing:.02em}
-.egf-list{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.egf-list{display:flex;flex-direction:column;gap:6px;margin-top:4px}
 #egfList{margin-top:12px}
 .egf-cnt+.mc-search{margin-top:10px}
-.egf-it{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:16px;background:#fff;border:1px solid #e2e3ec}
+.egf-it{display:flex;flex-direction:column;border-radius:14px;background:#fff;border:1px solid #e2e3ec;overflow:hidden}
+.egf-it.open{border-color:#16a34a}
+.egf-row{display:flex;align-items:center;gap:10px;width:100%;min-height:58px;padding:10px 12px 10px 14px;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.egf-row .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.egf-row i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#6e7189}
+.egf-row b{font-size:14.5px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.egf-row small{font-size:12px;font-weight:600;color:#6e7189}
+.egf-row em{font-style:normal;color:#15803d;font-weight:700}
+.egf-bcic{flex:none;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:#eef4ff;color:#2563eb}
+.egf-it.open .egf-bcic{background:#16a34a;color:#fff}
+.egf-it .bcw{margin:0 10px 10px}
+.egf-marcas{display:flex;gap:6px;overflow-x:auto;margin:12px -2px 0;padding:2px;scrollbar-width:none}
+.egf-marcas::-webkit-scrollbar{display:none}
+.egf-m{flex:none;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;border:1.5px solid #dcdde8;background:#fff;color:#2c2f48;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+.egf-m span{font-size:11.5px;font-weight:800;color:#6e7189}
+.egf-m.on{background:#16a34a;border-color:#16a34a;color:#fff}
+.egf-m.on span{color:#dcfce7}
 .egf-it .t{font-size:15px;font-weight:800;line-height:1.3;overflow-wrap:anywhere}
 .egf-it .r{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .egf-it .r small{font-size:12.5px;font-weight:600;color:#6e7189}
 .egf-it .bcw{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 6px;border-radius:12px;background:#fff}
 .egf-it .bcw .bc-svg{width:100%;max-width:260px;height:auto}
 .egf-cnt{font-size:13px;font-weight:600;line-height:1.45;color:#6e7189;margin:12px 0 0}
-@media (prefers-color-scheme:dark){.mc-chipgo.egf-chip{border-color:rgba(34,197,94,.45)}.mc-chipgo.egf-chip svg{color:#4ade80}.mc-chipgo.egf-chip .n{background:rgba(34,197,94,.16);color:#4ade80}.egf-aviso{background:#241c06;border-color:#5a4512;color:#f5d27a}.egf-plan{background:rgba(34,197,94,.16);color:#4ade80}.egf-it{background:#12131c;border-color:#22243a}.egf-it .r small,.egf-cnt{color:#9da1bb}}
+@media (prefers-color-scheme:dark){.mc-chipgo.egf-chip{border-color:rgba(34,197,94,.45)}.mc-chipgo.egf-chip svg{color:#4ade80}.mc-chipgo.egf-chip .n{background:rgba(34,197,94,.16);color:#4ade80}.egf-aviso{background:#241c06;border-color:#5a4512;color:#f5d27a}.egf-plan{background:rgba(34,197,94,.16);color:#4ade80}.egf-it{background:#12131c;border-color:#22243a}.egf-it.open{border-color:#22c55e}.egf-it .r small,.egf-cnt,.egf-row i,.egf-row small{color:#9da1bb}.egf-row em{color:#4ade80}.egf-bcic{background:#16203a;color:#8fbaff}.egf-m{background:transparent;border-color:#2f3148;color:#d6d9ea}.egf-m span{color:#9da1bb}.egf-m.on{background:#16a34a;border-color:#16a34a;color:#fff}.egf-m.on span{color:#dcfce7}}
 :root[data-theme="dark"] .egf-aviso{background:#241c06;border-color:#5a4512;color:#f5d27a}
 :root[data-theme="dark"] .egf-it{background:#12131c;border-color:#22243a}
 :root[data-theme="dark"] .egf-plan{background:rgba(34,197,94,.16);color:#4ade80}
@@ -1056,7 +1072,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.42.0</div>
+  <div style="margin-top:10px">Versión 3.42.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2539,36 +2555,52 @@ function egfItems() {
   if (typeof EG_GRATIS === 'undefined') return [];
   var cs = hvCats();
   return EG_GRATIS.filter(function (x) { return cs.indexOf(x.cat) >= 0 && MC_PREF[x.cat]; }).map(function (x) {
-    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, modelo: x.modelo, code: r.ok ? r.code : '' };
+    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', modelo: x.modelo, code: r.ok ? r.code : '' };
   }).filter(function (x) { return x.code; });
 }
 function egfChipUpd() {
   var c = document.getElementById('egfChip'); if (!c) return;
   var n = egfItems().length; document.getElementById('egfChipN').textContent = n; c.hidden = !n;
 }
+var _egf = { marca: '', open: '' };
 function egfAbrir() {
-  if (!egfItems().length) return;
+  var all = egfItems(); if (!all.length) return;
+  _egf = { marca: '', open: '' };
+  var ms = []; all.forEach(function (x) { if (x.marca && ms.indexOf(x.marca) < 0) ms.push(x.marca); });
+  ms.sort();
+  var chips = ms.length > 1 ? '<div class="egf-marcas" id="egfMarcas" role="group" aria-label="Filtrar por marca">' +
+    ['' ].concat(ms).map(function (m) { var n = m ? all.filter(function (x) { return x.marca === m; }).length : all.length;
+      return '<button type="button" class="egf-m' + (m ? '' : ' on') + '" data-m="' + mcEsc(m) + '" aria-pressed="' + !m + '" onclick="egfMarca(this.dataset.m)">' + (m ? mcEsc(m) : 'Todas') + '<span>' + n + '</span></button>'; }).join('') + '</div>' : '';
   var h = mcTop('Extra Garantía gratis') + '<div class="cli-body mc-form">' +
     '<div class="egf-aviso" role="note"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg><span>Información referencial. Valida la promoción en caja antes de ofrecerla.</span></div>' +
     '<p class="egf-cnt">Estos modelos ya incluyen <b>' + mcEsc(EG_GRATIS_PLAN) + '</b> de Extra Garantía gratis.</p>' +
     '<div class="mc-search">' + MC_SVG.search + '<input id="egfQ" type="search" aria-label="Buscar modelo o SKU" placeholder="Buscar modelo o SKU" autocomplete="off" oninput="egfRender()"></div>' +
-    '<div id="egfList"></div></div>';
+    chips + '<div id="egfList"></div></div>';
   mcSheet(h);
   egfRender();
 }
+function egfMarca(m) {
+  _egf.marca = m; _egf.open = '';
+  document.querySelectorAll('#egfMarcas .egf-m').forEach(function (b) { var on = b.dataset.m === m; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  egfRender();
+}
+function egfToggle(code) { _egf.open = _egf.open === code ? '' : code; egfRender(); }
 function egfRender() {
   var box = document.getElementById('egfList'); if (!box) return;
   var q = (document.getElementById('egfQ').value || '').trim().toLowerCase();
-  var it = egfItems().filter(function (x) { return !q || x.modelo.toLowerCase().indexOf(q) >= 0 || x.code.indexOf(q.replace(/\D/g, '') || '~') >= 0; });
+  var it = egfItems().filter(function (x) { return (!_egf.marca || x.marca === _egf.marca) && (!q || (x.marca + ' ' + x.modelo).toLowerCase().indexOf(q) >= 0 || x.code.indexOf(q.replace(/\D/g, '') || '~') >= 0); });
+  if (it.length === 1) _egf.open = it[0].code;
   if (!it.length) { box.innerHTML = '<p class="egf-cnt" style="text-align:center;padding:18px 0">No hay modelos con “' + mcEsc(q) + '”.</p>'; return; }
   var h = '';
   MC_ORDER.forEach(function (k) {
     var g = it.filter(function (x) { return x.cat === k; }); if (!g.length) return;
     h += '<div class="mc-grp"><div class="mc-grp-h mc-grp-cat"><span class="chip" data-cat="' + k + '">' + mcIcon(k) + '</span><span>' + mcEsc(mcCatName(k)) + ' · ' + g.length + (g.length === 1 ? ' modelo' : ' modelos') + '</span></div><div class="egf-list">' +
       g.map(function (x) {
-        return '<div class="egf-it"><div class="t">' + mcEsc(x.modelo) + '</div>' +
-          '<div class="r"><span class="egf-plan">GRATIS · ' + mcEsc(EG_GRATIS_PLAN) + '</span><small>SKU ' + x.sku + '</small></div>' +
-          '<div class="bcw">' + buildBarcode(x.code) + bcCopyBtn(x.code) + '</div></div>';
+        var op = _egf.open === x.code;
+        return '<div class="egf-it' + (op ? ' open' : '') + '"><button type="button" class="egf-row" aria-expanded="' + op + '" onclick="egfToggle(\'' + x.code + '\')">' +
+          '<span class="tx">' + (x.marca ? '<i>' + mcEsc(x.marca) + '</i>' : '') + '<b>' + mcEsc(x.modelo) + '</b><small>SKU ' + x.sku + ' · <em>Gratis ' + mcEsc(EG_GRATIS_PLAN) + '</em></small></span>' +
+          '<span class="egf-bcic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg></span></button>' +
+          (op ? '<div class="bcw">' + buildBarcode(x.code) + bcCopyBtn(x.code) + '</div>' : '') + '</div>';
       }).join('') + '</div></div>';
   });
   box.innerHTML = h;
@@ -2992,7 +3024,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.42.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.42.1';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
