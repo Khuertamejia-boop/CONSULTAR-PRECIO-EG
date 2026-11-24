@@ -860,6 +860,13 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 .egf-szh{display:flex;align-items:baseline;gap:8px;padding-left:4px}
 .egf-szh b{font-size:26px;font-weight:800;letter-spacing:-.3px}
 .egf-szh span{font-size:13px;color:#6c6c70}
+.egf-gn{font-style:normal;font-size:19px;font-weight:800;letter-spacing:-.2px}
+.egf-gd{width:10px;height:10px;border-radius:5px;align-self:center;flex:none}
+.egf-r2.nomk{padding-left:16px}
+.egf-r2.nomk+.egf-r2::before,.egf-r2+.egf-r2.nomk::before{left:16px}
+.egf-tabs button{height:38px;font-size:15px}
+.egf-tabs button span{font-size:12px;font-weight:700;opacity:.6}
+.egf-tabs+.egf-seg{margin-top:-2px}
 .egf-r2{min-height:56px;gap:10px}
 .egf-r2 .egf-mk{flex:none;width:66px;height:24px;border-radius:6px;color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;display:flex;align-items:center;justify-content:center}
 .egf-r2 .tx b{font-size:15.5px;font-weight:600;overflow-wrap:normal;word-break:normal}
@@ -1099,7 +1106,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
     <button class="mode-tab active" id="modeFisica" onclick="switchMode('fisica')">Tienda</button>
     <button class="mode-tab" id="modeVirtual" onclick="switchMode('virtual')">Web</button>
   </div>
-  <div class="mc-chiprow"><button type="button" class="mc-chipgo" id="modeCodigos" onclick="switchMode('codigos')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>Mis productos<span class="n" id="mcChipN" hidden></span></button><button type="button" class="mc-chipgo hv-chip" id="hvChip" onclick="hvAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg><span id="hvChipT">Promociones</span><span class="n" id="hvChipN"></span></button><button type="button" class="mc-chipgo egf-chip" id="egfChip" onclick="egfAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg>Extra garantía gratis TV<span class="n" id="egfChipN"></span></button></div>
+  <div class="mc-chiprow"><button type="button" class="mc-chipgo" id="modeCodigos" onclick="switchMode('codigos')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>Mis productos<span class="n" id="mcChipN" hidden></span></button><button type="button" class="mc-chipgo hv-chip" id="hvChip" onclick="hvAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg><span id="hvChipT">Promociones</span><span class="n" id="hvChipN"></span></button><button type="button" class="mc-chipgo egf-chip" id="egfChip" onclick="egfAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg>Extra garantía gratis<span class="n" id="egfChipN"></span></button></div>
 
   <div id="viewFisica">
   <div class="card">
@@ -1162,7 +1169,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.47.2</div>
+  <div style="margin-top:10px">Versión 3.48.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2668,16 +2675,16 @@ function egfItems() {
   if (typeof EG_GRATIS === 'undefined') return [];
   var cs = hvCats();
   return EG_GRATIS.filter(function (x) { return cs.indexOf(x.cat) >= 0 && MC_PREF[x.cat] && promoEnFecha(x); }).map(function (x) {
-    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', pul: +x.pulgadas || 0, stock: typeof x.stock === 'number' ? x.stock : null, corto: x.corto || x.modelo, modelo: x.modelo, code: r.ok ? r.code : '' };
+    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', pul: +x.pulgadas || 0, plan: x.plan || 'Reparación', grupo: x.grupo || '', corto: x.corto || x.modelo, modelo: x.modelo, code: r.ok ? r.code : '' };
   }).filter(function (x) { return x.code; });
 }
 function egfChipUpd() {
   var c = document.getElementById('egfChip'); if (!c) return;
   var n = egfItems().length; document.getElementById('egfChipN').textContent = n; c.hidden = !n;
 }
-var _egf = { pul: 0 };
+var _egf = { pul: 0, cat: '' };
 // Colores de cada marca (sin logos) · iniciales para el cuadrito de la fila
-var EGF_COLOR = { Samsung: '#1428A0', LG: '#A50034', Hisense: '#00838A', Hyundai: '#1C1C1E', TCL: '#D7262F', Sharp: '#C4161C' };
+var EGF_COLOR = { Samsung: '#1428A0', LG: '#A50034', Hisense: '#00838A', Hyundai: '#1C1C1E', TCL: '#D7262F', Sharp: '#C4161C', Nothing: '#1C1C1E', HP: '#0078C1', Lenovo: '#D2232A', ASUS: '#00539B' };
 var EGF_INI = { Samsung: 'S', LG: 'LG', Hisense: 'H', Hyundai: 'HY', TCL: 'TCL', Sharp: 'SH' };
 var EGF_ORDEN = ['Samsung', 'LG', 'Hisense', 'Hyundai', 'TCL', 'Sharp'];
 function egfColor(m) { return EGF_COLOR[m] || '#3A3A3C'; }
@@ -2687,58 +2694,70 @@ function egfMarcas(all) {
   return ms.sort(function (a, b) { var ia = EGF_ORDEN.indexOf(a), ib = EGF_ORDEN.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b); });
 }
 // Código de la EG Reparación 1 año del departamento (de las tasas)
-function egfCodigoEG(cat) {
+// Código de la EG gratis (tipo de plan + 1 año) del departamento, desde las tasas
+function egfCodigoEG(cat, tipo) {
   var c = (typeof cats !== 'undefined') && cats[cat]; if (!c) return null;
-  var out = null;
-  c.grupos.forEach(function (g) { if (out || g.tipo !== 'Reparación') return; g.planes.forEach(function (pl) { if (!out && /^1 a/.test(pl.l) && pl.bc && pl.bc[0]) out = pl.bc[0]; }); });
+  var out = null; tipo = tipo || 'Reparación';
+  c.grupos.forEach(function (g) { if (out || g.tipo !== tipo) return; g.planes.forEach(function (pl) { if (!out && /^1 a/.test(pl.l) && pl.bc && pl.bc[0]) out = pl.bc[0]; }); });
   return out;
 }
 function egfTile(m, big) { return '<span class="egf-tile' + (big ? ' big' : '') + (EGF_INI[m] && EGF_INI[m].length > 2 ? ' sm' : '') + '" style="background:' + egfColor(m) + '" aria-hidden="true">' + mcEsc(egfIni(m)) + '</span>'; }
+// v3.48: varios departamentos → pestañas arriba (TV, Telefonía, …)
+var EGF_TAB = { tv: 'TV', computo: 'Cómputo', telefonia: 'Telefonía', lineablanca: 'Línea Blanca', audio: 'Audio' };
+function egfTab(k) { return EGF_TAB[k] || mcCatName(k); }
+function egfCats(all) { return MC_ORDER.filter(function (k) { return all.some(function (x) { return x.cat === k; }); }); }
+function egfPlanTxt(cat) { var x = egfItems().filter(function (y) { return y.cat === cat; })[0]; return (x ? x.plan : 'Reparación') + ' 1 año'; }
 function egfAbrir() {
   var all = egfItems(); if (!all.length) return;
-  var ps = []; all.forEach(function (x) { if (x.pul && ps.indexOf(x.pul) < 0) ps.push(x.pul); }); ps.sort(function (a, b) { return a - b; });
+  var cs = egfCats(all);
+  if (cs.indexOf(_egf.cat) < 0) _egf.cat = cs.indexOf('tv') >= 0 ? 'tv' : cs[0];
+  var tabs = cs.length > 1 ? '<div class="egf-seg egf-tabs" role="tablist" aria-label="Departamento" style="grid-template-columns:repeat(' + cs.length + ',minmax(0,1fr))">' +
+    cs.map(function (k) { var on = _egf.cat === k, n = all.filter(function (x) { return x.cat === k; }).length;
+      return '<button type="button" role="tab" class="' + (on ? 'on' : '') + '" aria-selected="' + on + '" onclick="egfCat(\'' + k + '\')">' + mcEsc(egfTab(k)) + ' <span>' + n + '</span></button>'; }).join('') + '</div>' : '';
+  var it = all.filter(function (x) { return x.cat === _egf.cat; });
+  var ps = []; it.forEach(function (x) { if (x.pul && ps.indexOf(x.pul) < 0) ps.push(x.pul); }); ps.sort(function (a, b) { return a - b; });
   if (ps.indexOf(_egf.pul) < 0) _egf.pul = 0;
   var seg = ps.length > 1 ? '<div class="egf-seg" id="egfSeg" role="group" aria-label="Filtrar por tamaño" style="grid-template-columns:repeat(' + (ps.length + 1) + ',minmax(0,1fr))">' +
     [0].concat(ps).map(function (pu) { var on = _egf.pul === pu; return '<button type="button" class="' + (on ? 'on' : '') + '" data-p="' + pu + '" aria-pressed="' + on + '" onclick="egfPul(+this.dataset.p)">' + (pu ? pu + '″' : 'Todos') + '</button>'; }).join('') + '</div>' : '';
   var h = mcTop('') + '<div class="cli-body egf-body">' +
-    '<h2 class="egf-h1">EG gratis TV</h2><p class="egf-sub">' + (typeof EG_GRATIS_STOCK_FECHA !== 'undefined' && EG_GRATIS_STOCK_FECHA ? 'Stock al ' + mcEsc(EG_GRATIS_STOCK_FECHA) + ' · referencial' : 'Elige el tamaño que busca el cliente') + '</p>' +
-    seg + '<div id="egfList"></div></div>';
+    '<h2 class="egf-h1">EG gratis</h2><p class="egf-sub">' + mcEsc(mcCatName(_egf.cat)) + ' · ' + mcEsc(egfPlanTxt(_egf.cat)) + (/^Reemplazo/.test(egfPlanTxt(_egf.cat)) ? ' incluido' : ' incluida') + '</p>' +
+    tabs + seg + '<div id="egfList"></div></div>';
   mcSheet(h);
   egfRender();
 }
-// v3.46: stock referencial en lugar de "1 año gratis" (sin dato → se mantiene "1 año gratis")
-function egfStockTag(x) {
-  if (x.stock == null) return '<em class="egf-g">1 año<br>gratis</em>';
-  if (x.stock <= 0) return '<em class="egf-st cero">Sin<br>stock</em>';
-  return '<em class="egf-st' + (x.stock <= 2 ? ' bajo' : '') + '"><small>' + (x.stock <= 2 ? 'Quedan' : 'Stock') + '</small>' + x.stock + '</em>';
-}
+function egfCat(k) { if (_egf.cat === k) return; _egf.cat = k; _egf.pul = 0; egfAbrir(); }
 function egfPul(pu) {
   _egf.pul = pu;
   document.querySelectorAll('#egfSeg button').forEach(function (b) { var on = +b.dataset.p === pu; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   egfRender();
 }
+function egfFila(x) {
+  var m = x.marca || 'Otras', sinMk = x.grupo && x.grupo === m; // agrupado por marca → la etiqueta sobra
+  return '<button type="button" class="egf-r egf-r2' + (sinMk ? ' nomk' : '') + '" onclick="egfDetalle(\'' + x.code + '\')">' +
+    (sinMk ? '' : '<span class="egf-mk" style="background:' + egfColor(m) + '">' + mcEsc(m) + '</span>') +
+    '<span class="tx"><b>' + mcEsc(x.corto) + '</b><code>' + x.code + '</code></span><em class="egf-g">1 año<br>gratis</em>' +
+    '<svg class="ch" viewBox="0 0 9 15" width="9" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 1.5l6 6-6 6"/></svg></button>';
+}
 function egfRender() {
   var box = document.getElementById('egfList'); if (!box) return;
-  var it = egfItems().filter(function (x) { return !_egf.pul || x.pul === _egf.pul; });
+  var it = egfItems().filter(function (x) { return x.cat === _egf.cat && (!_egf.pul || x.pul === _egf.pul); });
   var ord = function (m) { var i = EGF_ORDEN.indexOf(m); return i < 0 ? 99 : i; };
-  var sin = function (x) { return x.stock === 0 ? 1 : 0; };
-  it.sort(function (a, b) { return (a.pul - b.pul) || (sin(a) - sin(b)) || (ord(a.marca) - ord(b.marca)) || a.corto.localeCompare(b.corto); });
-  var ps = []; it.forEach(function (x) { if (ps.indexOf(x.pul) < 0) ps.push(x.pul); });
-  box.innerHTML = ps.map(function (pu) {
-    var g = it.filter(function (x) { return x.pul === pu; });
-    return '<section class="egf-sec"><div class="egf-szh"><b>' + (pu ? pu + '″' : 'Otros') + '</b><span>' + g.length + (g.length === 1 ? ' modelo' : ' modelos') + '</span></div><div class="egf-grp">' +
-      g.map(function (x) {
-        var m = x.marca || 'Otras';
-        return '<button type="button" class="egf-r egf-r2" onclick="egfDetalle(\'' + x.code + '\')">' +
-          '<span class="egf-mk" style="background:' + egfColor(m) + '">' + mcEsc(m) + '</span>' +
-          '<span class="tx"><b>' + mcEsc(x.corto) + '</b><code>' + x.code + '</code></span>' + egfStockTag(x) +
-          '<svg class="ch" viewBox="0 0 9 15" width="9" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 1.5l6 6-6 6"/></svg></button>';
-      }).join('') + '</div></section>';
-  }).join('');
+  var uni = _egf.cat === 'telefonia' ? ['color', 'colores'] : ['modelo', 'modelos'];
+  var sec = function (titulo, g, color) { return '<section class="egf-sec"><div class="egf-szh">' + (color ? '<span class="egf-gd" style="background:' + color + '"></span>' : '') + '<b>' + titulo + '</b><span>' + g.length + ' ' + (g.length === 1 ? uni[0] : uni[1]) + '</span></div><div class="egf-grp">' + g.map(egfFila).join('') + '</div></section>'; };
+  if (it.some(function (x) { return x.pul; })) {
+    // TV: por pulgadas
+    it.sort(function (a, b) { return (a.pul - b.pul) || (ord(a.marca) - ord(b.marca)) || a.corto.localeCompare(b.corto); });
+    var ps = []; it.forEach(function (x) { if (ps.indexOf(x.pul) < 0) ps.push(x.pul); });
+    box.innerHTML = ps.map(function (pu) { return sec(pu ? pu + '″' : 'Otros', it.filter(function (x) { return x.pul === pu; })); }).join('');
+  } else {
+    // Otros departamentos: por modelo (grupo), con sus colores
+    var gs = []; it.forEach(function (x) { var g = x.grupo || x.marca || 'Otros'; if (gs.indexOf(g) < 0) gs.push(g); });
+    box.innerHTML = gs.map(function (g) { var gi = it.filter(function (x) { return (x.grupo || x.marca || 'Otros') === g; }); return sec('<i class="egf-gn">' + mcEsc(g) + '</i>', gi, EGF_COLOR[g] || null); }).join('');
+  }
 }
-// v3.43.1: promocionales vigentes del departamento (plan Reparación 1 año) debajo de los dos códigos
-function egfPromosHtml(cat, n0) {
-  var ps = promosVigentes(cat, 1, 'Reparación'); if (!ps.length) return '';
+// promocionales vigentes del departamento (mismo plan de 1 año) debajo de los códigos
+function egfPromosHtml(cat, n0, tipo) {
+  var ps = promosVigentes(cat, 1, tipo || 'Reparación'); if (!ps.length) return '';
   return '<div class="egf-ph"><b>Promocionales ' + mcEsc(mcCatName(cat)) + '</b><span>' + ps.length + ' · no acumulables, se cobran aparte</span></div>' +
     ps.map(function (pr, i) {
       var c = pr.codigos[cat];
@@ -2750,16 +2769,15 @@ function egfPromosHtml(cat, n0) {
 }
 function egfDetalle(code) {
   var x = egfItems().filter(function (y) { return y.code === code; })[0]; if (!x) return;
-  var m = x.marca || 'Otras', eg = egfCodigoEG(x.cat);
-  var h = '<div class="cli-top"><button type="button" class="egf-back" onclick="egfAbrir()"><svg viewBox="0 0 12 20" width="11" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>EG gratis TV</button><span class="cli-sp"></span>' +
+  var m = x.marca || 'Otras', eg = egfCodigoEG(x.cat, x.plan), prod = { tv: 'Televisor', telefonia: 'Celular', computo: 'Laptop' }[x.cat] || 'Producto';
+  var h = '<div class="cli-top"><button type="button" class="egf-back" onclick="egfAbrir()"><svg viewBox="0 0 12 20" width="11" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>EG gratis</button><span class="cli-sp"></span>' +
     '<button type="button" class="cli-x" aria-label="Cerrar" onclick="mcClose()">' + CLI_ICO.x + '</button></div>' +
     '<div class="cli-body egf-body">' +
-    '<div class="egf-dh">' + egfTile(m, true) + '<div class="tx"><span style="color:' + egfColor(m) + '">' + mcEsc(m) + '</span><b>' + mcEsc(x.modelo) + '</b>' +
-      (x.stock != null ? '<i class="egf-dst' + (x.stock <= 0 ? ' cero' : x.stock <= 2 ? ' bajo' : '') + '">' + (x.stock <= 0 ? 'Sin stock' : 'Stock ' + x.stock) + (typeof EG_GRATIS_STOCK_FECHA !== 'undefined' ? ' · al ' + mcEsc(EG_GRATIS_STOCK_FECHA) : '') + '</i>' : '') + '</div></div>' +
-    '<div class="egf-inc"><div><span>Incluye gratis</span><b>' + mcEsc(EG_GRATIS_PLAN) + '</b></div><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>' +
-    '<div class="egf-cod"><div class="egf-cl"><span class="n">1</span>Televisor<small>SKU ' + x.sku + '</small></div><div class="egf-bc">' + buildBarcode(x.code) + bcCopyBtn(x.code) + '</div></div>' +
+    '<div class="egf-dh">' + egfTile(m, true) + '<div class="tx"><span style="color:' + egfColor(m) + '">' + mcEsc(m) + '</span><b>' + mcEsc(x.modelo) + '</b></div></div>' +
+    '<div class="egf-inc"><div><span>Incluye gratis</span><b>' + mcEsc(x.plan + ' 1 año') + '</b></div><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg></div>' +
+    '<div class="egf-cod"><div class="egf-cl"><span class="n">1</span>' + prod + '<small>SKU ' + x.sku + '</small></div><div class="egf-bc">' + buildBarcode(x.code) + bcCopyBtn(x.code) + '</div></div>' +
     (eg ? '<div class="egf-cod"><div class="egf-cl"><span class="n eg">2</span>' + mcEsc(eg.titulo) + '<small>Gratis</small></div><div class="egf-bc">' + buildBarcode(eg.cod) + bcCopyBtn(eg.cod) + '</div></div>' : '') +
-    egfPromosHtml(x.cat, eg ? 3 : 2) +
+    egfPromosHtml(x.cat, eg ? 3 : 2, x.plan) +
     '<p class="egf-nota"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Información referencial. Valida la promoción en caja antes de ofrecerla.</p>' +
     '</div>';
   mcSheet(h);
@@ -3183,7 +3201,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.47.2';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.48.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }

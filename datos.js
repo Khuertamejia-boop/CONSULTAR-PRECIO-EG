@@ -246,7 +246,8 @@ var PROMOS_EG = [
 
 // ═══ EXTRA GARANTÍA GRATIS · el producto ya trae 1 año de Reparación ═══
 // Vigencia incierta: se muestra hasta que se quite de esta lista. Es referencial: se valida en caja.
-// cat = departamento · marca · pulgadas (agrupa la lista) · corto = nombre corto · sku = 8 dígitos · hasta = último día (opcional) (el código de barras se arma con el prefijo del departamento, TV = 2018)
+// cat = departamento · marca · pulgadas (TV, agrupa la lista) · grupo (otros dptos., agrupa por modelo) · plan = 'Reparación' (defecto) o 'Reemplazo'
+// corto = nombre corto · sku = 8 dígitos · hasta = último día (opcional) (el código de barras se arma con el prefijo del departamento, TV = 2018)
 var EG_GRATIS_PLAN = 'Reparación 1 año';
 var EG_GRATIS = [
   { cat: 'tv', sku: '35465407', marca: 'TCL', pulgadas: 85, corto: '85C6K', modelo: '85C6K' },
@@ -276,5 +277,22 @@ var EG_GRATIS = [
   { cat: 'tv', sku: '37653702', marca: 'Samsung', pulgadas: 65, corto: 'MRN65R85HAGXPE', modelo: 'MRN65R85HAGXPE', hasta: '2026-11-30' },
   { cat: 'tv', sku: '37594195', marca: 'Samsung', pulgadas: 55, corto: 'QN55S90HAGXPE', modelo: 'QN55S90HAGXPE', hasta: '2026-11-30' },
   { cat: 'tv', sku: '37653703', marca: 'Samsung', pulgadas: 55, corto: 'MRN55R85HAGXPE', modelo: 'MRN55R85HAGXPE', hasta: '2026-11-30' },
-  { cat: 'tv', sku: '37288634', marca: 'Samsung', pulgadas: 85, corto: 'QN85QN70HAGXPE', modelo: 'QN85QN70HAGXPE', hasta: '2026-11-30' }
+  { cat: 'tv', sku: '37288634', marca: 'Samsung', pulgadas: 85, corto: 'QN85QN70HAGXPE', modelo: 'QN85QN70HAGXPE', hasta: '2026-11-30' },
+  // Telefonía · Reemplazo 1 año gratis · desde el 24/11 hasta el 31/12/2026
+  { cat: 'telefonia', sku: '37739900', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (3) · 256GB 12GB', corto: 'Phone (3) Negro', modelo: 'NOTHING PHONE (3) 256GB 12GB NEGRO T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739901', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (3) · 256GB 12GB', corto: 'Phone (3) Blanco', modelo: 'NOTHING PHONE (3) 256GB 12GB BLANC T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739903', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (4a) Pro · 256GB 12GB', corto: 'Phone (4a) Pro Negro', modelo: 'NOTHING PHONE (4a) PRO 256GB 12GB NEGRO T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739904', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (4a) Pro · 256GB 12GB', corto: 'Phone (4a) Pro Plata', modelo: 'NOTHING PHONE (4a) PRO 256GB 12GB PLATA T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739906', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (4a) · 256GB 8GB', corto: 'Phone (4a) Negro', modelo: 'NOTHING PHONE (4a) 256GB 8GB NEGRO T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739907', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (4a) · 256GB 8GB', corto: 'Phone (4a) Blanco', modelo: 'NOTHING PHONE (4a) 256GB 8GB BLANC T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739909', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (4b) · 128GB 8GB', corto: 'Phone (4b) Azul', modelo: 'NOTHING PHONE (4b) 128GB 8GB AZUL T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739910', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (4b) · 128GB 8GB', corto: 'Phone (4b) Blanco', modelo: 'NOTHING PHONE (4b) 128GB 8GB BLANC T/U', hasta: '2026-12-31' },
+  { cat: 'telefonia', sku: '37739911', marca: 'Nothing', plan: 'Reemplazo', grupo: 'Phone (4b) · 128GB 8GB', corto: 'Phone (4b) Negro', modelo: 'NOTHING PHONE (4b) 128GB 8GB NEGRO T/U', hasta: '2026-12-31' },
+  // Cómputo · laptops con Reparación 1 año gratis (vigentes; 37631544 retirado el 24/11)
+  { cat: 'computo', sku: '37627689', marca: 'HP', grupo: 'HP', corto: '14-hu0052la Touch C5-120U 8GB 512GB', modelo: '14-hu0052la Touch C5-120U 8GB 512GB' },
+  { cat: 'computo', sku: '37627691', marca: 'HP', grupo: 'HP', corto: '15-fc0372la R7 7730U 16GB 512GB', modelo: '15-fc0372la R7 7730U 16GB 512GB' },
+  { cat: 'computo', sku: '33391669', marca: 'Lenovo', grupo: 'Lenovo', corto: 'LOQ 15IAX9 i5 8GB 512GB', modelo: 'NB LOQ 15IAX9 I5 8G 512G 11S' },
+  { cat: 'computo', sku: '37628188', marca: 'Lenovo', grupo: 'Lenovo', corto: 'IdeaPad Slim 3 14IWC11 Core 5 16GB 512GB + mochila', modelo: 'NB IPS3 14IWC11 CORE5 16G 512G 11S + MOCHILA' },
+  { cat: 'computo', sku: '36891816', marca: 'ASUS', grupo: 'ASUS', corto: 'X1504VA Core 5 8GB 512GB + mochila + mouse', modelo: 'X1504VA-BQ4454W INTEL CORE 5 8GB 512SSD+BP+MOUSE' },
+  { cat: 'computo', sku: '37483369', marca: 'ASUS', grupo: 'ASUS', corto: 'Zenbook UX3407QA X1-Plus 16GB 512GB', modelo: 'UX3407QA-QD289W X1-PLUS 512G SSD 16G' }
 ];
