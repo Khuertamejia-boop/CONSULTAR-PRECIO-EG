@@ -246,7 +246,7 @@ var PROMOS_EG = [
 
 // ═══ EXTRA GARANTÍA GRATIS · el producto ya trae 1 año de Reparación ═══
 // Vigencia incierta: se muestra hasta que se quite de esta lista. Es referencial: se valida en caja.
-// cat = departamento · marca · pulgadas (agrupa la lista) · corto = nombre corto · sku = 8 dígitos (el código de barras se arma con el prefijo del departamento, TV = 2018)
+// cat = departamento · marca · pulgadas (agrupa la lista) · corto = nombre corto · sku = 8 dígitos · hasta = último día (opcional) (el código de barras se arma con el prefijo del departamento, TV = 2018)
 var EG_GRATIS_PLAN = 'Reparación 1 año';
 var EG_GRATIS = [
   { cat: 'tv', sku: '35465407', marca: 'TCL', pulgadas: 85, corto: '85C6K', modelo: '85C6K' },
@@ -262,19 +262,19 @@ var EG_GRATIS = [
   { cat: 'tv', sku: '35243005', marca: 'Hyundai', pulgadas: 55, corto: 'HYLED5529QG', modelo: 'HYUNDAI GOOGLE UHD LED TV FRAMELESS HYLED5529QG' },
   { cat: 'tv', sku: '35243006', marca: 'Hyundai', pulgadas: 65, corto: 'HYLED6513QG', modelo: 'HYUNDAI GOOGLE UHD LED TV FRAMELESS HYLED6513QG' },
   { cat: 'tv', sku: '36215058', marca: 'Sharp', pulgadas: 65, corto: '4T-C65GL4060L', modelo: 'TV SHARP 4T-C65GL4060L GTV 3.0 2K UHD' },
-  // Agregados 21/11
-  { cat: 'tv', sku: '37187491', marca: 'LG', pulgadas: 55, corto: 'OLED55C6PSA', modelo: 'OLED55C6PSA.AWF' },
-  { cat: 'tv', sku: '37292390', marca: 'LG', pulgadas: 75, corto: '75QNED70BSA', modelo: '75QNED70BSA.AWF' },
-  { cat: 'tv', sku: '37285158', marca: 'LG', pulgadas: 65, corto: 'OLED65C6PSA', modelo: 'OLED65C6PSA.AWF' },
-  { cat: 'tv', sku: '37292395', marca: 'LG', pulgadas: 85, corto: '85NU800BPSB', modelo: '85NU800BPSB.AWFQ' },
-  { cat: 'tv', sku: '35976225', marca: 'LG', pulgadas: 55, corto: 'OLED55C5PSA', modelo: 'OLED55C5PSA.AWF' },
-  { cat: 'tv', sku: '35837877', marca: 'LG', pulgadas: 65, corto: 'OLED65C5PSA', modelo: 'OLED65C5PSA.AWF' },
-  { cat: 'tv', sku: '36080764', marca: 'LG', pulgadas: 55, corto: 'OLED55G5PSA', modelo: 'OLED55G5PSA.AWF' },
-  { cat: 'tv', sku: '35837878', marca: 'LG', pulgadas: 65, corto: 'OLED65G5PSA', modelo: 'OLED65G5PSA.AWF' },
-  { cat: 'tv', sku: '35837881', marca: 'LG', pulgadas: 77, corto: 'OLED77C5PSA', modelo: 'OLED77C5PSA.AWF' },
-  { cat: 'tv', sku: '35837879', marca: 'LG', pulgadas: 77, corto: 'OLED77G5PSA', modelo: 'OLED77G5PSA.AWF' },
-  { cat: 'tv', sku: '37653702', marca: 'Samsung', pulgadas: 65, corto: 'MRN65R85HAGXPE', modelo: 'MRN65R85HAGXPE' },
-  { cat: 'tv', sku: '37594195', marca: 'Samsung', pulgadas: 55, corto: 'QN55S90HAGXPE', modelo: 'QN55S90HAGXPE' },
-  { cat: 'tv', sku: '37653703', marca: 'Samsung', pulgadas: 55, corto: 'MRN55R85HAGXPE', modelo: 'MRN55R85HAGXPE' },
-  { cat: 'tv', sku: '37288634', marca: 'Samsung', pulgadas: 85, corto: 'QN85QN70HAGXPE', modelo: 'QN85QN70HAGXPE' }
+  // Activados hasta el 30/11/2026 (se retiran solos al pasar la fecha)
+  { cat: 'tv', sku: '37187491', marca: 'LG', pulgadas: 55, corto: 'OLED55C6PSA', modelo: 'OLED55C6PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '37292390', marca: 'LG', pulgadas: 75, corto: '75QNED70BSA', modelo: '75QNED70BSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '37285158', marca: 'LG', pulgadas: 65, corto: 'OLED65C6PSA', modelo: 'OLED65C6PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '37292395', marca: 'LG', pulgadas: 85, corto: '85NU800BPSB', modelo: '85NU800BPSB.AWFQ', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '35976225', marca: 'LG', pulgadas: 55, corto: 'OLED55C5PSA', modelo: 'OLED55C5PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '35837877', marca: 'LG', pulgadas: 65, corto: 'OLED65C5PSA', modelo: 'OLED65C5PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '36080764', marca: 'LG', pulgadas: 55, corto: 'OLED55G5PSA', modelo: 'OLED55G5PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '35837878', marca: 'LG', pulgadas: 65, corto: 'OLED65G5PSA', modelo: 'OLED65G5PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '35837881', marca: 'LG', pulgadas: 77, corto: 'OLED77C5PSA', modelo: 'OLED77C5PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '35837879', marca: 'LG', pulgadas: 77, corto: 'OLED77G5PSA', modelo: 'OLED77G5PSA.AWF', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '37653702', marca: 'Samsung', pulgadas: 65, corto: 'MRN65R85HAGXPE', modelo: 'MRN65R85HAGXPE', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '37594195', marca: 'Samsung', pulgadas: 55, corto: 'QN55S90HAGXPE', modelo: 'QN55S90HAGXPE', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '37653703', marca: 'Samsung', pulgadas: 55, corto: 'MRN55R85HAGXPE', modelo: 'MRN55R85HAGXPE', hasta: '2026-11-30' },
+  { cat: 'tv', sku: '37288634', marca: 'Samsung', pulgadas: 85, corto: 'QN85QN70HAGXPE', modelo: 'QN85QN70HAGXPE', hasta: '2026-11-30' }
 ];
