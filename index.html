@@ -857,7 +857,8 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 .egf-seg{display:grid;gap:3px;padding:3px;border-radius:10px;background:#e3e3e8}
 .egf-seg button{height:34px;border:0;border-radius:8px;background:transparent;color:#000;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
 .egf-seg button.on{background:#fff;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.egf-szh{display:flex;align-items:baseline;gap:8px;padding-left:4px}
+.egf-szh{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:0;padding-left:4px}
+.egf-szh>span:last-child{white-space:nowrap}
 .egf-szh b{font-size:26px;font-weight:800;letter-spacing:-.3px}
 .egf-szh span{font-size:13px;color:#6c6c70}
 .egf-gn{font-style:normal;font-size:19px;font-weight:800;letter-spacing:-.2px}
@@ -1206,7 +1207,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.50.1</div>
+  <div style="margin-top:10px">Versión 3.51.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2795,7 +2796,10 @@ function egfRender() {
   var it = egfItems().filter(function (x) { return x.cat === _egf.cat && (!_egf.pul || x.pul === _egf.pul); });
   var ord = function (m) { var i = EGF_ORDEN.indexOf(m); return i < 0 ? 99 : i; };
   var uni = _egf.cat === 'telefonia' ? ['color', 'colores'] : ['modelo', 'modelos'];
-  var sec = function (titulo, g, color) { return '<section class="egf-sec"><div class="egf-szh">' + (color ? '<span class="egf-gd" style="background:' + color + '"></span>' : '') + '<b>' + titulo + '</b><span>' + g.length + ' ' + (g.length === 1 ? uni[0] : uni[1]) + '</span></div><div class="egf-grp">' + g.map(egfFila).join('') + '</div></section>'; };
+  // v3.51: si el departamento mezcla vigencias, cada grupo muestra su propia fecha
+  var hsCat = []; it.forEach(function (x) { var h = x.hasta || '-'; if (hsCat.indexOf(h) < 0) hsCat.push(h); });
+  var fechaGrupo = function (g) { if (hsCat.length < 2) return ''; var h = g[0].hasta; if (!h || g.some(function (x) { return x.hasta !== h; })) return ''; var d = h.split('-'); return ' · hasta ' + d[2] + '/' + d[1]; };
+  var sec = function (titulo, g, color) { return '<section class="egf-sec"><div class="egf-szh">' + (color ? '<span class="egf-gd" style="background:' + color + '"></span>' : '') + '<b>' + titulo + '</b><span>' + g.length + ' ' + (g.length === 1 ? uni[0] : uni[1]) + fechaGrupo(g) + '</span></div><div class="egf-grp">' + g.map(egfFila).join('') + '</div></section>'; };
   if (it.some(function (x) { return x.pul; })) {
     // TV: por pulgadas
     it.sort(function (a, b) { return (a.pul - b.pul) || (ord(a.marca) - ord(b.marca)) || a.corto.localeCompare(b.corto); });
@@ -3253,7 +3257,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.50.1';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.51.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
