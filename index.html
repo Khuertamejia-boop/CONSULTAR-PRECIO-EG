@@ -864,6 +864,33 @@ body[data-mode="virtual"] #hvChip{display:none!important}
 .egf-gd{width:10px;height:10px;border-radius:5px;align-self:center;flex:none}
 .egf-r2.nomk{padding-left:16px}
 .egf-r2.nomk+.egf-r2::before,.egf-r2+.egf-r2.nomk::before{left:16px}
+.egf-dep{display:grid;gap:10px}
+.egf-dep button{position:relative;height:104px;box-sizing:border-box;padding:12px;border:0;border-radius:16px;background:#fff;color:#000;font:inherit;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;text-align:left;cursor:pointer;min-width:0;transition:transform .12s}
+.egf-dep button:active{transform:scale(.97)}
+.egf-dep button svg{width:26px;height:26px;color:var(--c)}
+.egf-dep .n{position:absolute;top:12px;right:12px;min-width:22px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:10px;background:#f2f2f7;color:#3c3c43;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.egf-dep .t{display:flex;flex-direction:column;min-width:0;max-width:100%}
+.egf-dep .t b{font-size:16px;font-weight:800;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.egf-dep .t small{font-size:12.5px;color:#6c6c70;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.egf-dep button.on{background:var(--c);color:#fff;box-shadow:0 6px 16px var(--s)}
+.egf-dep button.on svg{color:#fff}
+.egf-dep button.on .n{background:rgba(255,255,255,.22);color:#fff}
+.egf-dep button.on .t small{color:rgba(255,255,255,.82)}
+.egf-ban{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:#e8f7ec;color:#145c26}
+.egf-ban svg{flex:none}
+.egf-ban b{flex:1;font-size:15px;font-weight:700}
+.egf-ban span{flex:none;font-size:13px;font-weight:600;color:#1e7b34}
+.egf-dep+.egf-ban{margin-top:-2px}
+@media (max-width:359px){.egf-dep{gap:8px}.egf-dep button{padding:10px}.egf-dep .t b{font-size:14px}.egf-dep .t small{font-size:11.5px}.egf-dep .n{top:10px;right:10px}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .egf-dep button:not(.on){background:#1c1c1e;color:#fff}:root:not([data-theme="light"]) .egf-dep button:not(.on) svg{color:var(--cd)}:root:not([data-theme="light"]) .egf-dep button:not(.on) .n{background:#2c2c2e;color:#ebebf5}:root:not([data-theme="light"]) .egf-dep button:not(.on) .t small{color:#98989f}:root:not([data-theme="light"]) .egf-dep button.on{box-shadow:none}:root:not([data-theme="light"]) .egf-ban{background:rgba(48,209,88,.14);color:#5be37f}:root:not([data-theme="light"]) .egf-ban span{color:#30d158}}
+:root[data-theme="dark"] .egf-dep button:not(.on){background:#1c1c1e;color:#fff}
+:root[data-theme="dark"] .egf-dep button:not(.on) svg{color:var(--cd)}
+:root[data-theme="dark"] .egf-dep button:not(.on) .n{background:#2c2c2e;color:#ebebf5}
+:root[data-theme="dark"] .egf-dep button:not(.on) .t small{color:#98989f}
+:root[data-theme="dark"] .egf-dep button.on{box-shadow:none}
+:root[data-theme="dark"] .egf-dep button.on .t small{color:rgba(255,255,255,.82)}
+:root[data-theme="dark"] .egf-ban{background:rgba(48,209,88,.14);color:#5be37f}
+:root[data-theme="dark"] .egf-ban span{color:#30d158}
 .egf-tabs button{height:38px;font-size:15px}
 .egf-tabs button span{font-size:12px;font-weight:700;opacity:.6}
 .egf-tabs+.egf-seg{margin-top:-2px}
@@ -1169,7 +1196,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.48.0</div>
+  <div style="margin-top:10px">Versión 3.49.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2675,7 +2702,7 @@ function egfItems() {
   if (typeof EG_GRATIS === 'undefined') return [];
   var cs = hvCats();
   return EG_GRATIS.filter(function (x) { return cs.indexOf(x.cat) >= 0 && MC_PREF[x.cat] && promoEnFecha(x); }).map(function (x) {
-    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', pul: +x.pulgadas || 0, plan: x.plan || 'Reparación', grupo: x.grupo || '', corto: x.corto || x.modelo, modelo: x.modelo, code: r.ok ? r.code : '' };
+    var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', pul: +x.pulgadas || 0, plan: x.plan || 'Reparación', grupo: x.grupo || '', corto: x.corto || x.modelo, modelo: x.modelo, hasta: x.hasta || '', code: r.ok ? r.code : '' };
   }).filter(function (x) { return x.code; });
 }
 function egfChipUpd() {
@@ -2707,21 +2734,36 @@ var EGF_TAB = { tv: 'TV', computo: 'Cómputo', telefonia: 'Telefonía', lineabla
 function egfTab(k) { return EGF_TAB[k] || mcCatName(k); }
 function egfCats(all) { return MC_ORDER.filter(function (k) { return all.some(function (x) { return x.cat === k; }); }); }
 function egfPlanTxt(cat) { var x = egfItems().filter(function (y) { return y.cat === cat; })[0]; return (x ? x.plan : 'Reparación') + ' 1 año'; }
+// v3.49: tarjetas de departamento con ícono + franja verde del plan
+var EGF_DEP = {
+  tv: { c: '#2563EB', cd: '#60A5FA', i: '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>' },
+  computo: { c: '#16A34A', cd: '#4ADE80', i: '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>' },
+  telefonia: { c: '#0E7490', cd: '#22D3EE', i: '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>' },
+  _: { c: '#5856D6', cd: '#A5A3FF', i: '<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>' }
+};
+function egfBanner(it) {
+  var plan = egfPlanTxt(_egf.cat), hs = [], todos = it.length > 0;
+  it.forEach(function (x) { if (!x.hasta) todos = false; else if (hs.indexOf(x.hasta) < 0) hs.push(x.hasta); });
+  var h = todos && hs.length === 1 ? hs[0].split('-') : null;
+  return '<div class="egf-ban"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg>' +
+    '<b>' + mcEsc(plan) + ' gratis</b>' + (h ? '<span>hasta ' + h[2] + '/' + h[1] + '</span>' : '') + '</div>';
+}
 function egfAbrir() {
   var all = egfItems(); if (!all.length) return;
   var cs = egfCats(all);
   if (cs.indexOf(_egf.cat) < 0) _egf.cat = cs.indexOf('tv') >= 0 ? 'tv' : cs[0];
-  var tabs = cs.length > 1 ? '<div class="egf-seg egf-tabs" role="tablist" aria-label="Departamento" style="grid-template-columns:repeat(' + cs.length + ',minmax(0,1fr))">' +
-    cs.map(function (k) { var on = _egf.cat === k, n = all.filter(function (x) { return x.cat === k; }).length;
-      return '<button type="button" role="tab" class="' + (on ? 'on' : '') + '" aria-selected="' + on + '" onclick="egfCat(\'' + k + '\')">' + mcEsc(egfTab(k)) + ' <span>' + n + '</span></button>'; }).join('') + '</div>' : '';
+  var tabs = cs.length > 1 ? '<div class="egf-dep" role="tablist" aria-label="Departamento" style="grid-template-columns:repeat(' + cs.length + ',minmax(0,1fr))">' +
+    cs.map(function (k) { var on = _egf.cat === k, n = all.filter(function (x) { return x.cat === k; }).length, d = EGF_DEP[k] || EGF_DEP._;
+      return '<button type="button" role="tab" class="' + (on ? 'on' : '') + '" aria-selected="' + on + '" style="--c:' + d.c + ';--cd:' + d.cd + ';--s:' + d.c + '47" onclick="egfCat(\'' + k + '\')">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d.i + '</svg>' +
+        '<span class="n">' + n + '</span><span class="t"><b>' + mcEsc(egfTab(k)) + '</b><small>' + mcEsc(egfPlanTxt(k).replace(/ 1 año$/, '')) + '</small></span></button>'; }).join('') + '</div>' : '';
   var it = all.filter(function (x) { return x.cat === _egf.cat; });
   var ps = []; it.forEach(function (x) { if (x.pul && ps.indexOf(x.pul) < 0) ps.push(x.pul); }); ps.sort(function (a, b) { return a - b; });
   if (ps.indexOf(_egf.pul) < 0) _egf.pul = 0;
   var seg = ps.length > 1 ? '<div class="egf-seg" id="egfSeg" role="group" aria-label="Filtrar por tamaño" style="grid-template-columns:repeat(' + (ps.length + 1) + ',minmax(0,1fr))">' +
     [0].concat(ps).map(function (pu) { var on = _egf.pul === pu; return '<button type="button" class="' + (on ? 'on' : '') + '" data-p="' + pu + '" aria-pressed="' + on + '" onclick="egfPul(+this.dataset.p)">' + (pu ? pu + '″' : 'Todos') + '</button>'; }).join('') + '</div>' : '';
   var h = mcTop('') + '<div class="cli-body egf-body">' +
-    '<h2 class="egf-h1">EG gratis</h2><p class="egf-sub">' + mcEsc(mcCatName(_egf.cat)) + ' · ' + mcEsc(egfPlanTxt(_egf.cat)) + (/^Reemplazo/.test(egfPlanTxt(_egf.cat)) ? ' incluido' : ' incluida') + '</p>' +
-    tabs + seg + '<div id="egfList"></div></div>';
+    '<h2 class="egf-h1">EG gratis</h2>' + tabs + egfBanner(it) + seg + '<div id="egfList"></div></div>';
   mcSheet(h);
   egfRender();
 }
@@ -3201,7 +3243,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.48.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.49.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
