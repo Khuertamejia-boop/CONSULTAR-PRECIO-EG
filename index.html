@@ -1119,10 +1119,10 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 .mc-chipgo.hv-chip{animation:hvPulso 2.6s ease-in-out infinite}
 @keyframes hvPulso{0%,100%{box-shadow:0 6px 18px rgba(224,17,122,.38),inset 0 1px 0 rgba(255,255,255,.25)}50%{box-shadow:0 6px 26px rgba(253,21,133,.65),inset 0 1px 0 rgba(255,255,255,.25)}}
 @media(prefers-reduced-motion:reduce){.mc-chipgo.hv-chip{animation:none}}
-/* v3.50: chip EG gratis con más vida (verde lleno + brillo que pasa) */
-.mc-chipgo.egf-chip.egf-chip,.mc-chipgo.egf-chip.egf-chip:active{position:relative;overflow:hidden;height:44px;padding:0 16px;border:0;background:linear-gradient(135deg,#22c55e 0%,#15803d 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 16px rgba(22,163,74,.34),inset 0 1px 0 rgba(255,255,255,.28)}
+/* v3.50: chip EG gratis con más vida (morado lleno + brillo que pasa) */
+.mc-chipgo.egf-chip.egf-chip,.mc-chipgo.egf-chip.egf-chip:active{position:relative;overflow:hidden;height:44px;padding:0 16px;border:0;background:linear-gradient(135deg,#a855f7 0%,#7c1fe0 100%);color:#fff;font-size:15px;font-weight:800;letter-spacing:.1px;box-shadow:0 6px 16px rgba(124,31,224,.38),inset 0 1px 0 rgba(255,255,255,.28)}
 .mc-chipgo.egf-chip.egf-chip svg{color:#fff;width:20px;height:20px}
-.mc-chipgo.egf-chip.egf-chip .n{background:#fff;color:#15803d;font-size:12.5px}
+.mc-chipgo.egf-chip.egf-chip .n{background:#fff;color:#7c1fe0;font-size:12.5px}
 .mc-chipgo.egf-chip.egf-chip:active{transform:scale(.97);filter:brightness(.95)}
 .mc-chipgo.egf-chip::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:45%;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.38) 50%,transparent 100%);transform:skewX(-18deg);animation:egfBrillo 3.8s ease-in-out infinite;pointer-events:none}
 @keyframes egfBrillo{0%,55%{left:-60%}85%,100%{left:120%}}
@@ -1206,7 +1206,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.50.0</div>
+  <div style="margin-top:10px">Versión 3.50.1</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -3253,7 +3253,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.50.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.50.1';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
