@@ -326,15 +326,6 @@ var EG_GRATIS = [
   { cat: 'lineablanca', sku: '35621539', marca: 'Hisense', grupo: 'Lavadoras', corto: 'Lavadora 18kg WT3W1823UT', modelo: 'LAVADORA CARGA SUPERIOR 18KG WT3W1823UT HISENSE', ato: 0, cd: 191, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '35424498', marca: 'Hisense', grupo: 'Lavadoras', corto: 'Lavadora 16kg WT3K1623UT', modelo: 'LAVADORA CARGA SUPERIOR 16KG WT3K1623UT HISENSE', ato: 0, cd: 71, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '34090247', marca: 'Mabe', grupo: 'Lavadoras', corto: 'Centro de lavado MCLP2440PSDG0', modelo: 'CENTRO DE LAVADO MABE - MCLP2440PSDG0', ato: 0, cd: 17, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36675345', marca: 'LG', grupo: 'Lavadoras', corto: 'Lavadora WT16OBVTB', modelo: 'WT16OBVTB.ANBGLGP', ato: 0, cd: 1, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '37186036', marca: 'Indurama', grupo: 'Cocinas', corto: 'Cocina Goya', modelo: 'COCINA GOYA', ato: 0, cd: 45, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '37186035', marca: 'Indurama', grupo: 'Cocinas', corto: 'Cocina Fontana', modelo: 'COCINA FONTANA', ato: 0, cd: 22, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570159', marca: 'Midea', grupo: 'Cocinas', corto: 'Cocina MGS20FS2LFABB', modelo: 'COCINA MIDEA MGS20FS2LFABB-PE', ato: 0, cd: 1, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570308', marca: 'Bosch', grupo: 'Encimeras y campanas', corto: 'Vitrocerámica PKF611BB8E', modelo: 'VITROCERAMICA BOSCH PKF611BB8E', ato: 0, cd: 3, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570312', marca: 'Bosch', grupo: 'Encimeras y campanas', corto: 'Encimera POP6B6B80', modelo: 'ENCIMERA 4G-60 BOSCH POP6B6B80 - NG', ato: 0, cd: 3, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570326', marca: 'Bosch', grupo: 'Encimeras y campanas', corto: 'Campana decorativa DWB98JQ50', modelo: 'CAMPANA DECORATIVA DECO BOX SLIM DWB98JQ50', ato: 0, cd: 2, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570325', marca: 'Bosch', grupo: 'Encimeras y campanas', corto: 'Campana DFT93AC50', modelo: 'CAMPANA BOSCH DFT93AC50', ato: 0, cd: 1, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570322', marca: 'Bosch', grupo: 'Encimeras y campanas', corto: 'Campana DUL63CA50V', modelo: 'CAMPANA BOSCH DUL63CA50V', ato: 0, cd: 1, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570306', marca: 'Bosch', grupo: 'Lavavajillas', corto: 'Lavavajillas SPS2HKI58E', modelo: 'LAVAVAJILLAS BOSCH SPS2HKI58E', ato: 0, cd: 2, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '36570327', marca: 'Bosch', grupo: 'Lavavajillas', corto: 'Lavavajillas SMV2ITX09E', modelo: 'LAVAVAJILLAS BOSCH SMV2ITX09E', ato: 0, cd: 2, hasta: '2026-11-29' }
 ];
