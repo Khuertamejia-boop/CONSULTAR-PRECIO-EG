@@ -1151,6 +1151,14 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 .mc-chipgo.egf-chip svg{animation:egfLatido 3.8s ease-in-out infinite}
 @keyframes egfLatido{0%,60%,100%{transform:scale(1)}70%{transform:scale(1.18)}80%{transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){.mc-chipgo.egf-chip::after,.mc-chipgo.egf-chip svg{animation:none}}
+/* v3.53: pastillas moradas por departamento */
+.egf-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:380px}
+.egf-chips[hidden]{display:none}
+.egf-pill{position:relative;overflow:hidden;height:36px;padding:0 6px 0 12px;border:0;border-radius:18px;background:linear-gradient(135deg,#a855f7 0%,#7c1fe0 100%);color:#fff;font:inherit;font-size:13px;font-weight:800;letter-spacing:.05px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:0 4px 12px rgba(124,31,224,.38),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .12s,filter .12s}
+.egf-pill:active{transform:scale(.96);filter:brightness(.95)}
+.egf-pill .n{min-width:24px;height:24px;padding:0 6px;box-sizing:border-box;border-radius:12px;background:#fff;color:#7c1fe0;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.egf-pill::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:45%;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);transform:skewX(-18deg);animation:egfBrillo 4.2s ease-in-out infinite;animation-delay:var(--d,0s);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.egf-pill::after{animation:none}}
   </style>
 </head>
 <body>
@@ -1165,7 +1173,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
     <button class="mode-tab active" id="modeFisica" onclick="switchMode('fisica')">Tienda</button>
     <button class="mode-tab" id="modeVirtual" onclick="switchMode('virtual')">Web</button>
   </div>
-  <div class="mc-chiprow"><button type="button" class="mc-chipgo" id="modeCodigos" onclick="switchMode('codigos')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>Mis productos<span class="n" id="mcChipN" hidden></span></button><button type="button" class="mc-chipgo hv-chip" id="hvChip" onclick="hvAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg><span id="hvChipT">Promociones</span><span class="n" id="hvChipN"></span></button><button type="button" class="mc-chipgo egf-chip" id="egfChip" onclick="egfAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/></svg>Extra garantía gratis<span class="n" id="egfChipN"></span></button></div>
+  <div class="mc-chiprow"><button type="button" class="mc-chipgo" id="modeCodigos" onclick="switchMode('codigos')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><path d="M4 5v14M7.5 5v14M11 5v14M15 5v14M18 5v14M21 5v14" stroke-width="1.6"/><path d="M9 5v14M16.5 5v14" stroke-width="2.6"/></svg>Mis productos<span class="n" id="mcChipN" hidden></span></button><button type="button" class="mc-chipgo hv-chip" id="hvChip" onclick="hvAbrir()" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg><span id="hvChipT">Promociones</span><span class="n" id="hvChipN"></span></button><div class="egf-chips" id="egfChip" role="group" aria-label="Extra garantía gratis por departamento" hidden></div></div>
 
   <div id="viewFisica">
   <div class="card">
@@ -1228,7 +1236,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.52.0</div>
+  <div style="margin-top:10px">Versión 3.53.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2737,9 +2745,16 @@ function egfItems() {
     var r = mcResolve(x.sku, MC_PREF[x.cat]); return { cat: x.cat, sku: x.sku, marca: x.marca || '', pul: +x.pulgadas || 0, plan: x.plan || 'Reparación', grupo: x.grupo || '', corto: x.corto || x.modelo, modelo: x.modelo, hasta: x.hasta || '', ato: x.ato, cd: x.cd, code: r.ok ? r.code : '' };
   }).filter(function (x) { return x.code; });
 }
+// v3.53: una pastilla morada por departamento ("EG gratis TV", "EG gratis Telefonía"…)
+var EGF_PILL = { lineablanca: 'LB' };
+var EGF_PILL_ORDEN = ['tv', 'telefonia', 'computo', 'lineablanca'];
+function egfAbrirCat(k) { _egf.cat = k; _egf.pul = 0; egfAbrir(); }
 function egfChipUpd() {
   var c = document.getElementById('egfChip'); if (!c) return;
-  var n = egfItems().length; document.getElementById('egfChipN').textContent = n; c.hidden = !n;
+  var all = egfItems(), cs = egfCats(all).sort(function (a, b) { var ia = EGF_PILL_ORDEN.indexOf(a), ib = EGF_PILL_ORDEN.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib); });
+  c.innerHTML = cs.map(function (k, i) { var n = all.filter(function (x) { return x.cat === k; }).length;
+    return '<button type="button" class="egf-pill" style="--d:' + (i * 0.35) + 's" onclick="egfAbrirCat(\'' + k + '\')">EG gratis ' + mcEsc(EGF_PILL[k] || egfTab(k)) + '<span class="n">' + n + '</span></button>'; }).join('');
+  c.hidden = !cs.length;
 }
 var _egf = { pul: 0, cat: '' };
 // Colores de cada marca (sin logos) · iniciales para el cuadrito de la fila
@@ -3297,7 +3312,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.52.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.53.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
