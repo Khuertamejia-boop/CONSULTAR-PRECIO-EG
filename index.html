@@ -1236,7 +1236,7 @@ body[data-mode="virtual"] #egfChip{display:none!important}
 <div class="version-footer">
   <button class="share-btn" onclick="abrirInstalar()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3"/></svg>Instalar como app</button>
   <div class="modo-foot" id="modoFoot"></div>
-  <div style="margin-top:10px">Versión 3.53.0</div>
+  <div style="margin-top:10px">Versión 3.54.0</div>
   <div class="vigencia">Tasas vigentes a <span id="vigenciaTasas"></span></div>
 </div>
 <div class="upd" id="updBar" hidden role="status"><span><b>Hay una versión nueva</b>Actualiza para ver los últimos cambios.</span><button type="button" onclick="updAplicar()">Actualizar</button></div>
@@ -2800,6 +2800,8 @@ function egfAbrir() {
   var all = egfItems(); if (!all.length) return;
   var cs = egfCats(all);
   if (cs.indexOf(_egf.cat) < 0) _egf.cat = cs.indexOf('tv') >= 0 ? 'tv' : cs[0];
+  // v3.54: se entra desde la pastilla de cada departamento → solo se muestra ese departamento
+  cs = [_egf.cat];
   var tabs = cs.length > 1 ? '<div class="egf-dep' + (cs.length > 3 ? ' c4' : '') + '" role="tablist" aria-label="Departamento" style="grid-template-columns:repeat(' + (cs.length > 3 ? 2 : cs.length) + ',minmax(0,1fr))">' +
     cs.map(function (k) { var on = _egf.cat === k, n = all.filter(function (x) { return x.cat === k; }).length, d = EGF_DEP[k] || EGF_DEP._;
       return '<button type="button" role="tab" class="' + (on ? 'on' : '') + '" aria-selected="' + on + '" style="--c:' + d.c + ';--cd:' + d.cd + ';--s:' + d.c + '47" onclick="egfCat(\'' + k + '\')">' +
@@ -2811,7 +2813,7 @@ function egfAbrir() {
   var seg = ps.length > 1 ? '<div class="egf-seg" id="egfSeg" role="group" aria-label="Filtrar por tamaño" style="grid-template-columns:repeat(' + (ps.length + 1) + ',minmax(0,1fr))">' +
     [0].concat(ps).map(function (pu) { var on = _egf.pul === pu; return '<button type="button" class="' + (on ? 'on' : '') + '" data-p="' + pu + '" aria-pressed="' + on + '" onclick="egfPul(+this.dataset.p)">' + (pu ? pu + '″' : 'Todos') + '</button>'; }).join('') + '</div>' : '';
   var h = mcTop('') + '<div class="cli-body egf-body">' +
-    '<h2 class="egf-h1">EG gratis</h2>' + tabs + egfBanner(it) + seg + '<div id="egfList"></div></div>';
+    '<h2 class="egf-h1">EG gratis ' + mcEsc(egfTab(_egf.cat)) + '</h2>' + tabs + egfBanner(it) + seg + '<div id="egfList"></div></div>';
   mcSheet(h);
   egfRender();
 }
@@ -2880,7 +2882,7 @@ function egfPromosHtml(cat, n0, tipo) {
 function egfDetalle(code) {
   var x = egfItems().filter(function (y) { return y.code === code; })[0]; if (!x) return;
   var m = x.marca || 'Otras', eg = egfCodigoEG(x.cat, x.plan), prod = { tv: 'Televisor', telefonia: 'Celular', computo: 'Laptop' }[x.cat] || x.corto.split(' ')[0];
-  var h = '<div class="cli-top"><button type="button" class="egf-back" onclick="egfAbrir()"><svg viewBox="0 0 12 20" width="11" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>EG gratis</button><span class="cli-sp"></span>' +
+  var h = '<div class="cli-top"><button type="button" class="egf-back" onclick="egfAbrir()"><svg viewBox="0 0 12 20" width="11" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>EG gratis ' + mcEsc(EGF_PILL[x.cat] || egfTab(x.cat)) + '</button><span class="cli-sp"></span>' +
     '<button type="button" class="cli-x" aria-label="Cerrar" onclick="mcClose()">' + CLI_ICO.x + '</button></div>' +
     '<div class="cli-body egf-body">' +
     '<div class="egf-dh">' + egfTile(m, true) + '<div class="tx"><span style="color:' + egfColor(m) + '">' + mcEsc(m) + '</span><b>' + mcEsc(x.modelo) + '</b></div></div>' +
@@ -3312,7 +3314,7 @@ window.addEventListener('load', function(){
 });
 
 // ═══ App instalable y sin conexión (sw.js) ═══
-var APP_VERSION = '3.53.0';   // igual que el pie de página y que VERSION en sw.js
+var APP_VERSION = '3.54.0';   // igual que el pie de página y que VERSION en sw.js
 var _swReg = null, _instEv = null;
 function updMostrar() { var b = document.getElementById('updBar'); if (b) b.hidden = false; }
 function updAplicar() { location.reload(); }
