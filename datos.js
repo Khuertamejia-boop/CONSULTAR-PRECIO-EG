@@ -311,7 +311,6 @@ var EG_GRATIS = [
   { cat: 'lineablanca', sku: '35424499', marca: 'Hisense', grupo: 'Lavadoras', corto: 'Lavadora 22kg WT5I2223DB', modelo: 'LAVADORA CARGA SUPERIOR 22KG WT5I2223DB HISENSE', ato: 1, cd: 36, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '34897606', marca: 'Indurama', grupo: 'Lavadoras', corto: 'Lavadora LRI-13DGR', modelo: 'LAVADORA AUTOMATICA LRI-13DGR', ato: 1, cd: 48, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '35564343', marca: 'Electrolux', grupo: 'Lavadoras', corto: 'Lavadora 13kg EWIJ13F2XSYG', modelo: 'Lavadora EWIJ13F2XSYG Electrolux Carga Superior 13', ato: 1, cd: 0, hasta: '2026-11-29' },
-  { cat: 'lineablanca', sku: '29138717', marca: 'Indurama', grupo: 'Cocinas', corto: 'Cocina Parma ZAF', modelo: 'PARMA ZAF', ato: 1, cd: 0, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '34258722', marca: 'Electrolux', grupo: 'Cocinas', corto: 'Cocina 5 quemadores a gas', modelo: 'Cocina Freestanding Gas 5 Quemadores Electrolux', ato: 1, cd: 0, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '34672177', marca: 'Electrolux', grupo: 'Otros', corto: 'Freidora EAF31 4L Rojo', modelo: 'Freidora Efficient 4L Rojo Electrolux EAF31', ato: 3, cd: 0, hasta: '2026-11-29' },
   { cat: 'lineablanca', sku: '36570172', marca: 'Midea', grupo: 'Refrigeradoras', corto: 'Refrigeradora MDRS710FGR46PE', modelo: 'REFRIGERADORA MIDEA MDRS710FGR46PE', ato: 0, cd: 99, hasta: '2026-11-29' },
