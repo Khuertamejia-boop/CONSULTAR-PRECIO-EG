@@ -238,7 +238,7 @@ var PROMOS_EG = [
     egMayorA: 280, cond: 'Extra Garantía mayor a S/280.',
     foto: PR_FOTO.grill,
     codigos: { tv: '2019224683331' } },
-  { nombre: 'Bancada Tannen (mueble para TV)', precio: 29.90, desde: '2026-11-04', hasta: '2026-11-30',
+  { nombre: 'Bancada Tannen (mueble para TV)', precio: 59.00, desde: '2026-11-04', hasta: '2026-11-30',
     egMayorA: 280, cond: 'Extra Garantía mayor a S/280.',
     foto: PR_FOTO.bancada,
     codigos: { tv: '2018371227405' } }
